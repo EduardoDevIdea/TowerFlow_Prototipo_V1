@@ -1,0 +1,440 @@
+/* ============================================================
+   TowerFlow — layout.css
+   Estrutura macro: header, nav de tabs, container principal.
+   Depende de: base.css (variáveis e reset).
+   ============================================================ */
+
+/* ============================================================
+   1. HEADER
+   ============================================================ */
+.app-header {
+  background: #ffffff;
+  border-bottom: 1px solid var(--slate-200);
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: 0;
+  z-index: 40;
+}
+
+.app-header__inner {
+  max-width: 80rem; /* 1280px */
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+@media (min-width: 640px) {
+  .app-header__inner {
+    padding: 0 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .app-header__inner {
+    padding: 0 2rem;
+  }
+}
+
+.app-header__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 4rem; /* 64px */
+}
+
+/* ----- Logo / nome do condomínio ----- */
+.app-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+}
+
+.app-brand__logo {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--radius-lg);
+  background-image: linear-gradient(135deg, var(--brand-600) 0%, var(--indigo-600) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 1.25rem;
+  font-weight: 700;
+  box-shadow: 0 4px 6px -1px rgba(2, 132, 199, 0.2);
+}
+
+.app-brand__title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--slate-900);
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+
+.app-brand__subtitle {
+  font-size: 0.75rem;
+  color: var(--slate-500);
+  font-weight: 500;
+}
+
+/* ----- Área do usuário (avatar + nome) ----- */
+.user-menu {
+  position: relative;
+}
+
+.user-menu__trigger {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.375rem;
+  border-radius: var(--radius-full);
+  transition: background-color var(--transition-fast);
+  background: transparent;
+}
+
+.user-menu__trigger:hover {
+  background: var(--slate-100);
+}
+
+.user-menu__info {
+  text-align: right;
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .user-menu__info {
+    display: block;
+  }
+}
+
+.user-menu__name {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--slate-800);
+}
+
+.user-menu__role {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--slate-500);
+}
+
+.user-menu__avatar-wrap {
+  position: relative;
+}
+
+.user-menu__avatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--radius-full);
+  object-fit: cover;
+  box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.3);
+}
+
+.user-menu__status {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: var(--radius-full);
+  background: var(--color-success);
+  box-shadow: 0 0 0 2px #ffffff;
+}
+
+.user-menu__arrow {
+  font-size: 0.75rem;
+  color: var(--slate-400);
+  transition: transform var(--transition-base);
+}
+
+.user-menu__arrow.is-open {
+  transform: rotate(180deg);
+}
+
+/* ----- Dropdown do usuário ----- */
+.user-dropdown {
+  position: absolute;
+  right: 0;
+  margin-top: 0.5rem;
+  width: 14rem; /* 224px */
+  background: #ffffff;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  border: 1px solid var(--slate-100);
+  padding: 0.5rem 0;
+  z-index: 50;
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity var(--transition-base), transform var(--transition-base);
+  pointer-events: none;
+}
+
+.user-dropdown.is-open {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+.user-dropdown__section {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--slate-100);
+}
+
+.user-dropdown__label {
+  font-size: 0.75rem;
+  color: var(--slate-500);
+}
+
+.user-dropdown__email {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--slate-900);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.user-dropdown__group {
+  padding: 0.25rem 0;
+  border-bottom: 1px solid var(--slate-100);
+}
+
+.user-dropdown__group:last-child {
+  border-bottom: none;
+}
+
+.user-dropdown__item {
+  width: 100%;
+  text-align: left;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  color: var(--slate-700);
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  transition: background-color var(--transition-fast);
+  background: transparent;
+}
+
+.user-dropdown__item:hover {
+  background: var(--slate-50);
+}
+
+.user-dropdown__item i {
+  color: var(--slate-400);
+  width: 1rem;
+  text-align: center;
+}
+
+.user-dropdown__item--danger {
+  color: var(--color-danger);
+  font-weight: 500;
+}
+
+.user-dropdown__item--danger i {
+  color: var(--color-danger);
+}
+
+.user-dropdown__item--danger:hover {
+  background: var(--color-danger-bg);
+}
+
+/* ============================================================
+   2. NAV DE TABS
+   ============================================================ */
+.app-nav {
+  background: #ffffff;
+  border-bottom: 1px solid var(--slate-200);
+  box-shadow: var(--shadow-sm);
+  overflow-x: auto;
+}
+
+.app-nav__inner {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+@media (min-width: 640px) {
+  .app-nav__inner {
+    padding: 0 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .app-nav__inner {
+    padding: 0 2rem;
+  }
+}
+
+.app-nav__list {
+  display: flex;
+  gap: 0.25rem;
+  min-width: max-content;
+  padding: 0.5rem 0;
+}
+
+@media (min-width: 640px) {
+  .app-nav__list {
+    gap: 0.5rem;
+  }
+}
+
+.nav-tab {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.875rem;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--slate-600);
+  transition: all var(--transition-fast);
+  background: transparent;
+  white-space: nowrap;
+  position: relative;
+}
+
+.nav-tab:hover {
+  background: var(--slate-100);
+}
+
+.nav-tab i {
+  color: var(--slate-400);
+  transition: color var(--transition-fast);
+}
+
+.nav-tab.is-active {
+  background: var(--brand-50);
+  color: var(--brand-600);
+  font-weight: 600;
+}
+
+.nav-tab.is-active i {
+  color: var(--brand-600);
+}
+
+/* Badge de contagem (usado em Notificações) */
+.nav-tab__badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.125rem 0.375rem;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: var(--brand-100);
+  color: var(--brand-800);
+}
+
+/* ============================================================
+   3. CONTAINER PRINCIPAL
+   ============================================================ */
+.app-main {
+  flex: 1;
+  max-width: 80rem;
+  width: 100%;
+  margin: 0 auto;
+  padding: 1.5rem 1rem;
+}
+
+@media (min-width: 640px) {
+  .app-main {
+    padding: 1.5rem 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .app-main {
+    padding: 1.5rem 2rem;
+  }
+}
+
+/* Views da SPA: cada seção começa escondida, exceto a ativa.
+   A alternância é feita pelo JS via classe .hidden (base.css)
+   ou .is-active. Mantemos .hidden como mecanismo padrão. */
+.view-content {
+  display: block;
+}
+
+.view-content.is-active {
+  display: block;
+}
+
+/* ============================================================
+   4. CABEÇALHO DE PÁGINA (título + busca)
+   Usado em todas as views internas (Moradores, Torres, etc.)
+   ============================================================ */
+.page-header {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-bottom: 0.5rem;
+}
+
+@media (min-width: 640px) {
+  .page-header {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.page-header__title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--slate-900);
+  letter-spacing: -0.025em;
+}
+
+.page-header__subtitle {
+  font-size: 0.875rem;
+  color: var(--slate-500);
+  margin-top: 0.125rem;
+}
+
+.page-header__actions {
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .page-header__actions {
+    width: 20rem; /* 320px */
+  }
+}
+
+/* ============================================================
+   5. BUSCA (search box) — base estrutural
+   Os detalhes visuais ficam em components.css (form/input)
+   ============================================================ */
+.search-box {
+  position: relative;
+}
+
+.search-box__icon {
+  position: absolute;
+  left: 0.875rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--slate-400);
+  font-size: 0.875rem;
+  pointer-events: none;
+}
+
+.search-box__input {
+  width: 100%;
+  padding: 0.5rem 1rem 0.5rem 2.5rem;
+  background: #ffffff;
+  border: 1px solid var(--slate-300);
+  border-radius: var(--radius-lg);
+  font-size: 0.875rem;
+  transition: all var(--transition-fast);
+  box-shadow: var(--shadow-sm);
+}
+
+.search-box__input:focus {
+  outline: none;
+  border-color: var(--brand-500);
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+}
