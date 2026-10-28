@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR" class="h-full bg-slate-50">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -29,6 +30,14 @@
 
   <!-- CSS puro do projeto (fundação; em migração gradual) -->
   <link rel="stylesheet" href="../assets/css/base.css" />
+  <link rel="stylesheet" href="../assets/css/layout.css" />
+  <link rel="stylesheet" href="../assets/css/components.css" />
+  <!-- 
+    app.css abaixo sobrescreve o que vier antes, quando necessário (é o "acabamento").
+    Inverter (ex.: app.css antes de components.css), os overrides do app.css podem ser "perdidos" por regras genéricas de components.css.
+    Esta ordem evita isso.
+  -->
+  <link rel="stylesheet" href="../assets/css/pages/app.css" />
 </head>
 
 <body class="h-full flex flex-col font-sans text-slate-800 antialiased bg-slate-50">
@@ -40,7 +49,8 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16 items-center">
           <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('home')">
-            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-indigo-600 flex items-center justify-center text-white font-bold text-xl shadow-md shadow-brand-500/20">
+            <div
+              class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-indigo-600 flex items-center justify-center text-white font-bold text-xl shadow-md shadow-brand-500/20">
               <i class="fa-solid font-bold fa-building"></i>
             </div>
             <div>
@@ -50,38 +60,44 @@
           </div>
 
           <div class="relative">
-            <button id="userMenuBtn" onclick="toggleUserMenu()" class="flex items-center space-x-3 focus:outline-none p-1.5 rounded-full hover:bg-slate-100 transition duration-150">
+            <button id="userMenuBtn" onclick="toggleUserMenu()"
+              class="flex items-center space-x-3 focus:outline-none p-1.5 rounded-full hover:bg-slate-100 transition duration-150">
               <span class="text-right hidden sm:block">
                 <span class="block text-sm font-semibold text-slate-800">Carlos Silva</span>
                 <span class="block text-xs text-slate-500">Síndico Geral</span>
               </span>
               <div class="relative">
                 <img class="h-10 w-10 rounded-full object-cover ring-2 ring-brand-500/30"
-                     src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=250"
-                     alt="Avatar Usuário"
-                     onerror="this.src='https://placehold.co/100x100/0284c7/ffffff?text=CS'" />
-                <span class="absolute bottom-0 right-0 block h-2.5 w-2.5 rounded-full bg-emerald-500 ring-2 ring-white"></span>
+                  src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=250"
+                  alt="Avatar Usuário" onerror="this.src='https://placehold.co/100x100/0284c7/ffffff?text=CS'" />
+                <span
+                  class="absolute bottom-0 right-0 block h-2.5 w-2.5 rounded-full bg-emerald-500 ring-2 ring-white"></span>
               </div>
-              <i class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform duration-200" id="userMenuArrow"></i>
+              <i class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform duration-200"
+                id="userMenuArrow"></i>
             </button>
 
-            <div id="userDropdown" class="hidden absolute right-0 mt-2 w-56 rounded-xl bg-white shadow-xl ring-1 ring-slate-900/5 py-2 z-50 divide-y divide-slate-100 transform opacity-0 transition-all duration-200 scale-95">
+            <div id="userDropdown"
+              class="hidden absolute right-0 mt-2 w-56 rounded-xl bg-white shadow-xl ring-1 ring-slate-900/5 py-2 z-50 divide-y divide-slate-100 transform opacity-0 transition-all duration-200 scale-95">
               <div class="px-4 py-3">
                 <p class="text-xs text-slate-500">Logado como</p>
                 <p class="text-sm font-bold text-slate-900 truncate">sindico@condxpto.com.br</p>
               </div>
               <div class="py-1">
-                <button onclick="openProfileModal(); toggleUserMenu();" class="w-full text-left px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 flex items-center space-x-2.5">
+                <button onclick="openProfileModal(); toggleUserMenu();"
+                  class="w-full text-left px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 flex items-center space-x-2.5">
                   <i class="fa-solid fa-circle-user text-slate-400 w-4"></i>
                   <span>Meu Perfil</span>
                 </button>
-                <button onclick="switchTab('notificacoes'); toggleUserMenu();" class="w-full text-left px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 flex items-center space-x-2.5">
+                <button onclick="switchTab('notificacoes'); toggleUserMenu();"
+                  class="w-full text-left px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 flex items-center space-x-2.5">
                   <i class="fa-solid fa-bell text-slate-400 w-4"></i>
                   <span>Notificações</span>
                 </button>
               </div>
               <div class="py-1">
-                <button onclick="handleLogout()" class="w-full text-left px-4 py-2 text-sm text-rose-600 hover:bg-rose-50 flex items-center space-x-2.5 font-medium">
+                <button onclick="handleLogout()"
+                  class="w-full text-left px-4 py-2 text-sm text-rose-600 hover:bg-rose-50 flex items-center space-x-2.5 font-medium">
                   <i class="fa-solid fa-right-from-bracket text-rose-500 w-4"></i>
                   <span>Sair / Logout</span>
                 </button>
@@ -96,33 +112,43 @@
     <nav class="bg-white border-b border-slate-200 shadow-sm overflow-x-auto custom-scrollbar">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex space-x-1 sm:space-x-2 min-w-max py-2">
-          <button onclick="switchTab('home')" id="tab-home" class="nav-tab px-3.5 py-2 rounded-lg text-sm font-medium transition duration-150 flex items-center space-x-2">
+          <button onclick="switchTab('home')" id="tab-home"
+            class="nav-tab px-3.5 py-2 rounded-lg text-sm font-medium transition duration-150 flex items-center space-x-2">
             <i class="fa-solid fa-house text-slate-400"></i><span>Home</span>
           </button>
-          <button onclick="switchTab('moradores')" id="tab-moradores" class="nav-tab px-3.5 py-2 rounded-lg text-sm font-medium transition duration-150 flex items-center space-x-2">
+          <button onclick="switchTab('moradores')" id="tab-moradores"
+            class="nav-tab px-3.5 py-2 rounded-lg text-sm font-medium transition duration-150 flex items-center space-x-2">
             <i class="fa-solid fa-users text-slate-400"></i><span>Moradores</span>
           </button>
-          <button onclick="switchTab('torres')" id="tab-torres" class="nav-tab px-3.5 py-2 rounded-lg text-sm font-medium transition duration-150 flex items-center space-x-2">
+          <button onclick="switchTab('torres')" id="tab-torres"
+            class="nav-tab px-3.5 py-2 rounded-lg text-sm font-medium transition duration-150 flex items-center space-x-2">
             <i class="fa-solid fa-city text-slate-400"></i><span>Torres</span>
           </button>
-          <button onclick="switchTab('unidades')" id="tab-unidades" class="nav-tab px-3.5 py-2 rounded-lg text-sm font-medium transition duration-150 flex items-center space-x-2">
+          <button onclick="switchTab('unidades')" id="tab-unidades"
+            class="nav-tab px-3.5 py-2 rounded-lg text-sm font-medium transition duration-150 flex items-center space-x-2">
             <i class="fa-solid fa-door-closed text-slate-400"></i><span>Unidades</span>
           </button>
-          <button onclick="switchTab('veiculos')" id="tab-veiculos" class="nav-tab px-3.5 py-2 rounded-lg text-sm font-medium transition duration-150 flex items-center space-x-2">
+          <button onclick="switchTab('veiculos')" id="tab-veiculos"
+            class="nav-tab px-3.5 py-2 rounded-lg text-sm font-medium transition duration-150 flex items-center space-x-2">
             <i class="fa-solid fa-car text-slate-400"></i><span>Veículos</span>
           </button>
-          <button onclick="switchTab('visitantes')" id="tab-visitantes" class="nav-tab px-3.5 py-2 rounded-lg text-sm font-medium transition duration-150 flex items-center space-x-2">
+          <button onclick="switchTab('visitantes')" id="tab-visitantes"
+            class="nav-tab px-3.5 py-2 rounded-lg text-sm font-medium transition duration-150 flex items-center space-x-2">
             <i class="fa-solid fa-user-check text-slate-400"></i><span>Visitantes</span>
           </button>
-          <button onclick="switchTab('ocorrencias')" id="tab-ocorrencias" class="nav-tab px-3.5 py-2 rounded-lg text-sm font-medium transition duration-150 flex items-center space-x-2">
+          <button onclick="switchTab('ocorrencias')" id="tab-ocorrencias"
+            class="nav-tab px-3.5 py-2 rounded-lg text-sm font-medium transition duration-150 flex items-center space-x-2">
             <i class="fa-solid fa-triangle-exclamation text-slate-400"></i><span>Ocorrências</span>
           </button>
-          <button onclick="switchTab('contatos')" id="tab-contatos" class="nav-tab px-3.5 py-2 rounded-lg text-sm font-medium transition duration-150 flex items-center space-x-2">
+          <button onclick="switchTab('contatos')" id="tab-contatos"
+            class="nav-tab px-3.5 py-2 rounded-lg text-sm font-medium transition duration-150 flex items-center space-x-2">
             <i class="fa-solid fa-address-book text-slate-400"></i><span>Contatos</span>
           </button>
-          <button onclick="switchTab('notificacoes')" id="tab-notificacoes" class="nav-tab px-3.5 py-2 rounded-lg text-sm font-medium transition duration-150 flex items-center space-x-2 relative">
+          <button onclick="switchTab('notificacoes')" id="tab-notificacoes"
+            class="nav-tab px-3.5 py-2 rounded-lg text-sm font-medium transition duration-150 flex items-center space-x-2 relative">
             <i class="fa-solid fa-bell text-slate-400"></i><span>Notificações</span>
-            <span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-semibold bg-brand-100 text-brand-800">3</span>
+            <span
+              class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-semibold bg-brand-100 text-brand-800">3</span>
           </button>
         </div>
       </div>
@@ -133,10 +159,12 @@
 
       <!-- HOME -->
       <section id="view-home" class="view-content space-y-6">
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-gradient-to-r from-brand-900 via-slate-900 to-brand-800 text-white p-6 rounded-2xl shadow-lg relative overflow-hidden">
+        <div
+          class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-gradient-to-r from-brand-900 via-slate-900 to-brand-800 text-white p-6 rounded-2xl shadow-lg relative overflow-hidden">
           <div class="z-10">
             <h2 class="text-2xl font-bold tracking-tight">Bem-vindo ao TowerFlow</h2>
-            <p class="text-brand-100 mt-1 max-w-xl text-sm">Painel de controle centralizado. Selecione uma das seções abaixo para gerenciar os dados do condomínio com eficiência.</p>
+            <p class="text-brand-100 mt-1 max-w-xl text-sm">Painel de controle centralizado. Selecione uma das seções
+              abaixo para gerenciar os dados do condomínio com eficiência.</p>
           </div>
           <div class="z-10 flex items-center space-x-3">
             <div class="bg-white/10 backdrop-blur-md px-4 py-2 rounded-xl text-center border border-white/10">
@@ -153,144 +181,194 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           <!-- Card Moradores -->
-          <div onclick="switchTab('moradores')" class="group cursor-pointer bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-xl hover:border-brand-500/50 transition-all duration-300 transform hover:-translate-y-1">
+          <div onclick="switchTab('moradores')"
+            class="group cursor-pointer bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-xl hover:border-brand-500/50 transition-all duration-300 transform hover:-translate-y-1">
             <div class="h-36 overflow-hidden relative">
-              <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&q=80&w=600" alt="Moradores" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+              <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&q=80&w=600"
+                alt="Moradores"
+                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
               <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent"></div>
-              <span class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-brand-700 text-xs font-bold px-2.5 py-1 rounded-full shadow-sm">342 Cadastrados</span>
+              <span
+                class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-brand-700 text-xs font-bold px-2.5 py-1 rounded-full shadow-sm">342
+                Cadastrados</span>
             </div>
             <div class="p-5 flex items-center justify-between">
               <div>
                 <h3 class="text-lg font-bold text-slate-900 group-hover:text-brand-600 transition-colors">Moradores</h3>
                 <p class="text-xs text-slate-500 mt-0.5">Gestão de residentes e contatos</p>
               </div>
-              <div class="w-10 h-10 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center group-hover:bg-brand-600 group-hover:text-white transition-colors">
+              <div
+                class="w-10 h-10 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center group-hover:bg-brand-600 group-hover:text-white transition-colors">
                 <i class="fa-solid fa-users"></i>
               </div>
             </div>
           </div>
 
           <!-- Card Torres -->
-          <div onclick="switchTab('torres')" class="group cursor-pointer bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-xl hover:border-brand-500/50 transition-all duration-300 transform hover:-translate-y-1">
+          <div onclick="switchTab('torres')"
+            class="group cursor-pointer bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-xl hover:border-brand-500/50 transition-all duration-300 transform hover:-translate-y-1">
             <div class="h-36 overflow-hidden relative">
-              <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=600" alt="Torres" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+              <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=600"
+                alt="Torres"
+                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
               <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent"></div>
-              <span class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-brand-700 text-xs font-bold px-2.5 py-1 rounded-full shadow-sm">4 Torres</span>
+              <span
+                class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-brand-700 text-xs font-bold px-2.5 py-1 rounded-full shadow-sm">4
+                Torres</span>
             </div>
             <div class="p-5 flex items-center justify-between">
               <div>
                 <h3 class="text-lg font-bold text-slate-900 group-hover:text-brand-600 transition-colors">Torres</h3>
                 <p class="text-xs text-slate-500 mt-0.5">Blocos e administradores</p>
               </div>
-              <div class="w-10 h-10 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center group-hover:bg-brand-600 group-hover:text-white transition-colors">
+              <div
+                class="w-10 h-10 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center group-hover:bg-brand-600 group-hover:text-white transition-colors">
                 <i class="fa-solid fa-city"></i>
               </div>
             </div>
           </div>
 
           <!-- Card Unidades -->
-          <div onclick="switchTab('unidades')" class="group cursor-pointer bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-xl hover:border-brand-500/50 transition-all duration-300 transform hover:-translate-y-1">
+          <div onclick="switchTab('unidades')"
+            class="group cursor-pointer bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-xl hover:border-brand-500/50 transition-all duration-300 transform hover:-translate-y-1">
             <div class="h-36 overflow-hidden relative">
-              <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80&w=600" alt="Unidades" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+              <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80&w=600"
+                alt="Unidades"
+                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
               <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent"></div>
-              <span class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-brand-700 text-xs font-bold px-2.5 py-1 rounded-full shadow-sm">128 Apts</span>
+              <span
+                class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-brand-700 text-xs font-bold px-2.5 py-1 rounded-full shadow-sm">128
+                Apts</span>
             </div>
             <div class="p-5 flex items-center justify-between">
               <div>
                 <h3 class="text-lg font-bold text-slate-900 group-hover:text-brand-600 transition-colors">Unidades</h3>
                 <p class="text-xs text-slate-500 mt-0.5">Status e proprietários</p>
               </div>
-              <div class="w-10 h-10 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center group-hover:bg-brand-600 group-hover:text-white transition-colors">
+              <div
+                class="w-10 h-10 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center group-hover:bg-brand-600 group-hover:text-white transition-colors">
                 <i class="fa-solid fa-door-closed"></i>
               </div>
             </div>
           </div>
 
           <!-- Card Veículos -->
-          <div onclick="switchTab('veiculos')" class="group cursor-pointer bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-xl hover:border-brand-500/50 transition-all duration-300 transform hover:-translate-y-1">
+          <div onclick="switchTab('veiculos')"
+            class="group cursor-pointer bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-xl hover:border-brand-500/50 transition-all duration-300 transform hover:-translate-y-1">
             <div class="h-36 overflow-hidden relative">
-              <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=600" alt="Veículos" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+              <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=600"
+                alt="Veículos"
+                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
               <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent"></div>
-              <span class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-brand-700 text-xs font-bold px-2.5 py-1 rounded-full shadow-sm">195 Vagas</span>
+              <span
+                class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-brand-700 text-xs font-bold px-2.5 py-1 rounded-full shadow-sm">195
+                Vagas</span>
             </div>
             <div class="p-5 flex items-center justify-between">
               <div>
                 <h3 class="text-lg font-bold text-slate-900 group-hover:text-brand-600 transition-colors">Veículos</h3>
                 <p class="text-xs text-slate-500 mt-0.5">Frota e controle de acesso</p>
               </div>
-              <div class="w-10 h-10 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center group-hover:bg-brand-600 group-hover:text-white transition-colors">
+              <div
+                class="w-10 h-10 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center group-hover:bg-brand-600 group-hover:text-white transition-colors">
                 <i class="fa-solid fa-car"></i>
               </div>
             </div>
           </div>
 
           <!-- Card Visitantes -->
-          <div onclick="switchTab('visitantes')" class="group cursor-pointer bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-xl hover:border-brand-500/50 transition-all duration-300 transform hover:-translate-y-1">
+          <div onclick="switchTab('visitantes')"
+            class="group cursor-pointer bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-xl hover:border-brand-500/50 transition-all duration-300 transform hover:-translate-y-1">
             <div class="h-36 overflow-hidden relative">
-              <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&q=80&w=600" alt="Visitantes" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+              <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&q=80&w=600"
+                alt="Visitantes"
+                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
               <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent"></div>
-              <span class="absolute top-3 right-3 bg-emerald-500/90 text-white text-xs font-bold px-2.5 py-1 rounded-full shadow-sm">12 Ativos Hoje</span>
+              <span
+                class="absolute top-3 right-3 bg-emerald-500/90 text-white text-xs font-bold px-2.5 py-1 rounded-full shadow-sm">12
+                Ativos Hoje</span>
             </div>
             <div class="p-5 flex items-center justify-between">
               <div>
-                <h3 class="text-lg font-bold text-slate-900 group-hover:text-brand-600 transition-colors">Visitantes</h3>
+                <h3 class="text-lg font-bold text-slate-900 group-hover:text-brand-600 transition-colors">Visitantes
+                </h3>
                 <p class="text-xs text-slate-500 mt-0.5">Portaria e autorizações</p>
               </div>
-              <div class="w-10 h-10 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center group-hover:bg-brand-600 group-hover:text-white transition-colors">
+              <div
+                class="w-10 h-10 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center group-hover:bg-brand-600 group-hover:text-white transition-colors">
                 <i class="fa-solid fa-user-check"></i>
               </div>
             </div>
           </div>
 
           <!-- Card Ocorrências -->
-          <div onclick="switchTab('ocorrencias')" class="group cursor-pointer bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-xl hover:border-brand-500/50 transition-all duration-300 transform hover:-translate-y-1">
+          <div onclick="switchTab('ocorrencias')"
+            class="group cursor-pointer bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-xl hover:border-brand-500/50 transition-all duration-300 transform hover:-translate-y-1">
             <div class="h-36 overflow-hidden relative">
-              <img src="https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&q=80&w=600" alt="Ocorrências" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+              <img src="https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&q=80&w=600"
+                alt="Ocorrências"
+                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
               <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent"></div>
-              <span class="absolute top-3 right-3 bg-amber-500/90 text-white text-xs font-bold px-2.5 py-1 rounded-full shadow-sm">4 Pendentes</span>
+              <span
+                class="absolute top-3 right-3 bg-amber-500/90 text-white text-xs font-bold px-2.5 py-1 rounded-full shadow-sm">4
+                Pendentes</span>
             </div>
             <div class="p-5 flex items-center justify-between">
               <div>
-                <h3 class="text-lg font-bold text-slate-900 group-hover:text-brand-600 transition-colors">Ocorrências</h3>
+                <h3 class="text-lg font-bold text-slate-900 group-hover:text-brand-600 transition-colors">Ocorrências
+                </h3>
                 <p class="text-xs text-slate-500 mt-0.5">Chamados e reclamações</p>
               </div>
-              <div class="w-10 h-10 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center group-hover:bg-brand-600 group-hover:text-white transition-colors">
+              <div
+                class="w-10 h-10 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center group-hover:bg-brand-600 group-hover:text-white transition-colors">
                 <i class="fa-solid fa-triangle-exclamation"></i>
               </div>
             </div>
           </div>
 
           <!-- Card Contatos -->
-          <div onclick="switchTab('contatos')" class="group cursor-pointer bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-xl hover:border-brand-500/50 transition-all duration-300 transform hover:-translate-y-1">
+          <div onclick="switchTab('contatos')"
+            class="group cursor-pointer bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-xl hover:border-brand-500/50 transition-all duration-300 transform hover:-translate-y-1">
             <div class="h-36 overflow-hidden relative">
-              <img src="https://images.unsplash.com/photo-1423666639041-f56000c27a9a?auto=format&fit=crop&q=80&w=600" alt="Contatos" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+              <img src="https://images.unsplash.com/photo-1423666639041-f56000c27a9a?auto=format&fit=crop&q=80&w=600"
+                alt="Contatos"
+                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
               <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent"></div>
-              <span class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-brand-700 text-xs font-bold px-2.5 py-1 rounded-full shadow-sm">Telefones Úteis</span>
+              <span
+                class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-brand-700 text-xs font-bold px-2.5 py-1 rounded-full shadow-sm">Telefones
+                Úteis</span>
             </div>
             <div class="p-5 flex items-center justify-between">
               <div>
                 <h3 class="text-lg font-bold text-slate-900 group-hover:text-brand-600 transition-colors">Contatos</h3>
                 <p class="text-xs text-slate-500 mt-0.5">Prestadores e administração</p>
               </div>
-              <div class="w-10 h-10 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center group-hover:bg-brand-600 group-hover:text-white transition-colors">
+              <div
+                class="w-10 h-10 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center group-hover:bg-brand-600 group-hover:text-white transition-colors">
                 <i class="fa-solid fa-address-book"></i>
               </div>
             </div>
           </div>
 
           <!-- Card Notificações -->
-          <div onclick="switchTab('notificacoes')" class="group cursor-pointer bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-xl hover:border-brand-500/50 transition-all duration-300 transform hover:-translate-y-1">
+          <div onclick="switchTab('notificacoes')"
+            class="group cursor-pointer bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-xl hover:border-brand-500/50 transition-all duration-300 transform hover:-translate-y-1">
             <div class="h-36 overflow-hidden relative">
-              <img src="https://images.unsplash.com/photo-1577563908411-5077b6dc7624?auto=format&fit=crop&q=80&w=600" alt="Notificações" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+              <img src="https://images.unsplash.com/photo-1577563908411-5077b6dc7624?auto=format&fit=crop&q=80&w=600"
+                alt="Notificações"
+                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
               <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent"></div>
-              <span class="absolute top-3 right-3 bg-indigo-500/90 text-white text-xs font-bold px-2.5 py-1 rounded-full shadow-sm">Comunicados</span>
+              <span
+                class="absolute top-3 right-3 bg-indigo-500/90 text-white text-xs font-bold px-2.5 py-1 rounded-full shadow-sm">Comunicados</span>
             </div>
             <div class="p-5 flex items-center justify-between">
               <div>
-                <h3 class="text-lg font-bold text-slate-900 group-hover:text-brand-600 transition-colors">Notificações</h3>
+                <h3 class="text-lg font-bold text-slate-900 group-hover:text-brand-600 transition-colors">Notificações
+                </h3>
                 <p class="text-xs text-slate-500 mt-0.5">Avisos e comunicados gerais</p>
               </div>
-              <div class="w-10 h-10 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center group-hover:bg-brand-600 group-hover:text-white transition-colors">
+              <div
+                class="w-10 h-10 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center group-hover:bg-brand-600 group-hover:text-white transition-colors">
                 <i class="fa-solid fa-bell"></i>
               </div>
             </div>
@@ -308,8 +386,8 @@
           <div class="w-full sm:w-80">
             <div class="relative">
               <input type="text" onkeyup="filterTable('moradores-search', 'moradores-table')" id="moradores-search"
-                     placeholder="Buscar morador, torre, apto..."
-                     class="w-full pl-10 pr-4 py-2 bg-white border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition shadow-sm" />
+                placeholder="Buscar morador, torre, apto..."
+                class="w-full pl-10 pr-4 py-2 bg-white border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition shadow-sm" />
               <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400 text-sm"></i>
             </div>
           </div>
@@ -318,7 +396,8 @@
           <div class="overflow-x-auto">
             <table id="moradores-table" class="w-full text-left border-collapse">
               <thead>
-                <tr class="bg-slate-50 border-b border-slate-200 text-xs font-bold text-slate-600 uppercase tracking-wider">
+                <tr
+                  class="bg-slate-50 border-b border-slate-200 text-xs font-bold text-slate-600 uppercase tracking-wider">
                   <th class="py-3.5 px-4">Nome</th>
                   <th class="py-3.5 px-4">Sobrenome</th>
                   <th class="py-3.5 px-4">Torre</th>
@@ -331,7 +410,9 @@
                 <tr class="hover:bg-slate-50/80 transition">
                   <td class="py-3.5 px-4 font-semibold text-slate-900">Ana</td>
                   <td class="py-3.5 px-4">Albuquerque</td>
-                  <td class="py-3.5 px-4"><span class="px-2.5 py-1 bg-slate-100 rounded-lg text-slate-700 font-semibold text-xs">Torre A</span></td>
+                  <td class="py-3.5 px-4"><span
+                      class="px-2.5 py-1 bg-slate-100 rounded-lg text-slate-700 font-semibold text-xs">Torre A</span>
+                  </td>
                   <td class="py-3.5 px-4">Apt 101</td>
                   <td class="py-3.5 px-4"><span class="font-mono text-slate-600">1010</span></td>
                   <td class="py-3.5 px-4">(11) 98765-4321</td>
@@ -339,7 +420,9 @@
                 <tr class="hover:bg-slate-50/80 transition">
                   <td class="py-3.5 px-4 font-semibold text-slate-900">Bruno</td>
                   <td class="py-3.5 px-4">Carvalho</td>
-                  <td class="py-3.5 px-4"><span class="px-2.5 py-1 bg-slate-100 rounded-lg text-slate-700 font-semibold text-xs">Torre A</span></td>
+                  <td class="py-3.5 px-4"><span
+                      class="px-2.5 py-1 bg-slate-100 rounded-lg text-slate-700 font-semibold text-xs">Torre A</span>
+                  </td>
                   <td class="py-3.5 px-4">Apt 304</td>
                   <td class="py-3.5 px-4"><span class="font-mono text-slate-600">1034</span></td>
                   <td class="py-3.5 px-4">(11) 97654-3210</td>
@@ -347,7 +430,9 @@
                 <tr class="hover:bg-slate-50/80 transition">
                   <td class="py-3.5 px-4 font-semibold text-slate-900">Carla</td>
                   <td class="py-3.5 px-4">Menezes</td>
-                  <td class="py-3.5 px-4"><span class="px-2.5 py-1 bg-slate-100 rounded-lg text-slate-700 font-semibold text-xs">Torre B</span></td>
+                  <td class="py-3.5 px-4"><span
+                      class="px-2.5 py-1 bg-slate-100 rounded-lg text-slate-700 font-semibold text-xs">Torre B</span>
+                  </td>
                   <td class="py-3.5 px-4">Apt 202</td>
                   <td class="py-3.5 px-4"><span class="font-mono text-slate-600">2020</span></td>
                   <td class="py-3.5 px-4">(11) 96543-2109</td>
@@ -355,7 +440,9 @@
                 <tr class="hover:bg-slate-50/80 transition">
                   <td class="py-3.5 px-4 font-semibold text-slate-900">Daniel</td>
                   <td class="py-3.5 px-4">Ferreira</td>
-                  <td class="py-3.5 px-4"><span class="px-2.5 py-1 bg-slate-100 rounded-lg text-slate-700 font-semibold text-xs">Torre B</span></td>
+                  <td class="py-3.5 px-4"><span
+                      class="px-2.5 py-1 bg-slate-100 rounded-lg text-slate-700 font-semibold text-xs">Torre B</span>
+                  </td>
                   <td class="py-3.5 px-4">Apt 501</td>
                   <td class="py-3.5 px-4"><span class="font-mono text-slate-600">2051</span></td>
                   <td class="py-3.5 px-4">(11) 95432-1098</td>
@@ -363,7 +450,9 @@
                 <tr class="hover:bg-slate-50/80 transition">
                   <td class="py-3.5 px-4 font-semibold text-slate-900">Eduardo</td>
                   <td class="py-3.5 px-4">Santos</td>
-                  <td class="py-3.5 px-4"><span class="px-2.5 py-1 bg-slate-100 rounded-lg text-slate-700 font-semibold text-xs">Torre C</span></td>
+                  <td class="py-3.5 px-4"><span
+                      class="px-2.5 py-1 bg-slate-100 rounded-lg text-slate-700 font-semibold text-xs">Torre C</span>
+                  </td>
                   <td class="py-3.5 px-4">Apt 102</td>
                   <td class="py-3.5 px-4"><span class="font-mono text-slate-600">3012</span></td>
                   <td class="py-3.5 px-4">(11) 94321-0987</td>
@@ -371,7 +460,9 @@
                 <tr class="hover:bg-slate-50/80 transition">
                   <td class="py-3.5 px-4 font-semibold text-slate-900">Fernanda</td>
                   <td class="py-3.5 px-4">Lima</td>
-                  <td class="py-3.5 px-4"><span class="px-2.5 py-1 bg-slate-100 rounded-lg text-slate-700 font-semibold text-xs">Torre D</span></td>
+                  <td class="py-3.5 px-4"><span
+                      class="px-2.5 py-1 bg-slate-100 rounded-lg text-slate-700 font-semibold text-xs">Torre D</span>
+                  </td>
                   <td class="py-3.5 px-4">Apt 804</td>
                   <td class="py-3.5 px-4"><span class="font-mono text-slate-600">4084</span></td>
                   <td class="py-3.5 px-4">(11) 93210-9876</td>
@@ -392,8 +483,8 @@
           <div class="w-full sm:w-80">
             <div class="relative">
               <input type="text" onkeyup="filterTable('torres-search', 'torres-table')" id="torres-search"
-                     placeholder="Buscar por torre, síndico..."
-                     class="w-full pl-10 pr-4 py-2 bg-white border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition shadow-sm" />
+                placeholder="Buscar por torre, síndico..."
+                class="w-full pl-10 pr-4 py-2 bg-white border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition shadow-sm" />
               <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400 text-sm"></i>
             </div>
           </div>
@@ -402,7 +493,8 @@
           <div class="overflow-x-auto">
             <table id="torres-table" class="w-full text-left border-collapse">
               <thead>
-                <tr class="bg-slate-50 border-b border-slate-200 text-xs font-bold text-slate-600 uppercase tracking-wider">
+                <tr
+                  class="bg-slate-50 border-b border-slate-200 text-xs font-bold text-slate-600 uppercase tracking-wider">
                   <th class="py-3.5 px-4">Nome</th>
                   <th class="py-3.5 px-4">Número</th>
                   <th class="py-3.5 px-4">Síndico</th>
@@ -411,26 +503,34 @@
               </thead>
               <tbody class="divide-y divide-slate-100 text-sm text-slate-700 font-medium">
                 <tr class="hover:bg-slate-50/80 transition">
-                  <td class="py-3.5 px-4 font-semibold text-slate-900 flex items-center space-x-2"><i class="fa-solid fa-building text-brand-600"></i><span>Torre A - Alvorada</span></td>
-                  <td class="py-3.5 px-4"><span class="px-2.5 py-1 bg-brand-50 text-brand-700 rounded-lg font-bold text-xs">Bloco 01</span></td>
+                  <td class="py-3.5 px-4 font-semibold text-slate-900 flex items-center space-x-2"><i
+                      class="fa-solid fa-building text-brand-600"></i><span>Torre A - Alvorada</span></td>
+                  <td class="py-3.5 px-4"><span
+                      class="px-2.5 py-1 bg-brand-50 text-brand-700 rounded-lg font-bold text-xs">Bloco 01</span></td>
                   <td class="py-3.5 px-4">Carlos Silva</td>
                   <td class="py-3.5 px-4">(11) 98888-1111</td>
                 </tr>
                 <tr class="hover:bg-slate-50/80 transition">
-                  <td class="py-3.5 px-4 font-semibold text-slate-900 flex items-center space-x-2"><i class="fa-solid fa-building text-brand-600"></i><span>Torre B - Bela Vista</span></td>
-                  <td class="py-3.5 px-4"><span class="px-2.5 py-1 bg-brand-50 text-brand-700 rounded-lg font-bold text-xs">Bloco 02</span></td>
+                  <td class="py-3.5 px-4 font-semibold text-slate-900 flex items-center space-x-2"><i
+                      class="fa-solid fa-building text-brand-600"></i><span>Torre B - Bela Vista</span></td>
+                  <td class="py-3.5 px-4"><span
+                      class="px-2.5 py-1 bg-brand-50 text-brand-700 rounded-lg font-bold text-xs">Bloco 02</span></td>
                   <td class="py-3.5 px-4">Mariana Costa</td>
                   <td class="py-3.5 px-4">(11) 98888-2222</td>
                 </tr>
                 <tr class="hover:bg-slate-50/80 transition">
-                  <td class="py-3.5 px-4 font-semibold text-slate-900 flex items-center space-x-2"><i class="fa-solid fa-building text-brand-600"></i><span>Torre C - Copacabana</span></td>
-                  <td class="py-3.5 px-4"><span class="px-2.5 py-1 bg-brand-50 text-brand-700 rounded-lg font-bold text-xs">Bloco 03</span></td>
+                  <td class="py-3.5 px-4 font-semibold text-slate-900 flex items-center space-x-2"><i
+                      class="fa-solid fa-building text-brand-600"></i><span>Torre C - Copacabana</span></td>
+                  <td class="py-3.5 px-4"><span
+                      class="px-2.5 py-1 bg-brand-50 text-brand-700 rounded-lg font-bold text-xs">Bloco 03</span></td>
                   <td class="py-3.5 px-4">Roberto Rocha</td>
                   <td class="py-3.5 px-4">(11) 98888-3333</td>
                 </tr>
                 <tr class="hover:bg-slate-50/80 transition">
-                  <td class="py-3.5 px-4 font-semibold text-slate-900 flex items-center space-x-2"><i class="fa-solid fa-building text-brand-600"></i><span>Torre D - Dunas</span></td>
-                  <td class="py-3.5 px-4"><span class="px-2.5 py-1 bg-brand-50 text-brand-700 rounded-lg font-bold text-xs">Bloco 04</span></td>
+                  <td class="py-3.5 px-4 font-semibold text-slate-900 flex items-center space-x-2"><i
+                      class="fa-solid fa-building text-brand-600"></i><span>Torre D - Dunas</span></td>
+                  <td class="py-3.5 px-4"><span
+                      class="px-2.5 py-1 bg-brand-50 text-brand-700 rounded-lg font-bold text-xs">Bloco 04</span></td>
                   <td class="py-3.5 px-4">Patrícia Souza</td>
                   <td class="py-3.5 px-4">(11) 98888-4444</td>
                 </tr>
@@ -450,8 +550,8 @@
           <div class="w-full sm:w-80">
             <div class="relative">
               <input type="text" onkeyup="filterTable('unidades-search', 'unidades-table')" id="unidades-search"
-                     placeholder="Buscar por apto, proprietário..."
-                     class="w-full pl-10 pr-4 py-2 bg-white border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition shadow-sm" />
+                placeholder="Buscar por apto, proprietário..."
+                class="w-full pl-10 pr-4 py-2 bg-white border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition shadow-sm" />
               <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400 text-sm"></i>
             </div>
           </div>
@@ -460,7 +560,8 @@
           <div class="overflow-x-auto">
             <table id="unidades-table" class="w-full text-left border-collapse">
               <thead>
-                <tr class="bg-slate-50 border-b border-slate-200 text-xs font-bold text-slate-600 uppercase tracking-wider">
+                <tr
+                  class="bg-slate-50 border-b border-slate-200 text-xs font-bold text-slate-600 uppercase tracking-wider">
                   <th class="py-3.5 px-4">Apartamento</th>
                   <th class="py-3.5 px-4">Torre</th>
                   <th class="py-3.5 px-4">Interfone</th>
@@ -474,40 +575,55 @@
                   <td class="py-3.5 px-4 font-bold text-slate-900">Apt 101</td>
                   <td class="py-3.5 px-4">Torre A</td>
                   <td class="py-3.5 px-4"><span class="font-mono text-slate-600">1010</span></td>
-                  <td class="py-3.5 px-4"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-slate-500 text-white">Indisponível</span></td>
-                  <td class="py-3.5 px-4"><span class="text-emerald-600 font-semibold"><i class="fa-solid fa-circle-check mr-1"></i> Sim</span></td>
+                  <td class="py-3.5 px-4"><span
+                      class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-slate-500 text-white">Indisponível</span>
+                  </td>
+                  <td class="py-3.5 px-4"><span class="text-emerald-600 font-semibold"><i
+                        class="fa-solid fa-circle-check mr-1"></i> Sim</span></td>
                   <td class="py-3.5 px-4">Ana Albuquerque</td>
                 </tr>
                 <tr class="hover:bg-slate-50/80 transition">
                   <td class="py-3.5 px-4 font-bold text-slate-900">Apt 102</td>
                   <td class="py-3.5 px-4">Torre A</td>
                   <td class="py-3.5 px-4"><span class="font-mono text-slate-600">1012</span></td>
-                  <td class="py-3.5 px-4"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-600 text-white">Vende-se</span></td>
-                  <td class="py-3.5 px-4"><span class="text-slate-400 font-semibold"><i class="fa-solid fa-circle-xmark mr-1"></i> Não</span></td>
+                  <td class="py-3.5 px-4"><span
+                      class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-600 text-white">Vende-se</span>
+                  </td>
+                  <td class="py-3.5 px-4"><span class="text-slate-400 font-semibold"><i
+                        class="fa-solid fa-circle-xmark mr-1"></i> Não</span></td>
                   <td class="py-3.5 px-4">Marcos Oliveira</td>
                 </tr>
                 <tr class="hover:bg-slate-50/80 transition">
                   <td class="py-3.5 px-4 font-bold text-slate-900">Apt 201</td>
                   <td class="py-3.5 px-4">Torre B</td>
                   <td class="py-3.5 px-4"><span class="font-mono text-slate-600">2021</span></td>
-                  <td class="py-3.5 px-4"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 text-green-900">Aluga-se</span></td>
-                  <td class="py-3.5 px-4"><span class="text-slate-400 font-semibold"><i class="fa-solid fa-circle-xmark mr-1"></i> Não</span></td>
+                  <td class="py-3.5 px-4"><span
+                      class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 text-green-900">Aluga-se</span>
+                  </td>
+                  <td class="py-3.5 px-4"><span class="text-slate-400 font-semibold"><i
+                        class="fa-solid fa-circle-xmark mr-1"></i> Não</span></td>
                   <td class="py-3.5 px-4">Juliana Paes</td>
                 </tr>
                 <tr class="hover:bg-slate-50/80 transition">
                   <td class="py-3.5 px-4 font-bold text-slate-900">Apt 304</td>
                   <td class="py-3.5 px-4">Torre A</td>
                   <td class="py-3.5 px-4"><span class="font-mono text-slate-600">1034</span></td>
-                  <td class="py-3.5 px-4"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-slate-500 text-white">Indisponível</span></td>
-                  <td class="py-3.5 px-4"><span class="text-emerald-600 font-semibold"><i class="fa-solid fa-circle-check mr-1"></i> Sim</span></td>
+                  <td class="py-3.5 px-4"><span
+                      class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-slate-500 text-white">Indisponível</span>
+                  </td>
+                  <td class="py-3.5 px-4"><span class="text-emerald-600 font-semibold"><i
+                        class="fa-solid fa-circle-check mr-1"></i> Sim</span></td>
                   <td class="py-3.5 px-4">Bruno Carvalho</td>
                 </tr>
                 <tr class="hover:bg-slate-50/80 transition">
                   <td class="py-3.5 px-4 font-bold text-slate-900">Apt 501</td>
                   <td class="py-3.5 px-4">Torre C</td>
                   <td class="py-3.5 px-4"><span class="font-mono text-slate-600">3051</span></td>
-                  <td class="py-3.5 px-4"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-slate-500 text-white">Indisponível</span></td>
-                  <td class="py-3.5 px-4"><span class="text-emerald-600 font-semibold"><i class="fa-solid fa-circle-check mr-1"></i> Sim</span></td>
+                  <td class="py-3.5 px-4"><span
+                      class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-slate-500 text-white">Indisponível</span>
+                  </td>
+                  <td class="py-3.5 px-4"><span class="text-emerald-600 font-semibold"><i
+                        class="fa-solid fa-circle-check mr-1"></i> Sim</span></td>
                   <td class="py-3.5 px-4">Daniel Ferreira</td>
                 </tr>
               </tbody>
@@ -526,8 +642,8 @@
           <div class="w-full sm:w-80">
             <div class="relative">
               <input type="text" onkeyup="filterTable('veiculos-search', 'veiculos-table')" id="veiculos-search"
-                     placeholder="Buscar por placa, modelo, dono..."
-                     class="w-full pl-10 pr-4 py-2 bg-white border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition shadow-sm" />
+                placeholder="Buscar por placa, modelo, dono..."
+                class="w-full pl-10 pr-4 py-2 bg-white border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition shadow-sm" />
               <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400 text-sm"></i>
             </div>
           </div>
@@ -536,7 +652,8 @@
           <div class="overflow-x-auto">
             <table id="veiculos-table" class="w-full text-left border-collapse min-w-max">
               <thead>
-                <tr class="bg-slate-50 border-b border-slate-200 text-xs font-bold text-slate-600 uppercase tracking-wider">
+                <tr
+                  class="bg-slate-50 border-b border-slate-200 text-xs font-bold text-slate-600 uppercase tracking-wider">
                   <th class="py-3.5 px-4">Placa</th>
                   <th class="py-3.5 px-4">Modelo</th>
                   <th class="py-3.5 px-4">Marca</th>
@@ -550,66 +667,90 @@
               </thead>
               <tbody class="divide-y divide-slate-100 text-sm text-slate-700 font-medium">
                 <tr class="hover:bg-slate-50/80 transition">
-                  <td class="py-3.5 px-4 font-mono font-bold text-slate-900"><span class="px-2 py-1 bg-slate-900 text-white rounded border border-slate-700 text-xs">ABC-1D23</span></td>
+                  <td class="py-3.5 px-4 font-mono font-bold text-slate-900"><span
+                      class="px-2 py-1 bg-slate-900 text-white rounded border border-slate-700 text-xs">ABC-1D23</span>
+                  </td>
                   <td class="py-3.5 px-4">Hb20</td>
                   <td class="py-3.5 px-4">Hyundai</td>
                   <td class="py-3.5 px-4">Carro</td>
-                  <td class="py-3.5 px-4"><span class="inline-flex items-center space-x-1.5"><span class="w-3 h-3 rounded-full bg-black border border-slate-300"></span><span>Preto</span></span></td>
+                  <td class="py-3.5 px-4"><span class="inline-flex items-center space-x-1.5"><span
+                        class="w-3 h-3 rounded-full bg-black border border-slate-300"></span><span>Preto</span></span>
+                  </td>
                   <td class="py-3.5 px-4">Ana Albuquerque</td>
                   <td class="py-3.5 px-4">Torre A</td>
                   <td class="py-3.5 px-4">Apt 101</td>
                   <td class="py-3.5 px-4">(11) 98765-4321</td>
                 </tr>
                 <tr class="hover:bg-slate-50/80 transition">
-                  <td class="py-3.5 px-4 font-mono font-bold text-slate-900"><span class="px-2 py-1 bg-slate-900 text-white rounded border border-slate-700 text-xs">JKXC-4F90</span></td>
+                  <td class="py-3.5 px-4 font-mono font-bold text-slate-900"><span
+                      class="px-2 py-1 bg-slate-900 text-white rounded border border-slate-700 text-xs">JKXC-4F90</span>
+                  </td>
                   <td class="py-3.5 px-4">Kicks</td>
                   <td class="py-3.5 px-4">Nissan</td>
                   <td class="py-3.5 px-4">Carro</td>
-                  <td class="py-3.5 px-4"><span class="inline-flex items-center space-x-1.5"><span class="w-3 h-3 rounded-full bg-blue-500 border border-slate-300"></span><span>Azul</span></span></td>
+                  <td class="py-3.5 px-4"><span class="inline-flex items-center space-x-1.5"><span
+                        class="w-3 h-3 rounded-full bg-blue-500 border border-slate-300"></span><span>Azul</span></span>
+                  </td>
                   <td class="py-3.5 px-4">Ana Albuquerque</td>
                   <td class="py-3.5 px-4">Torre A</td>
                   <td class="py-3.5 px-4">Apt 101</td>
                   <td class="py-3.5 px-4">(11) 98765-4321</td>
                 </tr>
                 <tr class="hover:bg-slate-50/80 transition">
-                  <td class="py-3.5 px-4 font-mono font-bold text-slate-900"><span class="px-2 py-1 bg-slate-900 text-white rounded border border-slate-700 text-xs">PTR-7B81</span></td>
+                  <td class="py-3.5 px-4 font-mono font-bold text-slate-900"><span
+                      class="px-2 py-1 bg-slate-900 text-white rounded border border-slate-700 text-xs">PTR-7B81</span>
+                  </td>
                   <td class="py-3.5 px-4">Civic</td>
                   <td class="py-3.5 px-4">Honda</td>
                   <td class="py-3.5 px-4">Carro</td>
-                  <td class="py-3.5 px-4"><span class="inline-flex items-center space-x-1.5"><span class="w-3 h-3 rounded-full bg-amber-900 border border-slate-300"></span><span>Marrom</span></span></td>
+                  <td class="py-3.5 px-4"><span class="inline-flex items-center space-x-1.5"><span
+                        class="w-3 h-3 rounded-full bg-amber-900 border border-slate-300"></span><span>Marrom</span></span>
+                  </td>
                   <td class="py-3.5 px-4">Ana Albuquerque</td>
                   <td class="py-3.5 px-4">Torre A</td>
                   <td class="py-3.5 px-4">Apt 101</td>
                   <td class="py-3.5 px-4">(11) 98765-4321</td>
                 </tr>
                 <tr class="hover:bg-slate-50/80 transition">
-                  <td class="py-3.5 px-4 font-mono font-bold text-slate-900"><span class="px-2 py-1 bg-slate-900 text-white rounded border border-slate-700 text-xs">XYZ-9E87</span></td>
+                  <td class="py-3.5 px-4 font-mono font-bold text-slate-900"><span
+                      class="px-2 py-1 bg-slate-900 text-white rounded border border-slate-700 text-xs">XYZ-9E87</span>
+                  </td>
                   <td class="py-3.5 px-4">Corolla</td>
                   <td class="py-3.5 px-4">Toyota</td>
                   <td class="py-3.5 px-4">Carro</td>
-                  <td class="py-3.5 px-4"><span class="inline-flex items-center space-x-1.5"><span class="w-3 h-3 rounded-full bg-slate-300 border border-slate-400"></span><span>Prata</span></span></td>
+                  <td class="py-3.5 px-4"><span class="inline-flex items-center space-x-1.5"><span
+                        class="w-3 h-3 rounded-full bg-slate-300 border border-slate-400"></span><span>Prata</span></span>
+                  </td>
                   <td class="py-3.5 px-4">Bruno Carvalho</td>
                   <td class="py-3.5 px-4">Torre A</td>
                   <td class="py-3.5 px-4">Apt 304</td>
                   <td class="py-3.5 px-4">(11) 97654-3210</td>
                 </tr>
                 <tr class="hover:bg-slate-50/80 transition">
-                  <td class="py-3.5 px-4 font-mono font-bold text-slate-900"><span class="px-2 py-1 bg-slate-900 text-white rounded border border-slate-700 text-xs">KJR-4F55</span></td>
+                  <td class="py-3.5 px-4 font-mono font-bold text-slate-900"><span
+                      class="px-2 py-1 bg-slate-900 text-white rounded border border-slate-700 text-xs">KJR-4F55</span>
+                  </td>
                   <td class="py-3.5 px-4">Compass</td>
                   <td class="py-3.5 px-4">Jeep</td>
                   <td class="py-3.5 px-4">Carro</td>
-                  <td class="py-3.5 px-4"><span class="inline-flex items-center space-x-1.5"><span class="w-3 h-3 rounded-full bg-white border border-slate-400"></span><span>Branco</span></span></td>
+                  <td class="py-3.5 px-4"><span class="inline-flex items-center space-x-1.5"><span
+                        class="w-3 h-3 rounded-full bg-white border border-slate-400"></span><span>Branco</span></span>
+                  </td>
                   <td class="py-3.5 px-4">Carla Menezes</td>
                   <td class="py-3.5 px-4">Torre B</td>
                   <td class="py-3.5 px-4">Apt 202</td>
                   <td class="py-3.5 px-4">(11) 96543-2109</td>
                 </tr>
                 <tr class="hover:bg-slate-50/80 transition">
-                  <td class="py-3.5 px-4 font-mono font-bold text-slate-900"><span class="px-2 py-1 bg-slate-900 text-white rounded border border-slate-700 text-xs">MOT-2G11</span></td>
+                  <td class="py-3.5 px-4 font-mono font-bold text-slate-900"><span
+                      class="px-2 py-1 bg-slate-900 text-white rounded border border-slate-700 text-xs">MOT-2G11</span>
+                  </td>
                   <td class="py-3.5 px-4">CB 500F</td>
                   <td class="py-3.5 px-4">Honda</td>
                   <td class="py-3.5 px-4">Motocicleta</td>
-                  <td class="py-3.5 px-4"><span class="inline-flex items-center space-x-1.5"><span class="w-3 h-3 rounded-full bg-red-600 border border-slate-300"></span><span>Vermelho</span></span></td>
+                  <td class="py-3.5 px-4"><span class="inline-flex items-center space-x-1.5"><span
+                        class="w-3 h-3 rounded-full bg-red-600 border border-slate-300"></span><span>Vermelho</span></span>
+                  </td>
                   <td class="py-3.5 px-4">Daniel Ferreira</td>
                   <td class="py-3.5 px-4">Torre B</td>
                   <td class="py-3.5 px-4">Apt 501</td>
@@ -631,8 +772,8 @@
           <div class="w-full sm:w-80">
             <div class="relative">
               <input type="text" onkeyup="filterTable('visitantes-search', 'visitantes-table')" id="visitantes-search"
-                     placeholder="Buscar visitante, documento..."
-                     class="w-full pl-10 pr-4 py-2 bg-white border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition shadow-sm" />
+                placeholder="Buscar visitante, documento..."
+                class="w-full pl-10 pr-4 py-2 bg-white border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition shadow-sm" />
               <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400 text-sm"></i>
             </div>
           </div>
@@ -641,7 +782,8 @@
           <div class="overflow-x-auto">
             <table id="visitantes-table" class="w-full text-left border-collapse">
               <thead>
-                <tr class="bg-slate-50 border-b border-slate-200 text-xs font-bold text-slate-600 uppercase tracking-wider">
+                <tr
+                  class="bg-slate-50 border-b border-slate-200 text-xs font-bold text-slate-600 uppercase tracking-wider">
                   <th class="py-3.5 px-4">Nome</th>
                   <th class="py-3.5 px-4">Documento</th>
                   <th class="py-3.5 px-4">Tipo</th>
@@ -659,7 +801,9 @@
                   <td class="py-3.5 px-4">04/10/2026 14:30</td>
                   <td class="py-3.5 px-4">Torre A</td>
                   <td class="py-3.5 px-4">Apt 101</td>
-                  <td class="py-3.5 px-4"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800">No Condomínio</span></td>
+                  <td class="py-3.5 px-4"><span
+                      class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800">No
+                      Condomínio</span></td>
                 </tr>
                 <tr class="hover:bg-slate-50/80 transition">
                   <td class="py-3.5 px-4 font-semibold text-slate-900">Técnico Claro (Marcos)</td>
@@ -668,7 +812,9 @@
                   <td class="py-3.5 px-4">04/10/2026 11:15</td>
                   <td class="py-3.5 px-4">Torre B</td>
                   <td class="py-3.5 px-4">Apt 202</td>
-                  <td class="py-3.5 px-4"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-slate-100 text-slate-700">Saída Registrada</span></td>
+                  <td class="py-3.5 px-4"><span
+                      class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-slate-100 text-slate-700">Saída
+                      Registrada</span></td>
                 </tr>
                 <tr class="hover:bg-slate-50/80 transition">
                   <td class="py-3.5 px-4 font-semibold text-slate-900">Entregador iFood</td>
@@ -677,7 +823,9 @@
                   <td class="py-3.5 px-4">04/10/2026 17:45</td>
                   <td class="py-3.5 px-4">Torre A</td>
                   <td class="py-3.5 px-4">Apt 304</td>
-                  <td class="py-3.5 px-4"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-800">Em Trânsito</span></td>
+                  <td class="py-3.5 px-4"><span
+                      class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-800">Em
+                      Trânsito</span></td>
                 </tr>
               </tbody>
             </table>
@@ -694,9 +842,9 @@
           </div>
           <div class="w-full sm:w-80">
             <div class="relative">
-              <input type="text" onkeyup="filterTable('ocorrencias-search', 'ocorrencias-table')" id="ocorrencias-search"
-                     placeholder="Buscar por ocorrência, morador..."
-                     class="w-full pl-10 pr-4 py-2 bg-white border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition shadow-sm" />
+              <input type="text" onkeyup="filterTable('ocorrencias-search', 'ocorrencias-table')"
+                id="ocorrencias-search" placeholder="Buscar por ocorrência, morador..."
+                class="w-full pl-10 pr-4 py-2 bg-white border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition shadow-sm" />
               <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400 text-sm"></i>
             </div>
           </div>
@@ -705,7 +853,8 @@
           <div class="overflow-x-auto">
             <table id="ocorrencias-table" class="w-full text-left border-collapse">
               <thead>
-                <tr class="bg-slate-50 border-b border-slate-200 text-xs font-bold text-slate-600 uppercase tracking-wider">
+                <tr
+                  class="bg-slate-50 border-b border-slate-200 text-xs font-bold text-slate-600 uppercase tracking-wider">
                   <th class="py-3.5 px-4">Título</th>
                   <th class="py-3.5 px-4">Categoria</th>
                   <th class="py-3.5 px-4">Morador</th>
@@ -720,24 +869,33 @@
                   <td class="py-3.5 px-4">Manutenção</td>
                   <td class="py-3.5 px-4">Bruno Carvalho (Apt 304)</td>
                   <td class="py-3.5 px-4">02/10/2026</td>
-                  <td class="py-3.5 px-4"><span class="px-2 py-0.5 rounded text-xs font-bold bg-rose-100 text-rose-800">Alta</span></td>
-                  <td class="py-3.5 px-4"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-800">Em Andamento</span></td>
+                  <td class="py-3.5 px-4"><span
+                      class="px-2 py-0.5 rounded text-xs font-bold bg-rose-100 text-rose-800">Alta</span></td>
+                  <td class="py-3.5 px-4"><span
+                      class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-800">Em
+                      Andamento</span></td>
                 </tr>
                 <tr class="hover:bg-slate-50/80 transition">
                   <td class="py-3.5 px-4 font-semibold text-slate-900">Barulho excessivo após 22h</td>
                   <td class="py-3.5 px-4">Convivência</td>
                   <td class="py-3.5 px-4">Ana Albuquerque (Apt 101)</td>
                   <td class="py-3.5 px-4">01/10/2026</td>
-                  <td class="py-3.5 px-4"><span class="px-2 py-0.5 rounded text-xs font-bold bg-slate-100 text-slate-700">Média</span></td>
-                  <td class="py-3.5 px-4"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800">Resolvido</span></td>
+                  <td class="py-3.5 px-4"><span
+                      class="px-2 py-0.5 rounded text-xs font-bold bg-slate-100 text-slate-700">Média</span></td>
+                  <td class="py-3.5 px-4"><span
+                      class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800">Resolvido</span>
+                  </td>
                 </tr>
                 <tr class="hover:bg-slate-50/80 transition">
                   <td class="py-3.5 px-4 font-semibold text-slate-900">Lâmpada queimada corredor 5º andar</td>
                   <td class="py-3.5 px-4">Iluminação</td>
                   <td class="py-3.5 px-4">Daniel Ferreira (Apt 501)</td>
                   <td class="py-3.5 px-4">03/10/2026</td>
-                  <td class="py-3.5 px-4"><span class="px-2 py-0.5 rounded text-xs font-bold bg-sky-100 text-sky-800">Baixa</span></td>
-                  <td class="py-3.5 px-4"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-sky-100 text-sky-800">Aberto</span></td>
+                  <td class="py-3.5 px-4"><span
+                      class="px-2 py-0.5 rounded text-xs font-bold bg-sky-100 text-sky-800">Baixa</span></td>
+                  <td class="py-3.5 px-4"><span
+                      class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-sky-100 text-sky-800">Aberto</span>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -755,8 +913,8 @@
           <div class="w-full sm:w-80">
             <div class="relative">
               <input type="text" onkeyup="filterTable('contatos-search', 'contatos-table')" id="contatos-search"
-                     placeholder="Buscar nome, setor, função..."
-                     class="w-full pl-10 pr-4 py-2 bg-white border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition shadow-sm" />
+                placeholder="Buscar nome, setor, função..."
+                class="w-full pl-10 pr-4 py-2 bg-white border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition shadow-sm" />
               <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400 text-sm"></i>
             </div>
           </div>
@@ -765,7 +923,8 @@
           <div class="overflow-x-auto">
             <table id="contatos-table" class="w-full text-left border-collapse">
               <thead>
-                <tr class="bg-slate-50 border-b border-slate-200 text-xs font-bold text-slate-600 uppercase tracking-wider">
+                <tr
+                  class="bg-slate-50 border-b border-slate-200 text-xs font-bold text-slate-600 uppercase tracking-wider">
                   <th class="py-3.5 px-4">Nome / Empresa</th>
                   <th class="py-3.5 px-4">Cargo / Função</th>
                   <th class="py-3.5 px-4">Telefone</th>
@@ -779,21 +938,27 @@
                   <td class="py-3.5 px-4">Atendimento 24h</td>
                   <td class="py-3.5 px-4 font-mono">(11) 3333-0001</td>
                   <td class="py-3.5 px-4 text-slate-500">portaria@condxpto.com.br</td>
-                  <td class="py-3.5 px-4"><span class="px-2.5 py-1 bg-slate-100 text-slate-700 rounded-lg text-xs font-semibold">Segurança</span></td>
+                  <td class="py-3.5 px-4"><span
+                      class="px-2.5 py-1 bg-slate-100 text-slate-700 rounded-lg text-xs font-semibold">Segurança</span>
+                  </td>
                 </tr>
                 <tr class="hover:bg-slate-50/80 transition">
                   <td class="py-3.5 px-4 font-semibold text-slate-900">Eletricista Plantão (João)</td>
                   <td class="py-3.5 px-4">Técnico Eletricista</td>
                   <td class="py-3.5 px-4 font-mono">(11) 97777-8888</td>
                   <td class="py-3.5 px-4 text-slate-500">joao.eletrica@gmail.com</td>
-                  <td class="py-3.5 px-4"><span class="px-2.5 py-1 bg-slate-100 text-slate-700 rounded-lg text-xs font-semibold">Manutenção</span></td>
+                  <td class="py-3.5 px-4"><span
+                      class="px-2.5 py-1 bg-slate-100 text-slate-700 rounded-lg text-xs font-semibold">Manutenção</span>
+                  </td>
                 </tr>
                 <tr class="hover:bg-slate-50/80 transition">
                   <td class="py-3.5 px-4 font-semibold text-slate-900">Administradora XPTO</td>
                   <td class="py-3.5 px-4">Gestão Financeira/Boleto</td>
                   <td class="py-3.5 px-4 font-mono">(11) 3003-4004</td>
                   <td class="py-3.5 px-4 text-slate-500">contato@adminxpto.com.br</td>
-                  <td class="py-3.5 px-4"><span class="px-2.5 py-1 bg-slate-100 text-slate-700 rounded-lg text-xs font-semibold">Administração</span></td>
+                  <td class="py-3.5 px-4"><span
+                      class="px-2.5 py-1 bg-slate-100 text-slate-700 rounded-lg text-xs font-semibold">Administração</span>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -810,9 +975,9 @@
           </div>
           <div class="w-full sm:w-80">
             <div class="relative">
-              <input type="text" onkeyup="filterTable('notificacoes-search', 'notificacoes-table')" id="notificacoes-search"
-                     placeholder="Buscar notificações..."
-                     class="w-full pl-10 pr-4 py-2 bg-white border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition shadow-sm" />
+              <input type="text" onkeyup="filterTable('notificacoes-search', 'notificacoes-table')"
+                id="notificacoes-search" placeholder="Buscar notificações..."
+                class="w-full pl-10 pr-4 py-2 bg-white border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition shadow-sm" />
               <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400 text-sm"></i>
             </div>
           </div>
@@ -821,7 +986,8 @@
           <div class="overflow-x-auto">
             <table id="notificacoes-table" class="w-full text-left border-collapse">
               <thead>
-                <tr class="bg-slate-50 border-b border-slate-200 text-xs font-bold text-slate-600 uppercase tracking-wider">
+                <tr
+                  class="bg-slate-50 border-b border-slate-200 text-xs font-bold text-slate-600 uppercase tracking-wider">
                   <th class="py-3.5 px-4">Título do Comunicado</th>
                   <th class="py-3.5 px-4">Destinatário</th>
                   <th class="py-3.5 px-4">Data</th>
@@ -830,22 +996,31 @@
               </thead>
               <tbody class="divide-y divide-slate-100 text-sm text-slate-700 font-medium">
                 <tr class="hover:bg-slate-50/80 transition">
-                  <td class="py-3.5 px-4 font-semibold text-slate-900">Limpeza das Caixas d'Água programada para Quinta-feira</td>
+                  <td class="py-3.5 px-4 font-semibold text-slate-900">Limpeza das Caixas d'Água programada para
+                    Quinta-feira</td>
                   <td class="py-3.5 px-4">Todos os Moradores</td>
                   <td class="py-3.5 px-4">04/10/2026</td>
-                  <td class="py-3.5 px-4"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800">Enviado</span></td>
+                  <td class="py-3.5 px-4"><span
+                      class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800">Enviado</span>
+                  </td>
                 </tr>
                 <tr class="hover:bg-slate-50/80 transition">
-                  <td class="py-3.5 px-4 font-semibold text-slate-900">Convocação para Assembleia Geral Ordinária (AGO)</td>
+                  <td class="py-3.5 px-4 font-semibold text-slate-900">Convocação para Assembleia Geral Ordinária (AGO)
+                  </td>
                   <td class="py-3.5 px-4">Proprietários</td>
                   <td class="py-3.5 px-4">28/09/2026</td>
-                  <td class="py-3.5 px-4"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800">Enviado</span></td>
+                  <td class="py-3.5 px-4"><span
+                      class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800">Enviado</span>
+                  </td>
                 </tr>
                 <tr class="hover:bg-slate-50/80 transition">
-                  <td class="py-3.5 px-4 font-semibold text-slate-900">Manutenção preventiva dos elevadores da Torre B</td>
+                  <td class="py-3.5 px-4 font-semibold text-slate-900">Manutenção preventiva dos elevadores da Torre B
+                  </td>
                   <td class="py-3.5 px-4">Torre B</td>
                   <td class="py-3.5 px-4">20/09/2026</td>
-                  <td class="py-3.5 px-4"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-slate-100 text-slate-700">Arquivado</span></td>
+                  <td class="py-3.5 px-4"><span
+                      class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-slate-100 text-slate-700">Arquivado</span>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -857,15 +1032,17 @@
   </div>
 
   <!-- MODAL DE PERFIL -->
-  <div id="profileModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+  <div id="profileModal"
+    class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden transform transition-all duration-300">
       <div class="bg-gradient-to-r from-brand-600 to-indigo-600 p-6 text-white text-center relative">
-        <button onclick="closeProfileModal()" class="absolute top-4 right-4 text-white/80 hover:text-white focus:outline-none">
+        <button onclick="closeProfileModal()"
+          class="absolute top-4 right-4 text-white/80 hover:text-white focus:outline-none">
           <i class="fa-solid fa-xmark text-xl"></i>
         </button>
         <img class="w-20 h-20 rounded-full mx-auto object-cover ring-4 ring-white/30 shadow-lg"
-             src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=250"
-             alt="Carlos Silva" />
+          src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=250"
+          alt="Carlos Silva" />
         <h3 class="text-xl font-bold mt-3">Carlos Silva</h3>
         <p class="text-brand-100 text-xs font-medium">Síndico Geral • Cond. XPTO</p>
       </div>
@@ -885,7 +1062,8 @@
           </div>
         </div>
         <div class="pt-2">
-          <button onclick="closeProfileModal()" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold py-2.5 rounded-xl text-sm transition">
+          <button onclick="closeProfileModal()"
+            class="w-full bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold py-2.5 rounded-xl text-sm transition">
             Fechar
           </button>
         </div>
@@ -895,14 +1073,14 @@
 
   <!-- JAVASCRIPT -->
   <script>
-    // ========== GUARDA DE AUTENTICAÇÃO ==========
-    // Se não houver sessão, volta para o login (index.html na raiz)
-    (function () {
-      const session = localStorage.getItem('towerflow_user');
-      if (!session) {
-        window.location.replace('../index.html');
-      }
-    })();
+      // ========== GUARDA DE AUTENTICAÇÃO ==========
+      // Se não houver sessão, volta para o login (index.html na raiz)
+      (function () {
+        const session = localStorage.getItem('towerflow_user');
+        if (!session) {
+          window.location.replace('../index.html');
+        }
+      })();
 
     // ========== TAB SWITCHING ==========
     function switchTab(tabId) {
@@ -1019,4 +1197,5 @@
     });
   </script>
 </body>
+
 </html>
