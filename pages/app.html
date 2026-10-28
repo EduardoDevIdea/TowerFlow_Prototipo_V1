@@ -45,60 +45,52 @@
   <!-- ==================== APLICAÇÃO PRINCIPAL ==================== -->
   <div id="appContainer" class="h-full flex-col flex">
     <!-- HEADER -->
-    <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16 items-center">
-          <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('home')">
-            <div
-              class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-indigo-600 flex items-center justify-center text-white font-bold text-xl shadow-md shadow-brand-500/20">
-              <i class="fa-solid font-bold fa-building"></i>
+    <header class="app-header">
+      <div class="app-header__inner">
+        <div class="app-header__row">
+          <div class="app-brand" onclick="switchTab('home')">
+            <div class="app-brand__logo">
+              <i class="fa-solid fa-building"></i>
             </div>
             <div>
-              <h1 class="text-xl font-bold text-slate-900 tracking-tight">TowerFlow</h1>
-              <p class="text-xs text-slate-500 font-medium">Cond. XPTO</p>
+              <h1 class="app-brand__title">TowerFlow</h1>
+              <p class="app-brand__subtitle">Cond. XPTO</p>
             </div>
           </div>
 
-          <div class="relative">
-            <button id="userMenuBtn" onclick="toggleUserMenu()"
-              class="flex items-center space-x-3 focus:outline-none p-1.5 rounded-full hover:bg-slate-100 transition duration-150">
-              <span class="text-right hidden sm:block">
-                <span class="block text-sm font-semibold text-slate-800">Carlos Silva</span>
-                <span class="block text-xs text-slate-500">Síndico Geral</span>
+          <div class="user-menu">
+            <button id="userMenuBtn" onclick="toggleUserMenu()" class="user-menu__trigger">
+              <span class="user-menu__info">
+                <span class="user-menu__name">Carlos Silva</span>
+                <span class="user-menu__role">Síndico Geral</span>
               </span>
-              <div class="relative">
-                <img class="h-10 w-10 rounded-full object-cover ring-2 ring-brand-500/30"
+              <div class="user-menu__avatar-wrap">
+                <img class="user-menu__avatar"
                   src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=250"
                   alt="Avatar Usuário" onerror="this.src='https://placehold.co/100x100/0284c7/ffffff?text=CS'" />
-                <span
-                  class="absolute bottom-0 right-0 block h-2.5 w-2.5 rounded-full bg-emerald-500 ring-2 ring-white"></span>
+                <span class="user-menu__status"></span>
               </div>
-              <i class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform duration-200"
-                id="userMenuArrow"></i>
+              <i class="fa-solid fa-chevron-down user-menu__arrow" id="userMenuArrow"></i>
             </button>
 
-            <div id="userDropdown"
-              class="hidden absolute right-0 mt-2 w-56 rounded-xl bg-white shadow-xl ring-1 ring-slate-900/5 py-2 z-50 divide-y divide-slate-100 transform opacity-0 transition-all duration-200 scale-95">
-              <div class="px-4 py-3">
-                <p class="text-xs text-slate-500">Logado como</p>
-                <p class="text-sm font-bold text-slate-900 truncate">sindico@condxpto.com.br</p>
+            <div id="userDropdown" class="user-dropdown">
+              <div class="user-dropdown__section">
+                <p class="user-dropdown__label">Logado como</p>
+                <p class="user-dropdown__email">sindico@condxpto.com.br</p>
               </div>
-              <div class="py-1">
-                <button onclick="openProfileModal(); toggleUserMenu();"
-                  class="w-full text-left px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 flex items-center space-x-2.5">
-                  <i class="fa-solid fa-circle-user text-slate-400 w-4"></i>
+              <div class="user-dropdown__group">
+                <button onclick="openProfileModal(); toggleUserMenu();" class="user-dropdown__item">
+                  <i class="fa-solid fa-circle-user"></i>
                   <span>Meu Perfil</span>
                 </button>
-                <button onclick="switchTab('notificacoes'); toggleUserMenu();"
-                  class="w-full text-left px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 flex items-center space-x-2.5">
-                  <i class="fa-solid fa-bell text-slate-400 w-4"></i>
+                <button onclick="switchTab('notificacoes'); toggleUserMenu();" class="user-dropdown__item">
+                  <i class="fa-solid fa-bell"></i>
                   <span>Notificações</span>
                 </button>
               </div>
-              <div class="py-1">
-                <button onclick="handleLogout()"
-                  class="w-full text-left px-4 py-2 text-sm text-rose-600 hover:bg-rose-50 flex items-center space-x-2.5 font-medium">
-                  <i class="fa-solid fa-right-from-bracket text-rose-500 w-4"></i>
+              <div class="user-dropdown__group">
+                <button onclick="handleLogout()" class="user-dropdown__item user-dropdown__item--danger">
+                  <i class="fa-solid fa-right-from-bracket"></i>
                   <span>Sair / Logout</span>
                 </button>
               </div>
@@ -1113,27 +1105,19 @@
     function toggleUserMenu() {
       const dropdown = document.getElementById('userDropdown');
       const arrow = document.getElementById('userMenuArrow');
+      if (!dropdown || !arrow) return;
 
-      if (dropdown.classList.contains('hidden')) {
-        dropdown.classList.remove('hidden');
-        setTimeout(() => {
-          dropdown.classList.remove('opacity-0', 'scale-95');
-          dropdown.classList.add('opacity-100', 'scale-100');
-        }, 10);
-        arrow.classList.add('rotate-180');
-      } else {
-        dropdown.classList.remove('opacity-100', 'scale-100');
-        dropdown.classList.add('opacity-0', 'scale-95');
-        setTimeout(() => dropdown.classList.add('hidden'), 200);
-        arrow.classList.remove('rotate-180');
-      }
+      const isOpen = dropdown.classList.toggle('is-open');
+      arrow.classList.toggle('is-open', isOpen);
     }
 
     document.addEventListener('click', function (event) {
       const menuBtn = document.getElementById('userMenuBtn');
       const dropdown = document.getElementById('userDropdown');
       if (menuBtn && dropdown && !menuBtn.contains(event.target) && !dropdown.contains(event.target)) {
-        if (!dropdown.classList.contains('hidden')) toggleUserMenu();
+        if (dropdown.classList.contains('is-open')) {
+          toggleUserMenu();
+        }
       }
     });
 
@@ -1173,19 +1157,15 @@
       // 1. Limpa a sessão
       localStorage.removeItem('towerflow_user');
 
-      // 2. Fecha dropdown
+      // 2. Fecha dropdown (remove .is-open)
       const dropdown = document.getElementById('userDropdown');
-      if (dropdown) {
-        dropdown.classList.add('hidden');
-        dropdown.classList.remove('opacity-100', 'scale-100');
-        dropdown.classList.add('opacity-0', 'scale-95');
-      }
+      if (dropdown) dropdown.classList.remove('is-open');
       const arrow = document.getElementById('userMenuArrow');
-      if (arrow) arrow.classList.remove('rotate-180');
+      if (arrow) arrow.classList.remove('is-open');
 
-      // 3. Fecha modal de perfil
+      // 3. Fecha modal de perfil (remove .is-open)
       const profileModal = document.getElementById('profileModal');
-      if (profileModal) profileModal.classList.add('hidden');
+      if (profileModal) profileModal.classList.remove('is-open');
 
       // 4. Volta para o login
       window.location.href = '../index.html';
