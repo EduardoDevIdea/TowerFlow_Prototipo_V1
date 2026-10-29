@@ -101,46 +101,36 @@
     </header>
 
     <!-- NAV TABS -->
-    <nav class="bg-white border-b border-slate-200 shadow-sm overflow-x-auto custom-scrollbar">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex space-x-1 sm:space-x-2 min-w-max py-2">
-          <button onclick="switchTab('home')" id="tab-home"
-            class="nav-tab px-3.5 py-2 rounded-lg text-sm font-medium transition duration-150 flex items-center space-x-2">
-            <i class="fa-solid fa-house text-slate-400"></i><span>Home</span>
+    <nav class="app-nav custom-scrollbar">
+      <div class="app-nav__inner">
+        <div class="app-nav__list">
+          <button onclick="switchTab('home')" id="tab-home" class="nav-tab is-active">
+            <i class="fa-solid fa-house"></i><span>Home</span>
           </button>
-          <button onclick="switchTab('moradores')" id="tab-moradores"
-            class="nav-tab px-3.5 py-2 rounded-lg text-sm font-medium transition duration-150 flex items-center space-x-2">
-            <i class="fa-solid fa-users text-slate-400"></i><span>Moradores</span>
+          <button onclick="switchTab('moradores')" id="tab-moradores" class="nav-tab">
+            <i class="fa-solid fa-users"></i><span>Moradores</span>
           </button>
-          <button onclick="switchTab('torres')" id="tab-torres"
-            class="nav-tab px-3.5 py-2 rounded-lg text-sm font-medium transition duration-150 flex items-center space-x-2">
-            <i class="fa-solid fa-city text-slate-400"></i><span>Torres</span>
+          <button onclick="switchTab('torres')" id="tab-torres" class="nav-tab">
+            <i class="fa-solid fa-city"></i><span>Torres</span>
           </button>
-          <button onclick="switchTab('unidades')" id="tab-unidades"
-            class="nav-tab px-3.5 py-2 rounded-lg text-sm font-medium transition duration-150 flex items-center space-x-2">
-            <i class="fa-solid fa-door-closed text-slate-400"></i><span>Unidades</span>
+          <button onclick="switchTab('unidades')" id="tab-unidades" class="nav-tab">
+            <i class="fa-solid fa-door-closed"></i><span>Unidades</span>
           </button>
-          <button onclick="switchTab('veiculos')" id="tab-veiculos"
-            class="nav-tab px-3.5 py-2 rounded-lg text-sm font-medium transition duration-150 flex items-center space-x-2">
-            <i class="fa-solid fa-car text-slate-400"></i><span>Veículos</span>
+          <button onclick="switchTab('veiculos')" id="tab-veiculos" class="nav-tab">
+            <i class="fa-solid fa-car"></i><span>Veículos</span>
           </button>
-          <button onclick="switchTab('visitantes')" id="tab-visitantes"
-            class="nav-tab px-3.5 py-2 rounded-lg text-sm font-medium transition duration-150 flex items-center space-x-2">
-            <i class="fa-solid fa-user-check text-slate-400"></i><span>Visitantes</span>
+          <button onclick="switchTab('visitantes')" id="tab-visitantes" class="nav-tab">
+            <i class="fa-solid fa-user-check"></i><span>Visitantes</span>
           </button>
-          <button onclick="switchTab('ocorrencias')" id="tab-ocorrencias"
-            class="nav-tab px-3.5 py-2 rounded-lg text-sm font-medium transition duration-150 flex items-center space-x-2">
-            <i class="fa-solid fa-triangle-exclamation text-slate-400"></i><span>Ocorrências</span>
+          <button onclick="switchTab('ocorrencias')" id="tab-ocorrencias" class="nav-tab">
+            <i class="fa-solid fa-triangle-exclamation"></i><span>Ocorrências</span>
           </button>
-          <button onclick="switchTab('contatos')" id="tab-contatos"
-            class="nav-tab px-3.5 py-2 rounded-lg text-sm font-medium transition duration-150 flex items-center space-x-2">
-            <i class="fa-solid fa-address-book text-slate-400"></i><span>Contatos</span>
+          <button onclick="switchTab('contatos')" id="tab-contatos" class="nav-tab">
+            <i class="fa-solid fa-address-book"></i><span>Contatos</span>
           </button>
-          <button onclick="switchTab('notificacoes')" id="tab-notificacoes"
-            class="nav-tab px-3.5 py-2 rounded-lg text-sm font-medium transition duration-150 flex items-center space-x-2 relative">
-            <i class="fa-solid fa-bell text-slate-400"></i><span>Notificações</span>
-            <span
-              class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-semibold bg-brand-100 text-brand-800">3</span>
+          <button onclick="switchTab('notificacoes')" id="tab-notificacoes" class="nav-tab">
+            <i class="fa-solid fa-bell"></i><span>Notificações</span>
+            <span class="nav-tab__badge">3</span>
           </button>
         </div>
       </div>
@@ -1076,28 +1066,22 @@
 
     // ========== TAB SWITCHING ==========
     function switchTab(tabId) {
+      // 1. Esconde todas as views
       const views = document.querySelectorAll('.view-content');
       views.forEach(view => view.classList.add('hidden'));
 
+      // 2. Mostra a view alvo
       const targetView = document.getElementById('view-' + tabId);
       if (targetView) targetView.classList.remove('hidden');
 
+      // 3. Remove .is-active de todas as tabs e adiciona na ativa
       const tabs = document.querySelectorAll('.nav-tab');
-      tabs.forEach(tab => {
-        tab.classList.remove('bg-brand-50', 'text-brand-600', 'font-semibold');
-        tab.classList.add('text-slate-600', 'hover:bg-slate-100');
-        const icon = tab.querySelector('i');
-        if (icon) icon.classList.replace('text-brand-600', 'text-slate-400');
-      });
+      tabs.forEach(tab => tab.classList.remove('is-active'));
 
       const activeTab = document.getElementById('tab-' + tabId);
-      if (activeTab) {
-        activeTab.classList.remove('text-slate-600', 'hover:bg-slate-100');
-        activeTab.classList.add('bg-brand-50', 'text-brand-600', 'font-semibold');
-        const icon = activeTab.querySelector('i');
-        if (icon) icon.classList.replace('text-slate-400', 'text-brand-600');
-      }
+      if (activeTab) activeTab.classList.add('is-active');
 
+      // 4. Volta ao topo
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
