@@ -141,24 +141,26 @@
 
       <!-- HOME -->
       <section id="view-home" class="view-content space-y-6">
-        <div
-          class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-gradient-to-r from-brand-900 via-slate-900 to-brand-800 text-white p-6 rounded-2xl shadow-lg relative overflow-hidden">
-          <div class="z-10">
-            <h2 class="text-2xl font-bold tracking-tight">Bem-vindo ao TowerFlow</h2>
-            <p class="text-brand-100 mt-1 max-w-xl text-sm">Painel de controle centralizado. Selecione uma das seções
-              abaixo para gerenciar os dados do condomínio com eficiência.</p>
+        
+        <div class="hero">
+          <div class="hero__content">
+            <h2 class="hero__title">Bem-vindo ao TowerFlow</h2>
+            <p class="hero__subtitle">Painel de controle centralizado. Selecione uma das seções abaixo para gerenciar os
+              dados do condomínio com eficiência.</p>
           </div>
-          <div class="z-10 flex items-center space-x-3">
-            <div class="bg-white/10 backdrop-blur-md px-4 py-2 rounded-xl text-center border border-white/10">
-              <span class="block text-xs text-brand-200 uppercase font-semibold">Total Unidades</span>
-              <span class="text-lg font-bold">128</span>
+          <div class="hero__stats">
+            <div class="hero__stat">
+              <span class="hero__stat-label">Total Unidades</span>
+              <span class="hero__stat-value">128</span>
             </div>
-            <div class="bg-white/10 backdrop-blur-md px-4 py-2 rounded-xl text-center border border-white/10">
-              <span class="block text-xs text-brand-200 uppercase font-semibold">Moradores</span>
-              <span class="text-lg font-bold">342</span>
+            <div class="hero__stat">
+              <span class="hero__stat-label">Moradores</span>
+              <span class="hero__stat-value">342</span>
             </div>
           </div>
-          <div class="absolute -right-10 -bottom-10 opacity-10 text-9xl"><i class="fa-solid fa-building"></i></div>
+          <div class="hero__decor">
+            <i class="fa-solid fa-building"></i>
+          </div>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
