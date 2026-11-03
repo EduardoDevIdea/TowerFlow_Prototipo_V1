@@ -297,95 +297,82 @@
       </section>
 
       <!-- MORADORES -->
-      <section id="view-moradores" class="view-content hidden space-y-4">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2">
+      <section id="view-moradores" class="view-content hidden stack">
+        <div class="page-header">
           <div>
-            <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Moradores</h2>
-            <p class="text-sm text-slate-500">Listagem geral de residentes cadastrados no condomínio.</p>
+            <h2 class="page-header__title">Moradores</h2>
+            <p class="page-header__subtitle">Listagem geral de residentes cadastrados no condomínio.</p>
           </div>
-          <div class="w-full sm:w-80">
-            <div class="relative">
+          <div class="page-header__actions">
+            <div class="search-box">
+              <i class="fa-solid fa-magnifying-glass search-box__icon"></i>
               <input type="text" onkeyup="filterTable('moradores-search', 'moradores-table')" id="moradores-search"
-                placeholder="Buscar morador, torre, apto..."
-                class="w-full pl-10 pr-4 py-2 bg-white border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition shadow-sm" />
-              <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400 text-sm"></i>
+                placeholder="Buscar morador, torre, apto..." class="search-box__input" />
             </div>
           </div>
         </div>
-        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-          <div class="overflow-x-auto">
-            <table id="moradores-table" class="w-full text-left border-collapse">
-              <thead>
-                <tr
-                  class="bg-slate-50 border-b border-slate-200 text-xs font-bold text-slate-600 uppercase tracking-wider">
-                  <th class="py-3.5 px-4">Nome</th>
-                  <th class="py-3.5 px-4">Sobrenome</th>
-                  <th class="py-3.5 px-4">Torre</th>
-                  <th class="py-3.5 px-4">Unidade</th>
-                  <th class="py-3.5 px-4">Interfone</th>
-                  <th class="py-3.5 px-4">Telefone</th>
+
+        <div class="table-wrapper">
+          <div class="table-scroll">
+            <table id="moradores-table" class="table">
+              <thead class="table__head">
+                <tr>
+                  <th>Nome</th>
+                  <th>Sobrenome</th>
+                  <th>Torre</th>
+                  <th>Unidade</th>
+                  <th>Interfone</th>
+                  <th>Telefone</th>
                 </tr>
               </thead>
-              <tbody class="divide-y divide-slate-100 text-sm text-slate-700 font-medium">
-                <tr class="hover:bg-slate-50/80 transition">
-                  <td class="py-3.5 px-4 font-semibold text-slate-900">Ana</td>
-                  <td class="py-3.5 px-4">Albuquerque</td>
-                  <td class="py-3.5 px-4"><span
-                      class="px-2.5 py-1 bg-slate-100 rounded-lg text-slate-700 font-semibold text-xs">Torre A</span>
-                  </td>
-                  <td class="py-3.5 px-4">Apt 101</td>
-                  <td class="py-3.5 px-4"><span class="font-mono text-slate-600">1010</span></td>
-                  <td class="py-3.5 px-4">(11) 98765-4321</td>
+              <tbody class="table__body">
+                <tr>
+                  <td class="table__cell--strong">Ana</td>
+                  <td>Albuquerque</td>
+                  <td><span class="pill pill--neutral">Torre A</span></td>
+                  <td>Apt 101</td>
+                  <td><span class="table__cell--mono">1010</span></td>
+                  <td>(11) 98765-4321</td>
                 </tr>
-                <tr class="hover:bg-slate-50/80 transition">
-                  <td class="py-3.5 px-4 font-semibold text-slate-900">Bruno</td>
-                  <td class="py-3.5 px-4">Carvalho</td>
-                  <td class="py-3.5 px-4"><span
-                      class="px-2.5 py-1 bg-slate-100 rounded-lg text-slate-700 font-semibold text-xs">Torre A</span>
-                  </td>
-                  <td class="py-3.5 px-4">Apt 304</td>
-                  <td class="py-3.5 px-4"><span class="font-mono text-slate-600">1034</span></td>
-                  <td class="py-3.5 px-4">(11) 97654-3210</td>
+                <tr>
+                  <td class="table__cell--strong">Bruno</td>
+                  <td>Carvalho</td>
+                  <td><span class="pill pill--neutral">Torre A</span></td>
+                  <td>Apt 304</td>
+                  <td><span class="table__cell--mono">1034</span></td>
+                  <td>(11) 97654-3210</td>
                 </tr>
-                <tr class="hover:bg-slate-50/80 transition">
-                  <td class="py-3.5 px-4 font-semibold text-slate-900">Carla</td>
-                  <td class="py-3.5 px-4">Menezes</td>
-                  <td class="py-3.5 px-4"><span
-                      class="px-2.5 py-1 bg-slate-100 rounded-lg text-slate-700 font-semibold text-xs">Torre B</span>
-                  </td>
-                  <td class="py-3.5 px-4">Apt 202</td>
-                  <td class="py-3.5 px-4"><span class="font-mono text-slate-600">2020</span></td>
-                  <td class="py-3.5 px-4">(11) 96543-2109</td>
+                <tr>
+                  <td class="table__cell--strong">Carla</td>
+                  <td>Menezes</td>
+                  <td><span class="pill pill--neutral">Torre B</span></td>
+                  <td>Apt 202</td>
+                  <td><span class="table__cell--mono">2020</span></td>
+                  <td>(11) 96543-2109</td>
                 </tr>
-                <tr class="hover:bg-slate-50/80 transition">
-                  <td class="py-3.5 px-4 font-semibold text-slate-900">Daniel</td>
-                  <td class="py-3.5 px-4">Ferreira</td>
-                  <td class="py-3.5 px-4"><span
-                      class="px-2.5 py-1 bg-slate-100 rounded-lg text-slate-700 font-semibold text-xs">Torre B</span>
-                  </td>
-                  <td class="py-3.5 px-4">Apt 501</td>
-                  <td class="py-3.5 px-4"><span class="font-mono text-slate-600">2051</span></td>
-                  <td class="py-3.5 px-4">(11) 95432-1098</td>
+                <tr>
+                  <td class="table__cell--strong">Daniel</td>
+                  <td>Ferreira</td>
+                  <td><span class="pill pill--neutral">Torre B</span></td>
+                  <td>Apt 501</td>
+                  <td><span class="table__cell--mono">2051</span></td>
+                  <td>(11) 95432-1098</td>
                 </tr>
-                <tr class="hover:bg-slate-50/80 transition">
-                  <td class="py-3.5 px-4 font-semibold text-slate-900">Eduardo</td>
-                  <td class="py-3.5 px-4">Santos</td>
-                  <td class="py-3.5 px-4"><span
-                      class="px-2.5 py-1 bg-slate-100 rounded-lg text-slate-700 font-semibold text-xs">Torre C</span>
-                  </td>
-                  <td class="py-3.5 px-4">Apt 102</td>
-                  <td class="py-3.5 px-4"><span class="font-mono text-slate-600">3012</span></td>
-                  <td class="py-3.5 px-4">(11) 94321-0987</td>
+                <tr>
+                  <td class="table__cell--strong">Eduardo</td>
+                  <td>Santos</td>
+                  <td><span class="pill pill--neutral">Torre C</span></td>
+                  <td>Apt 102</td>
+                  <td><span class="table__cell--mono">3012</span></td>
+                  <td>(11) 94321-0987</td>
                 </tr>
-                <tr class="hover:bg-slate-50/80 transition">
-                  <td class="py-3.5 px-4 font-semibold text-slate-900">Fernanda</td>
-                  <td class="py-3.5 px-4">Lima</td>
-                  <td class="py-3.5 px-4"><span
-                      class="px-2.5 py-1 bg-slate-100 rounded-lg text-slate-700 font-semibold text-xs">Torre D</span>
-                  </td>
-                  <td class="py-3.5 px-4">Apt 804</td>
-                  <td class="py-3.5 px-4"><span class="font-mono text-slate-600">4084</span></td>
-                  <td class="py-3.5 px-4">(11) 93210-9876</td>
+                <tr>
+                  <td class="table__cell--strong">Fernanda</td>
+                  <td>Lima</td>
+                  <td><span class="pill pill--neutral">Torre D</span></td>
+                  <td>Apt 804</td>
+                  <td><span class="table__cell--mono">4084</span></td>
+                  <td>(11) 93210-9876</td>
                 </tr>
               </tbody>
             </table>
@@ -394,65 +381,68 @@
       </section>
 
       <!-- TORRES -->
-      <section id="view-torres" class="view-content hidden space-y-4">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2">
+      <section id="view-torres" class="view-content hidden stack">
+        <div class="page-header">
           <div>
-            <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Torres</h2>
-            <p class="text-sm text-slate-500">Gestão dos blocos e seus respectivos síndicos/responsáveis.</p>
+            <h2 class="page-header__title">Torres</h2>
+            <p class="page-header__subtitle">Gestão dos blocos e seus respectivos síndicos/responsáveis.</p>
           </div>
-          <div class="w-full sm:w-80">
-            <div class="relative">
+          <div class="page-header__actions">
+            <div class="search-box">
+              <i class="fa-solid fa-magnifying-glass search-box__icon"></i>
               <input type="text" onkeyup="filterTable('torres-search', 'torres-table')" id="torres-search"
-                placeholder="Buscar por torre, síndico..."
-                class="w-full pl-10 pr-4 py-2 bg-white border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition shadow-sm" />
-              <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400 text-sm"></i>
+                placeholder="Buscar por torre, síndico..." class="search-box__input" />
             </div>
           </div>
         </div>
-        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-          <div class="overflow-x-auto">
-            <table id="torres-table" class="w-full text-left border-collapse">
-              <thead>
-                <tr
-                  class="bg-slate-50 border-b border-slate-200 text-xs font-bold text-slate-600 uppercase tracking-wider">
-                  <th class="py-3.5 px-4">Nome</th>
-                  <th class="py-3.5 px-4">Número</th>
-                  <th class="py-3.5 px-4">Síndico</th>
-                  <th class="py-3.5 px-4">Contato</th>
+
+        <div class="table-wrapper">
+          <div class="table-scroll">
+            <table id="torres-table" class="table">
+              <thead class="table__head">
+                <tr>
+                  <th>Nome</th>
+                  <th>Número</th>
+                  <th>Síndico</th>
+                  <th>Contato</th>
                 </tr>
               </thead>
-              <tbody class="divide-y divide-slate-100 text-sm text-slate-700 font-medium">
-                <tr class="hover:bg-slate-50/80 transition">
-                  <td class="py-3.5 px-4 font-semibold text-slate-900 flex items-center space-x-2"><i
-                      class="fa-solid fa-building text-brand-600"></i><span>Torre A - Alvorada</span></td>
-                  <td class="py-3.5 px-4"><span
-                      class="px-2.5 py-1 bg-brand-50 text-brand-700 rounded-lg font-bold text-xs">Bloco 01</span></td>
-                  <td class="py-3.5 px-4">Carlos Silva</td>
-                  <td class="py-3.5 px-4">(11) 98888-1111</td>
+              <tbody class="table__body">
+                <tr>
+                  <td class="table__cell--strong">
+                    <i class="fa-solid fa-building" style="color: var(--brand-600);"></i>
+                    Torre A - Alvorada
+                  </td>
+                  <td><span class="pill pill--brand">Bloco 01</span></td>
+                  <td>Carlos Silva</td>
+                  <td>(11) 98888-1111</td>
                 </tr>
-                <tr class="hover:bg-slate-50/80 transition">
-                  <td class="py-3.5 px-4 font-semibold text-slate-900 flex items-center space-x-2"><i
-                      class="fa-solid fa-building text-brand-600"></i><span>Torre B - Bela Vista</span></td>
-                  <td class="py-3.5 px-4"><span
-                      class="px-2.5 py-1 bg-brand-50 text-brand-700 rounded-lg font-bold text-xs">Bloco 02</span></td>
-                  <td class="py-3.5 px-4">Mariana Costa</td>
-                  <td class="py-3.5 px-4">(11) 98888-2222</td>
+                <tr>
+                  <td class="table__cell--strong">
+                    <i class="fa-solid fa-building" style="color: var(--brand-600);"></i>
+                    Torre B - Bela Vista
+                  </td>
+                  <td><span class="pill pill--brand">Bloco 02</span></td>
+                  <td>Mariana Costa</td>
+                  <td>(11) 98888-2222</td>
                 </tr>
-                <tr class="hover:bg-slate-50/80 transition">
-                  <td class="py-3.5 px-4 font-semibold text-slate-900 flex items-center space-x-2"><i
-                      class="fa-solid fa-building text-brand-600"></i><span>Torre C - Copacabana</span></td>
-                  <td class="py-3.5 px-4"><span
-                      class="px-2.5 py-1 bg-brand-50 text-brand-700 rounded-lg font-bold text-xs">Bloco 03</span></td>
-                  <td class="py-3.5 px-4">Roberto Rocha</td>
-                  <td class="py-3.5 px-4">(11) 98888-3333</td>
+                <tr>
+                  <td class="table__cell--strong">
+                    <i class="fa-solid fa-building" style="color: var(--brand-600);"></i>
+                    Torre C - Copacabana
+                  </td>
+                  <td><span class="pill pill--brand">Bloco 03</span></td>
+                  <td>Roberto Rocha</td>
+                  <td>(11) 98888-3333</td>
                 </tr>
-                <tr class="hover:bg-slate-50/80 transition">
-                  <td class="py-3.5 px-4 font-semibold text-slate-900 flex items-center space-x-2"><i
-                      class="fa-solid fa-building text-brand-600"></i><span>Torre D - Dunas</span></td>
-                  <td class="py-3.5 px-4"><span
-                      class="px-2.5 py-1 bg-brand-50 text-brand-700 rounded-lg font-bold text-xs">Bloco 04</span></td>
-                  <td class="py-3.5 px-4">Patrícia Souza</td>
-                  <td class="py-3.5 px-4">(11) 98888-4444</td>
+                <tr>
+                  <td class="table__cell--strong">
+                    <i class="fa-solid fa-building" style="color: var(--brand-600);"></i>
+                    Torre D - Dunas
+                  </td>
+                  <td><span class="pill pill--brand">Bloco 04</span></td>
+                  <td>Patrícia Souza</td>
+                  <td>(11) 98888-4444</td>
                 </tr>
               </tbody>
             </table>
@@ -461,90 +451,74 @@
       </section>
 
       <!-- UNIDADES -->
-      <section id="view-unidades" class="view-content hidden space-y-4">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2">
+      <section id="view-unidades" class="view-content hidden stack">
+        <div class="page-header">
           <div>
-            <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Unidades</h2>
-            <p class="text-sm text-slate-500">Status de ocupação e proprietários de cada apartamento.</p>
+            <h2 class="page-header__title">Unidades</h2>
+            <p class="page-header__subtitle">Status de ocupação e proprietários de cada apartamento.</p>
           </div>
-          <div class="w-full sm:w-80">
-            <div class="relative">
+          <div class="page-header__actions">
+            <div class="search-box">
+              <i class="fa-solid fa-magnifying-glass search-box__icon"></i>
               <input type="text" onkeyup="filterTable('unidades-search', 'unidades-table')" id="unidades-search"
-                placeholder="Buscar por apto, proprietário..."
-                class="w-full pl-10 pr-4 py-2 bg-white border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition shadow-sm" />
-              <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400 text-sm"></i>
+                placeholder="Buscar por apto, proprietário..." class="search-box__input" />
             </div>
           </div>
         </div>
-        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-          <div class="overflow-x-auto">
-            <table id="unidades-table" class="w-full text-left border-collapse">
-              <thead>
-                <tr
-                  class="bg-slate-50 border-b border-slate-200 text-xs font-bold text-slate-600 uppercase tracking-wider">
-                  <th class="py-3.5 px-4">Apartamento</th>
-                  <th class="py-3.5 px-4">Torre</th>
-                  <th class="py-3.5 px-4">Interfone</th>
-                  <th class="py-3.5 px-4">Situação</th>
-                  <th class="py-3.5 px-4">Ocupada</th>
-                  <th class="py-3.5 px-4">Proprietário</th>
+
+        <div class="table-wrapper">
+          <div class="table-scroll">
+            <table id="unidades-table" class="table">
+              <thead class="table__head">
+                <tr>
+                  <th>Apartamento</th>
+                  <th>Torre</th>
+                  <th>Interfone</th>
+                  <th>Situação</th>
+                  <th>Ocupada</th>
+                  <th>Proprietário</th>
                 </tr>
               </thead>
-              <tbody class="divide-y divide-slate-100 text-sm text-slate-700 font-medium">
-                <tr class="hover:bg-slate-50/80 transition">
-                  <td class="py-3.5 px-4 font-bold text-slate-900">Apt 101</td>
-                  <td class="py-3.5 px-4">Torre A</td>
-                  <td class="py-3.5 px-4"><span class="font-mono text-slate-600">1010</span></td>
-                  <td class="py-3.5 px-4"><span
-                      class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-slate-500 text-white">Indisponível</span>
-                  </td>
-                  <td class="py-3.5 px-4"><span class="text-emerald-600 font-semibold"><i
-                        class="fa-solid fa-circle-check mr-1"></i> Sim</span></td>
-                  <td class="py-3.5 px-4">Ana Albuquerque</td>
+              <tbody class="table__body">
+                <tr>
+                  <td class="table__cell--strong">Apt 101</td>
+                  <td>Torre A</td>
+                  <td><span class="table__cell--mono">1010</span></td>
+                  <td><span class="badge badge--solid">Indisponível</span></td>
+                  <td><span class="status-yes"><i class="fa-solid fa-circle-check"></i> Sim</span></td>
+                  <td>Ana Albuquerque</td>
                 </tr>
-                <tr class="hover:bg-slate-50/80 transition">
-                  <td class="py-3.5 px-4 font-bold text-slate-900">Apt 102</td>
-                  <td class="py-3.5 px-4">Torre A</td>
-                  <td class="py-3.5 px-4"><span class="font-mono text-slate-600">1012</span></td>
-                  <td class="py-3.5 px-4"><span
-                      class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-600 text-white">Vende-se</span>
-                  </td>
-                  <td class="py-3.5 px-4"><span class="text-slate-400 font-semibold"><i
-                        class="fa-solid fa-circle-xmark mr-1"></i> Não</span></td>
-                  <td class="py-3.5 px-4">Marcos Oliveira</td>
+                <tr>
+                  <td class="table__cell--strong">Apt 102</td>
+                  <td>Torre A</td>
+                  <td><span class="table__cell--mono">1012</span></td>
+                  <td><span class="badge badge--info">Vende-se</span></td>
+                  <td><span class="status-no"><i class="fa-solid fa-circle-xmark"></i> Não</span></td>
+                  <td>Marcos Oliveira</td>
                 </tr>
-                <tr class="hover:bg-slate-50/80 transition">
-                  <td class="py-3.5 px-4 font-bold text-slate-900">Apt 201</td>
-                  <td class="py-3.5 px-4">Torre B</td>
-                  <td class="py-3.5 px-4"><span class="font-mono text-slate-600">2021</span></td>
-                  <td class="py-3.5 px-4"><span
-                      class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 text-green-900">Aluga-se</span>
-                  </td>
-                  <td class="py-3.5 px-4"><span class="text-slate-400 font-semibold"><i
-                        class="fa-solid fa-circle-xmark mr-1"></i> Não</span></td>
-                  <td class="py-3.5 px-4">Juliana Paes</td>
+                <tr>
+                  <td class="table__cell--strong">Apt 201</td>
+                  <td>Torre B</td>
+                  <td><span class="table__cell--mono">2021</span></td>
+                  <td><span class="badge badge--success">Aluga-se</span></td>
+                  <td><span class="status-no"><i class="fa-solid fa-circle-xmark"></i> Não</span></td>
+                  <td>Juliana Paes</td>
                 </tr>
-                <tr class="hover:bg-slate-50/80 transition">
-                  <td class="py-3.5 px-4 font-bold text-slate-900">Apt 304</td>
-                  <td class="py-3.5 px-4">Torre A</td>
-                  <td class="py-3.5 px-4"><span class="font-mono text-slate-600">1034</span></td>
-                  <td class="py-3.5 px-4"><span
-                      class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-slate-500 text-white">Indisponível</span>
-                  </td>
-                  <td class="py-3.5 px-4"><span class="text-emerald-600 font-semibold"><i
-                        class="fa-solid fa-circle-check mr-1"></i> Sim</span></td>
-                  <td class="py-3.5 px-4">Bruno Carvalho</td>
+                <tr>
+                  <td class="table__cell--strong">Apt 304</td>
+                  <td>Torre A</td>
+                  <td><span class="table__cell--mono">1034</span></td>
+                  <td><span class="badge badge--solid">Indisponível</span></td>
+                  <td><span class="status-yes"><i class="fa-solid fa-circle-check"></i> Sim</span></td>
+                  <td>Bruno Carvalho</td>
                 </tr>
-                <tr class="hover:bg-slate-50/80 transition">
-                  <td class="py-3.5 px-4 font-bold text-slate-900">Apt 501</td>
-                  <td class="py-3.5 px-4">Torre C</td>
-                  <td class="py-3.5 px-4"><span class="font-mono text-slate-600">3051</span></td>
-                  <td class="py-3.5 px-4"><span
-                      class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-slate-500 text-white">Indisponível</span>
-                  </td>
-                  <td class="py-3.5 px-4"><span class="text-emerald-600 font-semibold"><i
-                        class="fa-solid fa-circle-check mr-1"></i> Sim</span></td>
-                  <td class="py-3.5 px-4">Daniel Ferreira</td>
+                <tr>
+                  <td class="table__cell--strong">Apt 501</td>
+                  <td>Torre C</td>
+                  <td><span class="table__cell--mono">3051</span></td>
+                  <td><span class="badge badge--solid">Indisponível</span></td>
+                  <td><span class="status-yes"><i class="fa-solid fa-circle-check"></i> Sim</span></td>
+                  <td>Daniel Ferreira</td>
                 </tr>
               </tbody>
             </table>
@@ -553,128 +527,134 @@
       </section>
 
       <!-- VEÍCULOS -->
-      <section id="view-veiculos" class="view-content hidden space-y-4">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2">
+      <!-- VEÍCULOS -->
+      <section id="view-veiculos" class="view-content hidden stack">
+        <div class="page-header">
           <div>
-            <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Veículos</h2>
-            <p class="text-sm text-slate-500">Registro completo de frotas e carros autorizados na garagem.</p>
+            <h2 class="page-header__title">Veículos</h2>
+            <p class="page-header__subtitle">Registro completo de frotas e carros autorizados na garagem.</p>
           </div>
-          <div class="w-full sm:w-80">
-            <div class="relative">
+          <div class="page-header__actions">
+            <div class="search-box">
+              <i class="fa-solid fa-magnifying-glass search-box__icon"></i>
               <input type="text" onkeyup="filterTable('veiculos-search', 'veiculos-table')" id="veiculos-search"
-                placeholder="Buscar por placa, modelo, dono..."
-                class="w-full pl-10 pr-4 py-2 bg-white border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition shadow-sm" />
-              <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400 text-sm"></i>
+                placeholder="Buscar por placa, modelo, dono..." class="search-box__input" />
             </div>
           </div>
         </div>
-        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-          <div class="overflow-x-auto">
-            <table id="veiculos-table" class="w-full text-left border-collapse min-w-max">
-              <thead>
-                <tr
-                  class="bg-slate-50 border-b border-slate-200 text-xs font-bold text-slate-600 uppercase tracking-wider">
-                  <th class="py-3.5 px-4">Placa</th>
-                  <th class="py-3.5 px-4">Modelo</th>
-                  <th class="py-3.5 px-4">Marca</th>
-                  <th class="py-3.5 px-4">Tipo</th>
-                  <th class="py-3.5 px-4">Cor</th>
-                  <th class="py-3.5 px-4">Proprietário</th>
-                  <th class="py-3.5 px-4">Torre</th>
-                  <th class="py-3.5 px-4">Apartamento</th>
-                  <th class="py-3.5 px-4">Contato</th>
+
+        <div class="table-wrapper">
+          <div class="table-scroll">
+            <table id="veiculos-table" class="table table--min">
+              <thead class="table__head">
+                <tr>
+                  <th>Placa</th>
+                  <th>Modelo</th>
+                  <th>Marca</th>
+                  <th>Tipo</th>
+                  <th>Cor</th>
+                  <th>Proprietário</th>
+                  <th>Torre</th>
+                  <th>Apartamento</th>
+                  <th>Contato</th>
                 </tr>
               </thead>
-              <tbody class="divide-y divide-slate-100 text-sm text-slate-700 font-medium">
-                <tr class="hover:bg-slate-50/80 transition">
-                  <td class="py-3.5 px-4 font-mono font-bold text-slate-900"><span
-                      class="px-2 py-1 bg-slate-900 text-white rounded border border-slate-700 text-xs">ABC-1D23</span>
+              <tbody class="table__body">
+                <tr>
+                  <td><span class="plate">ABC-1D23</span></td>
+                  <td>Hb20</td>
+                  <td>Hyundai</td>
+                  <td>Carro</td>
+                  <td>
+                    <span class="color-dot-wrap">
+                      <span class="color-dot" style="background: #000;"></span>
+                      <span>Preto</span>
+                    </span>
                   </td>
-                  <td class="py-3.5 px-4">Hb20</td>
-                  <td class="py-3.5 px-4">Hyundai</td>
-                  <td class="py-3.5 px-4">Carro</td>
-                  <td class="py-3.5 px-4"><span class="inline-flex items-center space-x-1.5"><span
-                        class="w-3 h-3 rounded-full bg-black border border-slate-300"></span><span>Preto</span></span>
-                  </td>
-                  <td class="py-3.5 px-4">Ana Albuquerque</td>
-                  <td class="py-3.5 px-4">Torre A</td>
-                  <td class="py-3.5 px-4">Apt 101</td>
-                  <td class="py-3.5 px-4">(11) 98765-4321</td>
+                  <td>Ana Albuquerque</td>
+                  <td>Torre A</td>
+                  <td>Apt 101</td>
+                  <td>(11) 98765-4321</td>
                 </tr>
-                <tr class="hover:bg-slate-50/80 transition">
-                  <td class="py-3.5 px-4 font-mono font-bold text-slate-900"><span
-                      class="px-2 py-1 bg-slate-900 text-white rounded border border-slate-700 text-xs">JKXC-4F90</span>
+                <tr>
+                  <td><span class="plate">JKXC-4F90</span></td>
+                  <td>Kicks</td>
+                  <td>Nissan</td>
+                  <td>Carro</td>
+                  <td>
+                    <span class="color-dot-wrap">
+                      <span class="color-dot" style="background: #3b82f6;"></span>
+                      <span>Azul</span>
+                    </span>
                   </td>
-                  <td class="py-3.5 px-4">Kicks</td>
-                  <td class="py-3.5 px-4">Nissan</td>
-                  <td class="py-3.5 px-4">Carro</td>
-                  <td class="py-3.5 px-4"><span class="inline-flex items-center space-x-1.5"><span
-                        class="w-3 h-3 rounded-full bg-blue-500 border border-slate-300"></span><span>Azul</span></span>
-                  </td>
-                  <td class="py-3.5 px-4">Ana Albuquerque</td>
-                  <td class="py-3.5 px-4">Torre A</td>
-                  <td class="py-3.5 px-4">Apt 101</td>
-                  <td class="py-3.5 px-4">(11) 98765-4321</td>
+                  <td>Ana Albuquerque</td>
+                  <td>Torre A</td>
+                  <td>Apt 101</td>
+                  <td>(11) 98765-4321</td>
                 </tr>
-                <tr class="hover:bg-slate-50/80 transition">
-                  <td class="py-3.5 px-4 font-mono font-bold text-slate-900"><span
-                      class="px-2 py-1 bg-slate-900 text-white rounded border border-slate-700 text-xs">PTR-7B81</span>
+                <tr>
+                  <td><span class="plate">PTR-7B81</span></td>
+                  <td>Civic</td>
+                  <td>Honda</td>
+                  <td>Carro</td>
+                  <td>
+                    <span class="color-dot-wrap">
+                      <span class="color-dot" style="background: #78350f;"></span>
+                      <span>Marrom</span>
+                    </span>
                   </td>
-                  <td class="py-3.5 px-4">Civic</td>
-                  <td class="py-3.5 px-4">Honda</td>
-                  <td class="py-3.5 px-4">Carro</td>
-                  <td class="py-3.5 px-4"><span class="inline-flex items-center space-x-1.5"><span
-                        class="w-3 h-3 rounded-full bg-amber-900 border border-slate-300"></span><span>Marrom</span></span>
-                  </td>
-                  <td class="py-3.5 px-4">Ana Albuquerque</td>
-                  <td class="py-3.5 px-4">Torre A</td>
-                  <td class="py-3.5 px-4">Apt 101</td>
-                  <td class="py-3.5 px-4">(11) 98765-4321</td>
+                  <td>Ana Albuquerque</td>
+                  <td>Torre A</td>
+                  <td>Apt 101</td>
+                  <td>(11) 98765-4321</td>
                 </tr>
-                <tr class="hover:bg-slate-50/80 transition">
-                  <td class="py-3.5 px-4 font-mono font-bold text-slate-900"><span
-                      class="px-2 py-1 bg-slate-900 text-white rounded border border-slate-700 text-xs">XYZ-9E87</span>
+                <tr>
+                  <td><span class="plate">XYZ-9E87</span></td>
+                  <td>Corolla</td>
+                  <td>Toyota</td>
+                  <td>Carro</td>
+                  <td>
+                    <span class="color-dot-wrap">
+                      <span class="color-dot" style="background: #cbd5e1;"></span>
+                      <span>Prata</span>
+                    </span>
                   </td>
-                  <td class="py-3.5 px-4">Corolla</td>
-                  <td class="py-3.5 px-4">Toyota</td>
-                  <td class="py-3.5 px-4">Carro</td>
-                  <td class="py-3.5 px-4"><span class="inline-flex items-center space-x-1.5"><span
-                        class="w-3 h-3 rounded-full bg-slate-300 border border-slate-400"></span><span>Prata</span></span>
-                  </td>
-                  <td class="py-3.5 px-4">Bruno Carvalho</td>
-                  <td class="py-3.5 px-4">Torre A</td>
-                  <td class="py-3.5 px-4">Apt 304</td>
-                  <td class="py-3.5 px-4">(11) 97654-3210</td>
+                  <td>Bruno Carvalho</td>
+                  <td>Torre A</td>
+                  <td>Apt 304</td>
+                  <td>(11) 97654-3210</td>
                 </tr>
-                <tr class="hover:bg-slate-50/80 transition">
-                  <td class="py-3.5 px-4 font-mono font-bold text-slate-900"><span
-                      class="px-2 py-1 bg-slate-900 text-white rounded border border-slate-700 text-xs">KJR-4F55</span>
+                <tr>
+                  <td><span class="plate">KJR-4F55</span></td>
+                  <td>Compass</td>
+                  <td>Jeep</td>
+                  <td>Carro</td>
+                  <td>
+                    <span class="color-dot-wrap">
+                      <span class="color-dot" style="background: #ffffff;"></span>
+                      <span>Branco</span>
+                    </span>
                   </td>
-                  <td class="py-3.5 px-4">Compass</td>
-                  <td class="py-3.5 px-4">Jeep</td>
-                  <td class="py-3.5 px-4">Carro</td>
-                  <td class="py-3.5 px-4"><span class="inline-flex items-center space-x-1.5"><span
-                        class="w-3 h-3 rounded-full bg-white border border-slate-400"></span><span>Branco</span></span>
-                  </td>
-                  <td class="py-3.5 px-4">Carla Menezes</td>
-                  <td class="py-3.5 px-4">Torre B</td>
-                  <td class="py-3.5 px-4">Apt 202</td>
-                  <td class="py-3.5 px-4">(11) 96543-2109</td>
+                  <td>Carla Menezes</td>
+                  <td>Torre B</td>
+                  <td>Apt 202</td>
+                  <td>(11) 96543-2109</td>
                 </tr>
-                <tr class="hover:bg-slate-50/80 transition">
-                  <td class="py-3.5 px-4 font-mono font-bold text-slate-900"><span
-                      class="px-2 py-1 bg-slate-900 text-white rounded border border-slate-700 text-xs">MOT-2G11</span>
+                <tr>
+                  <td><span class="plate">MOT-2G11</span></td>
+                  <td>CB 500F</td>
+                  <td>Honda</td>
+                  <td>Motocicleta</td>
+                  <td>
+                    <span class="color-dot-wrap">
+                      <span class="color-dot" style="background: #dc2626;"></span>
+                      <span>Vermelho</span>
+                    </span>
                   </td>
-                  <td class="py-3.5 px-4">CB 500F</td>
-                  <td class="py-3.5 px-4">Honda</td>
-                  <td class="py-3.5 px-4">Motocicleta</td>
-                  <td class="py-3.5 px-4"><span class="inline-flex items-center space-x-1.5"><span
-                        class="w-3 h-3 rounded-full bg-red-600 border border-slate-300"></span><span>Vermelho</span></span>
-                  </td>
-                  <td class="py-3.5 px-4">Daniel Ferreira</td>
-                  <td class="py-3.5 px-4">Torre B</td>
-                  <td class="py-3.5 px-4">Apt 501</td>
-                  <td class="py-3.5 px-4">(11) 95432-1098</td>
+                  <td>Daniel Ferreira</td>
+                  <td>Torre B</td>
+                  <td>Apt 501</td>
+                  <td>(11) 95432-1098</td>
                 </tr>
               </tbody>
             </table>
@@ -683,69 +663,62 @@
       </section>
 
       <!-- VISITANTES -->
-      <section id="view-visitantes" class="view-content hidden space-y-4">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2">
+      <section id="view-visitantes" class="view-content hidden stack">
+        <div class="page-header">
           <div>
-            <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Visitantes</h2>
-            <p class="text-sm text-slate-500">Controle de entrada e saída na portaria.</p>
+            <h2 class="page-header__title">Visitantes</h2>
+            <p class="page-header__subtitle">Controle de entrada e saída na portaria.</p>
           </div>
-          <div class="w-full sm:w-80">
-            <div class="relative">
+          <div class="page-header__actions">
+            <div class="search-box">
+              <i class="fa-solid fa-magnifying-glass search-box__icon"></i>
               <input type="text" onkeyup="filterTable('visitantes-search', 'visitantes-table')" id="visitantes-search"
-                placeholder="Buscar visitante, documento..."
-                class="w-full pl-10 pr-4 py-2 bg-white border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition shadow-sm" />
-              <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400 text-sm"></i>
+                placeholder="Buscar visitante, documento..." class="search-box__input" />
             </div>
           </div>
         </div>
-        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-          <div class="overflow-x-auto">
-            <table id="visitantes-table" class="w-full text-left border-collapse">
-              <thead>
-                <tr
-                  class="bg-slate-50 border-b border-slate-200 text-xs font-bold text-slate-600 uppercase tracking-wider">
-                  <th class="py-3.5 px-4">Nome</th>
-                  <th class="py-3.5 px-4">Documento</th>
-                  <th class="py-3.5 px-4">Tipo</th>
-                  <th class="py-3.5 px-4">Data/Hora Entrada</th>
-                  <th class="py-3.5 px-4">Torre</th>
-                  <th class="py-3.5 px-4">Apartamento</th>
-                  <th class="py-3.5 px-4">Status</th>
+
+        <div class="table-wrapper">
+          <div class="table-scroll">
+            <table id="visitantes-table" class="table">
+              <thead class="table__head">
+                <tr>
+                  <th>Nome</th>
+                  <th>Documento</th>
+                  <th>Tipo</th>
+                  <th>Data/Hora Entrada</th>
+                  <th>Torre</th>
+                  <th>Apartamento</th>
+                  <th>Status</th>
                 </tr>
               </thead>
-              <tbody class="divide-y divide-slate-100 text-sm text-slate-700 font-medium">
-                <tr class="hover:bg-slate-50/80 transition">
-                  <td class="py-3.5 px-4 font-semibold text-slate-900">Gabriel Ramos</td>
-                  <td class="py-3.5 px-4 font-mono text-xs">44.123.890-X</td>
-                  <td class="py-3.5 px-4">Visitante / Convidado</td>
-                  <td class="py-3.5 px-4">04/10/2026 14:30</td>
-                  <td class="py-3.5 px-4">Torre A</td>
-                  <td class="py-3.5 px-4">Apt 101</td>
-                  <td class="py-3.5 px-4"><span
-                      class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800">No
-                      Condomínio</span></td>
+              <tbody class="table__body">
+                <tr>
+                  <td class="table__cell--strong">Gabriel Ramos</td>
+                  <td><span class="table__cell--mono">44.123.890-X</span></td>
+                  <td>Visitante / Convidado</td>
+                  <td>04/10/2026 14:30</td>
+                  <td>Torre A</td>
+                  <td>Apt 101</td>
+                  <td><span class="badge badge--success">No Condomínio</span></td>
                 </tr>
-                <tr class="hover:bg-slate-50/80 transition">
-                  <td class="py-3.5 px-4 font-semibold text-slate-900">Técnico Claro (Marcos)</td>
-                  <td class="py-3.5 px-4 font-mono text-xs">33.987.112-4</td>
-                  <td class="py-3.5 px-4">Prestador de Serviço</td>
-                  <td class="py-3.5 px-4">04/10/2026 11:15</td>
-                  <td class="py-3.5 px-4">Torre B</td>
-                  <td class="py-3.5 px-4">Apt 202</td>
-                  <td class="py-3.5 px-4"><span
-                      class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-slate-100 text-slate-700">Saída
-                      Registrada</span></td>
+                <tr>
+                  <td class="table__cell--strong">Técnico Claro (Marcos)</td>
+                  <td><span class="table__cell--mono">33.987.112-4</span></td>
+                  <td>Prestador de Serviço</td>
+                  <td>04/10/2026 11:15</td>
+                  <td>Torre B</td>
+                  <td>Apt 202</td>
+                  <td><span class="badge badge--neutral">Saída Registrada</span></td>
                 </tr>
-                <tr class="hover:bg-slate-50/80 transition">
-                  <td class="py-3.5 px-4 font-semibold text-slate-900">Entregador iFood</td>
-                  <td class="py-3.5 px-4 font-mono text-xs">55.333.111-9</td>
-                  <td class="py-3.5 px-4">Delivery</td>
-                  <td class="py-3.5 px-4">04/10/2026 17:45</td>
-                  <td class="py-3.5 px-4">Torre A</td>
-                  <td class="py-3.5 px-4">Apt 304</td>
-                  <td class="py-3.5 px-4"><span
-                      class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-800">Em
-                      Trânsito</span></td>
+                <tr>
+                  <td class="table__cell--strong">Entregador iFood</td>
+                  <td><span class="table__cell--mono">55.333.111-9</span></td>
+                  <td>Delivery</td>
+                  <td>04/10/2026 17:45</td>
+                  <td>Torre A</td>
+                  <td>Apt 304</td>
+                  <td><span class="badge badge--warning">Em Trânsito</span></td>
                 </tr>
               </tbody>
             </table>
@@ -754,68 +727,58 @@
       </section>
 
       <!-- OCORRÊNCIAS -->
-      <section id="view-ocorrencias" class="view-content hidden space-y-4">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2">
+      <section id="view-ocorrencias" class="view-content hidden stack">
+        <div class="page-header">
           <div>
-            <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Ocorrências</h2>
-            <p class="text-sm text-slate-500">Registro de solicitações, reclamações e manutenção.</p>
+            <h2 class="page-header__title">Ocorrências</h2>
+            <p class="page-header__subtitle">Registro de solicitações, reclamações e manutenção.</p>
           </div>
-          <div class="w-full sm:w-80">
-            <div class="relative">
+          <div class="page-header__actions">
+            <div class="search-box">
+              <i class="fa-solid fa-magnifying-glass search-box__icon"></i>
               <input type="text" onkeyup="filterTable('ocorrencias-search', 'ocorrencias-table')"
-                id="ocorrencias-search" placeholder="Buscar por ocorrência, morador..."
-                class="w-full pl-10 pr-4 py-2 bg-white border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition shadow-sm" />
-              <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400 text-sm"></i>
+                id="ocorrencias-search" placeholder="Buscar por ocorrência, morador..." class="search-box__input" />
             </div>
           </div>
         </div>
-        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-          <div class="overflow-x-auto">
-            <table id="ocorrencias-table" class="w-full text-left border-collapse">
-              <thead>
-                <tr
-                  class="bg-slate-50 border-b border-slate-200 text-xs font-bold text-slate-600 uppercase tracking-wider">
-                  <th class="py-3.5 px-4">Título</th>
-                  <th class="py-3.5 px-4">Categoria</th>
-                  <th class="py-3.5 px-4">Morador</th>
-                  <th class="py-3.5 px-4">Data</th>
-                  <th class="py-3.5 px-4">Prioridade</th>
-                  <th class="py-3.5 px-4">Status</th>
+
+        <div class="table-wrapper">
+          <div class="table-scroll">
+            <table id="ocorrencias-table" class="table">
+              <thead class="table__head">
+                <tr>
+                  <th>Título</th>
+                  <th>Categoria</th>
+                  <th>Morador</th>
+                  <th>Data</th>
+                  <th>Prioridade</th>
+                  <th>Status</th>
                 </tr>
               </thead>
-              <tbody class="divide-y divide-slate-100 text-sm text-slate-700 font-medium">
-                <tr class="hover:bg-slate-50/80 transition">
-                  <td class="py-3.5 px-4 font-semibold text-slate-900">Vazamento na garagem B1</td>
-                  <td class="py-3.5 px-4">Manutenção</td>
-                  <td class="py-3.5 px-4">Bruno Carvalho (Apt 304)</td>
-                  <td class="py-3.5 px-4">02/10/2026</td>
-                  <td class="py-3.5 px-4"><span
-                      class="px-2 py-0.5 rounded text-xs font-bold bg-rose-100 text-rose-800">Alta</span></td>
-                  <td class="py-3.5 px-4"><span
-                      class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-800">Em
-                      Andamento</span></td>
+              <tbody class="table__body">
+                <tr>
+                  <td class="table__cell--strong">Vazamento na garagem B1</td>
+                  <td>Manutenção</td>
+                  <td>Bruno Carvalho (Apt 304)</td>
+                  <td>02/10/2026</td>
+                  <td><span class="badge badge--danger">Alta</span></td>
+                  <td><span class="badge badge--warning">Em Andamento</span></td>
                 </tr>
-                <tr class="hover:bg-slate-50/80 transition">
-                  <td class="py-3.5 px-4 font-semibold text-slate-900">Barulho excessivo após 22h</td>
-                  <td class="py-3.5 px-4">Convivência</td>
-                  <td class="py-3.5 px-4">Ana Albuquerque (Apt 101)</td>
-                  <td class="py-3.5 px-4">01/10/2026</td>
-                  <td class="py-3.5 px-4"><span
-                      class="px-2 py-0.5 rounded text-xs font-bold bg-slate-100 text-slate-700">Média</span></td>
-                  <td class="py-3.5 px-4"><span
-                      class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800">Resolvido</span>
-                  </td>
+                <tr>
+                  <td class="table__cell--strong">Barulho excessivo após 22h</td>
+                  <td>Convivência</td>
+                  <td>Ana Albuquerque (Apt 101)</td>
+                  <td>01/10/2026</td>
+                  <td><span class="badge badge--neutral">Média</span></td>
+                  <td><span class="badge badge--success">Resolvido</span></td>
                 </tr>
-                <tr class="hover:bg-slate-50/80 transition">
-                  <td class="py-3.5 px-4 font-semibold text-slate-900">Lâmpada queimada corredor 5º andar</td>
-                  <td class="py-3.5 px-4">Iluminação</td>
-                  <td class="py-3.5 px-4">Daniel Ferreira (Apt 501)</td>
-                  <td class="py-3.5 px-4">03/10/2026</td>
-                  <td class="py-3.5 px-4"><span
-                      class="px-2 py-0.5 rounded text-xs font-bold bg-sky-100 text-sky-800">Baixa</span></td>
-                  <td class="py-3.5 px-4"><span
-                      class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-sky-100 text-sky-800">Aberto</span>
-                  </td>
+                <tr>
+                  <td class="table__cell--strong">Lâmpada queimada corredor 5º andar</td>
+                  <td>Iluminação</td>
+                  <td>Daniel Ferreira (Apt 501)</td>
+                  <td>03/10/2026</td>
+                  <td><span class="badge badge--info">Baixa</span></td>
+                  <td><span class="badge badge--info">Aberto</span></td>
                 </tr>
               </tbody>
             </table>
@@ -824,61 +787,54 @@
       </section>
 
       <!-- CONTATOS -->
-      <section id="view-contatos" class="view-content hidden space-y-4">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2">
+      <section id="view-contatos" class="view-content hidden stack">
+        <div class="page-header">
           <div>
-            <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Contatos Úteis</h2>
-            <p class="text-sm text-slate-500">Telefones e e-mails de serviços, emergência e administração.</p>
+            <h2 class="page-header__title">Contatos Úteis</h2>
+            <p class="page-header__subtitle">Telefones e e-mails de serviços, emergência e administração.</p>
           </div>
-          <div class="w-full sm:w-80">
-            <div class="relative">
+          <div class="page-header__actions">
+            <div class="search-box">
+              <i class="fa-solid fa-magnifying-glass search-box__icon"></i>
               <input type="text" onkeyup="filterTable('contatos-search', 'contatos-table')" id="contatos-search"
-                placeholder="Buscar nome, setor, função..."
-                class="w-full pl-10 pr-4 py-2 bg-white border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition shadow-sm" />
-              <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400 text-sm"></i>
+                placeholder="Buscar nome, setor, função..." class="search-box__input" />
             </div>
           </div>
         </div>
-        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-          <div class="overflow-x-auto">
-            <table id="contatos-table" class="w-full text-left border-collapse">
-              <thead>
-                <tr
-                  class="bg-slate-50 border-b border-slate-200 text-xs font-bold text-slate-600 uppercase tracking-wider">
-                  <th class="py-3.5 px-4">Nome / Empresa</th>
-                  <th class="py-3.5 px-4">Cargo / Função</th>
-                  <th class="py-3.5 px-4">Telefone</th>
-                  <th class="py-3.5 px-4">E-mail</th>
-                  <th class="py-3.5 px-4">Setor</th>
+
+        <div class="table-wrapper">
+          <div class="table-scroll">
+            <table id="contatos-table" class="table">
+              <thead class="table__head">
+                <tr>
+                  <th>Nome / Empresa</th>
+                  <th>Cargo / Função</th>
+                  <th>Telefone</th>
+                  <th>E-mail</th>
+                  <th>Setor</th>
                 </tr>
               </thead>
-              <tbody class="divide-y divide-slate-100 text-sm text-slate-700 font-medium">
-                <tr class="hover:bg-slate-50/80 transition">
-                  <td class="py-3.5 px-4 font-semibold text-slate-900">Portaria Principal</td>
-                  <td class="py-3.5 px-4">Atendimento 24h</td>
-                  <td class="py-3.5 px-4 font-mono">(11) 3333-0001</td>
-                  <td class="py-3.5 px-4 text-slate-500">portaria@condxpto.com.br</td>
-                  <td class="py-3.5 px-4"><span
-                      class="px-2.5 py-1 bg-slate-100 text-slate-700 rounded-lg text-xs font-semibold">Segurança</span>
-                  </td>
+              <tbody class="table__body">
+                <tr>
+                  <td class="table__cell--strong">Portaria Principal</td>
+                  <td>Atendimento 24h</td>
+                  <td><span class="table__cell--mono">(11) 3333-0001</span></td>
+                  <td>portaria@condxpto.com.br</td>
+                  <td><span class="pill pill--neutral">Segurança</span></td>
                 </tr>
-                <tr class="hover:bg-slate-50/80 transition">
-                  <td class="py-3.5 px-4 font-semibold text-slate-900">Eletricista Plantão (João)</td>
-                  <td class="py-3.5 px-4">Técnico Eletricista</td>
-                  <td class="py-3.5 px-4 font-mono">(11) 97777-8888</td>
-                  <td class="py-3.5 px-4 text-slate-500">joao.eletrica@gmail.com</td>
-                  <td class="py-3.5 px-4"><span
-                      class="px-2.5 py-1 bg-slate-100 text-slate-700 rounded-lg text-xs font-semibold">Manutenção</span>
-                  </td>
+                <tr>
+                  <td class="table__cell--strong">Eletricista Plantão (João)</td>
+                  <td>Técnico Eletricista</td>
+                  <td><span class="table__cell--mono">(11) 97777-8888</span></td>
+                  <td>joao.eletrica@gmail.com</td>
+                  <td><span class="pill pill--neutral">Manutenção</span></td>
                 </tr>
-                <tr class="hover:bg-slate-50/80 transition">
-                  <td class="py-3.5 px-4 font-semibold text-slate-900">Administradora XPTO</td>
-                  <td class="py-3.5 px-4">Gestão Financeira/Boleto</td>
-                  <td class="py-3.5 px-4 font-mono">(11) 3003-4004</td>
-                  <td class="py-3.5 px-4 text-slate-500">contato@adminxpto.com.br</td>
-                  <td class="py-3.5 px-4"><span
-                      class="px-2.5 py-1 bg-slate-100 text-slate-700 rounded-lg text-xs font-semibold">Administração</span>
-                  </td>
+                <tr>
+                  <td class="table__cell--strong">Administradora XPTO</td>
+                  <td>Gestão Financeira/Boleto</td>
+                  <td><span class="table__cell--mono">(11) 3003-4004</span></td>
+                  <td>contato@adminxpto.com.br</td>
+                  <td><span class="pill pill--neutral">Administração</span></td>
                 </tr>
               </tbody>
             </table>
@@ -887,60 +843,50 @@
       </section>
 
       <!-- NOTIFICAÇÕES -->
-      <section id="view-notificacoes" class="view-content hidden space-y-4">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2">
+      <section id="view-notificacoes" class="view-content hidden stack">
+        <div class="page-header">
           <div>
-            <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Notificações e Avisos</h2>
-            <p class="text-sm text-slate-500">Comunicados oficiais emitidos para os moradores.</p>
+            <h2 class="page-header__title">Notificações e Avisos</h2>
+            <p class="page-header__subtitle">Comunicados oficiais emitidos para os moradores.</p>
           </div>
-          <div class="w-full sm:w-80">
-            <div class="relative">
+          <div class="page-header__actions">
+            <div class="search-box">
+              <i class="fa-solid fa-magnifying-glass search-box__icon"></i>
               <input type="text" onkeyup="filterTable('notificacoes-search', 'notificacoes-table')"
-                id="notificacoes-search" placeholder="Buscar notificações..."
-                class="w-full pl-10 pr-4 py-2 bg-white border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition shadow-sm" />
-              <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400 text-sm"></i>
+                id="notificacoes-search" placeholder="Buscar notificações..." class="search-box__input" />
             </div>
           </div>
         </div>
-        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-          <div class="overflow-x-auto">
-            <table id="notificacoes-table" class="w-full text-left border-collapse">
-              <thead>
-                <tr
-                  class="bg-slate-50 border-b border-slate-200 text-xs font-bold text-slate-600 uppercase tracking-wider">
-                  <th class="py-3.5 px-4">Título do Comunicado</th>
-                  <th class="py-3.5 px-4">Destinatário</th>
-                  <th class="py-3.5 px-4">Data</th>
-                  <th class="py-3.5 px-4">Status</th>
+
+        <div class="table-wrapper">
+          <div class="table-scroll">
+            <table id="notificacoes-table" class="table">
+              <thead class="table__head">
+                <tr>
+                  <th>Título do Comunicado</th>
+                  <th>Destinatário</th>
+                  <th>Data</th>
+                  <th>Status</th>
                 </tr>
               </thead>
-              <tbody class="divide-y divide-slate-100 text-sm text-slate-700 font-medium">
-                <tr class="hover:bg-slate-50/80 transition">
-                  <td class="py-3.5 px-4 font-semibold text-slate-900">Limpeza das Caixas d'Água programada para
-                    Quinta-feira</td>
-                  <td class="py-3.5 px-4">Todos os Moradores</td>
-                  <td class="py-3.5 px-4">04/10/2026</td>
-                  <td class="py-3.5 px-4"><span
-                      class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800">Enviado</span>
-                  </td>
+              <tbody class="table__body">
+                <tr>
+                  <td class="table__cell--strong">Limpeza das Caixas d'Água programada para Quinta-feira</td>
+                  <td>Todos os Moradores</td>
+                  <td>04/10/2026</td>
+                  <td><span class="badge badge--success">Enviado</span></td>
                 </tr>
-                <tr class="hover:bg-slate-50/80 transition">
-                  <td class="py-3.5 px-4 font-semibold text-slate-900">Convocação para Assembleia Geral Ordinária (AGO)
-                  </td>
-                  <td class="py-3.5 px-4">Proprietários</td>
-                  <td class="py-3.5 px-4">28/09/2026</td>
-                  <td class="py-3.5 px-4"><span
-                      class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800">Enviado</span>
-                  </td>
+                <tr>
+                  <td class="table__cell--strong">Convocação para Assembleia Geral Ordinária (AGO)</td>
+                  <td>Proprietários</td>
+                  <td>28/09/2026</td>
+                  <td><span class="badge badge--success">Enviado</span></td>
                 </tr>
-                <tr class="hover:bg-slate-50/80 transition">
-                  <td class="py-3.5 px-4 font-semibold text-slate-900">Manutenção preventiva dos elevadores da Torre B
-                  </td>
-                  <td class="py-3.5 px-4">Torre B</td>
-                  <td class="py-3.5 px-4">20/09/2026</td>
-                  <td class="py-3.5 px-4"><span
-                      class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-slate-100 text-slate-700">Arquivado</span>
-                  </td>
+                <tr>
+                  <td class="table__cell--strong">Manutenção preventiva dos elevadores da Torre B</td>
+                  <td>Torre B</td>
+                  <td>20/09/2026</td>
+                  <td><span class="badge badge--neutral">Arquivado</span></td>
                 </tr>
               </tbody>
             </table>
