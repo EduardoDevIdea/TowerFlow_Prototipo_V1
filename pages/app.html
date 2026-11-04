@@ -527,7 +527,6 @@
       </section>
 
       <!-- VEÍCULOS -->
-      <!-- VEÍCULOS -->
       <section id="view-veiculos" class="view-content hidden stack">
         <div class="page-header">
           <div>
@@ -898,40 +897,33 @@
   </div>
 
   <!-- MODAL DE PERFIL -->
-  <div id="profileModal"
-    class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden transform transition-all duration-300">
-      <div class="bg-gradient-to-r from-brand-600 to-indigo-600 p-6 text-white text-center relative">
-        <button onclick="closeProfileModal()"
-          class="absolute top-4 right-4 text-white/80 hover:text-white focus:outline-none">
-          <i class="fa-solid fa-xmark text-xl"></i>
+  <div id="profileModal" class="modal">
+    <div class="modal__panel">
+      <div class="modal__header">
+        <button onclick="closeProfileModal()" class="modal__close" aria-label="Fechar">
+          <i class="fa-solid fa-xmark"></i>
         </button>
-        <img class="w-20 h-20 rounded-full mx-auto object-cover ring-4 ring-white/30 shadow-lg"
+        <img class="modal__avatar"
           src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=250"
           alt="Carlos Silva" />
-        <h3 class="text-xl font-bold mt-3">Carlos Silva</h3>
-        <p class="text-brand-100 text-xs font-medium">Síndico Geral • Cond. XPTO</p>
+        <h3 class="modal__name">Carlos Silva</h3>
+        <p class="modal__role">Síndico Geral • Cond. XPTO</p>
       </div>
-      <div class="p-6 space-y-4">
-        <div class="space-y-3">
-          <div class="flex items-center space-x-3 text-sm text-slate-600 pb-2 border-b border-slate-100">
-            <i class="fa-solid fa-envelope w-5 text-brand-600"></i>
-            <span class="font-medium text-slate-800">sindico@condxpto.com.br</span>
-          </div>
-          <div class="flex items-center space-x-3 text-sm text-slate-600 pb-2 border-b border-slate-100">
-            <i class="fa-solid fa-phone w-5 text-brand-600"></i>
-            <span class="font-medium text-slate-800">(11) 98888-1111</span>
-          </div>
-          <div class="flex items-center space-x-3 text-sm text-slate-600 pb-2 border-b border-slate-100">
-            <i class="fa-solid fa-building-user w-5 text-brand-600"></i>
-            <span class="font-medium text-slate-800">Torre A • Apt 1201</span>
-          </div>
+      <div class="modal__body">
+        <div class="modal__info-row">
+          <i class="fa-solid fa-envelope"></i>
+          <span>sindico@condxpto.com.br</span>
         </div>
-        <div class="pt-2">
-          <button onclick="closeProfileModal()"
-            class="w-full bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold py-2.5 rounded-xl text-sm transition">
-            Fechar
-          </button>
+        <div class="modal__info-row">
+          <i class="fa-solid fa-phone"></i>
+          <span>(11) 98888-1111</span>
+        </div>
+        <div class="modal__info-row">
+          <i class="fa-solid fa-building-user"></i>
+          <span>Torre A • Apt 1201</span>
+        </div>
+        <div style="padding-top: 0.5rem;">
+          <button onclick="closeProfileModal()" class="btn btn--secondary btn--block">Fechar</button>
         </div>
       </div>
     </div>
@@ -1014,10 +1006,13 @@
 
     // ========== PROFILE MODAL ==========
     function openProfileModal() {
-      document.getElementById('profileModal').classList.remove('hidden');
+      const modal = document.getElementById('profileModal');
+      if (modal) modal.classList.add('is-open');
     }
+
     function closeProfileModal() {
-      document.getElementById('profileModal').classList.add('hidden');
+      const modal = document.getElementById('profileModal');
+      if (modal) modal.classList.remove('is-open');
     }
 
     // ========== LOGOUT ==========
@@ -1041,6 +1036,15 @@
 
     // ========== INIT ==========
     document.addEventListener('DOMContentLoaded', function () {
+      // Fecha o modal ao clicar no backdrop
+      const profileModal = document.getElementById('profileModal');
+      if (profileModal) {
+        profileModal.addEventListener('click', function (e) {
+          if (e.target === this) closeProfileModal();
+        });
+      }
+
+      // Inicializa a aba Home
       switchTab('home');
     });
   </script>
