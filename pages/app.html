@@ -1,28 +1,11 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="h-full bg-slate-50">
+<html lang="pt-BR">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TowerFlow — Cond. XPTO</title>
 
-  <!-- Tailwind (PROVISÓRIO: será removido nos passos de migração para CSS puro) -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: { sans: ['Inter', 'sans-serif'] },
-          colors: {
-            brand: {
-              50: '#f0f9ff', 100: '#e0f2fe', 500: '#0284c7',
-              600: '#0284c7', 700: '#0369a1', 800: '#075985', 900: '#0c4a6e'
-            }
-          }
-        }
-      }
-    }
-  </script>
 
   <!-- FontAwesome + Google Fonts -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
@@ -40,10 +23,10 @@
   <link rel="stylesheet" href="../assets/css/pages/app.css" />
 </head>
 
-<body class="h-full flex flex-col font-sans text-slate-800 antialiased bg-slate-50">
+<body class="app-body">
 
   <!-- ==================== APLICAÇÃO PRINCIPAL ==================== -->
-  <div id="appContainer" class="h-full flex-col flex">
+  <div id="appContainer">
     <!-- HEADER -->
     <header class="app-header">
       <div class="app-header__inner">
@@ -137,10 +120,10 @@
     </nav>
 
     <!-- MAIN CONTENT -->
-    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <main class="app-main">
 
       <!-- HOME -->
-      <section id="view-home" class="view-content space-y-6">
+      <section id="view-home" class="view-content stack stack--lg">
 
         <div class="hero">
           <div class="hero__content">
