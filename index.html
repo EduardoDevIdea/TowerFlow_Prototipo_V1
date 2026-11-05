@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TowerFlow — Login | Cond. XPTO</title>
 
   <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230284c7'/%3E%3Ctext x='50' y='65' font-size='50' text-anchor='middle' fill='white'%3E🏢%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230284c7'/%3E%3Ctext x='50' y='65' font-size='50' text-anchor='middle' fill='white'%3E🏢%3C/text%3E%3C/svg%3E" />
 
   <!-- FontAwesome + Google Fonts -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
@@ -15,7 +17,13 @@
   <!-- CSS puro do projeto -->
   <link rel="stylesheet" href="assets/css/base.css" />
   <link rel="stylesheet" href="assets/css/pages/login.css" />
+
+  <!-- JS do projeto -->
+  <script src="assets/js/auth.js" defer></script>
+  <script src="assets/js/login.js" defer></script>
+
 </head>
+
 <body>
   <div id="loginScreen" class="login-screen">
     <div class="login-blobs" aria-hidden="true">
@@ -39,7 +47,8 @@
             <label for="loginUser" class="form-label">Usuário</label>
             <div class="form-field">
               <i class="fa-solid fa-user form-field__icon"></i>
-              <input type="text" id="loginUser" class="form-input" autocomplete="username" placeholder="Digite seu usuário" />
+              <input type="text" id="loginUser" class="form-input" autocomplete="username"
+                placeholder="Digite seu usuário" />
             </div>
           </div>
 
@@ -47,8 +56,10 @@
             <label for="loginPassword" class="form-label">Senha</label>
             <div class="form-field">
               <i class="fa-solid fa-lock form-field__icon"></i>
-              <input type="password" id="loginPassword" class="form-input form-input--with-toggle" autocomplete="current-password" placeholder="Digite sua senha" />
-              <button type="button" class="form-toggle-btn" onclick="togglePassword()" aria-label="Mostrar/ocultar senha">
+              <input type="password" id="loginPassword" class="form-input form-input--with-toggle"
+                autocomplete="current-password" placeholder="Digite sua senha" />
+              <button type="button" class="form-toggle-btn" onclick="togglePassword()"
+                aria-label="Mostrar/ocultar senha">
                 <i id="togglePasswordIcon" class="fa-solid fa-eye"></i>
               </button>
             </div>
@@ -64,7 +75,8 @@
               <input type="checkbox" />
               <span>Lembrar-me</span>
             </label>
-            <button type="button" class="link-button" onclick="alert('Funcionalidade de recuperação de senha em desenvolvimento.')">
+            <button type="button" class="link-button"
+              onclick="alert('Funcionalidade de recuperação de senha em desenvolvimento.')">
               Esqueci a senha
             </button>
           </div>
@@ -84,67 +96,6 @@
     </div>
   </div>
 
-  <script>
-    const VALID_USER = 'admin';
-    const VALID_PASS = '123';
-
-    function togglePassword() {
-      const input = document.getElementById('loginPassword');
-      const icon = document.getElementById('togglePasswordIcon');
-      if (input.type === 'password') {
-        input.type = 'text';
-        icon.classList.replace('fa-eye', 'fa-eye-slash');
-      } else {
-        input.type = 'password';
-        icon.classList.replace('fa-eye-slash', 'fa-eye');
-      }
-    }
-
-    function showError(message) {
-      const box = document.getElementById('loginError');
-      const text = document.getElementById('loginErrorText');
-      const card = document.getElementById('loginCard');
-      text.textContent = message;
-      box.classList.add('is-visible');
-      card.classList.remove('shake');
-      void card.offsetWidth;
-      card.classList.add('shake');
-    }
-
-    function hideError() {
-      document.getElementById('loginError').classList.remove('is-visible');
-    }
-
-    function doLogin() {
-      const user = document.getElementById('loginUser').value.trim();
-      const pass = document.getElementById('loginPassword').value;
-
-      if (user === VALID_USER && pass === VALID_PASS) {
-        hideError();
-        localStorage.setItem('towerflow_user', JSON.stringify({ user: user, loggedAt: new Date().toISOString() }));
-        window.location.href = 'pages/app.html';
-      } else {
-        showError('Usuário ou senha inválidos. Tente novamente.');
-        document.getElementById('loginPassword').value = '';
-        document.getElementById('loginPassword').focus();
-      }
-    }
-
-    document.addEventListener('DOMContentLoaded', function () {
-      if (localStorage.getItem('towerflow_user')) {
-        window.location.href = 'pages/app.html';
-        return;
-      }
-      document.getElementById('loginForm').addEventListener('submit', function (e) {
-        e.preventDefault();
-        doLogin();
-      });
-      document.getElementById('loginBtn').addEventListener('click', function (e) {
-        e.preventDefault();
-        doLogin();
-      });
-      document.getElementById('loginUser').focus();
-    });
-  </script>
 </body>
+
 </html>

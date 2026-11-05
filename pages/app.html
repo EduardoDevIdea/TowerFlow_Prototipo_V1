@@ -21,6 +21,13 @@
     Esta ordem evita isso.
   -->
   <link rel="stylesheet" href="../assets/css/pages/app.css" />
+
+  <!-- JS do projeto -->
+  <script src="../assets/js/auth.js" defer></script>
+  <script src="../assets/js/navigation.js" defer></script>
+  <script src="../assets/js/app.js" defer></script>
+
+
 </head>
 
 <body class="app-body">
@@ -912,125 +919,6 @@
     </div>
   </div>
 
-  <!-- JAVASCRIPT -->
-  <script>
-      // ========== GUARDA DE AUTENTICAÇÃO ==========
-      // Se não houver sessão, volta para o login (index.html na raiz)
-      (function () {
-        const session = localStorage.getItem('towerflow_user');
-        if (!session) {
-          window.location.replace('../index.html');
-        }
-      })();
-
-    // ========== TAB SWITCHING ==========
-    function switchTab(tabId) {
-      // 1. Esconde todas as views
-      const views = document.querySelectorAll('.view-content');
-      views.forEach(view => view.classList.add('hidden'));
-
-      // 2. Mostra a view alvo
-      const targetView = document.getElementById('view-' + tabId);
-      if (targetView) targetView.classList.remove('hidden');
-
-      // 3. Remove .is-active de todas as tabs e adiciona na ativa
-      const tabs = document.querySelectorAll('.nav-tab');
-      tabs.forEach(tab => tab.classList.remove('is-active'));
-
-      const activeTab = document.getElementById('tab-' + tabId);
-      if (activeTab) activeTab.classList.add('is-active');
-
-      // 4. Volta ao topo
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    // ========== USER MENU ==========
-    function toggleUserMenu() {
-      const dropdown = document.getElementById('userDropdown');
-      const arrow = document.getElementById('userMenuArrow');
-      if (!dropdown || !arrow) return;
-
-      const isOpen = dropdown.classList.toggle('is-open');
-      arrow.classList.toggle('is-open', isOpen);
-    }
-
-    document.addEventListener('click', function (event) {
-      const menuBtn = document.getElementById('userMenuBtn');
-      const dropdown = document.getElementById('userDropdown');
-      if (menuBtn && dropdown && !menuBtn.contains(event.target) && !dropdown.contains(event.target)) {
-        if (dropdown.classList.contains('is-open')) {
-          toggleUserMenu();
-        }
-      }
-    });
-
-    // ========== FILTER ==========
-    function filterTable(inputId, tableId) {
-      const input = document.getElementById(inputId);
-      const filter = input.value.toLowerCase();
-      const table = document.getElementById(tableId);
-      const tr = table.getElementsByTagName('tr');
-
-      for (let i = 1; i < tr.length; i++) {
-        let rowMatch = false;
-        const td = tr[i].getElementsByTagName('td');
-        for (let j = 0; j < td.length; j++) {
-          if (td[j]) {
-            const txtValue = td[j].textContent || td[j].innerText;
-            if (txtValue.toLowerCase().indexOf(filter) > -1) {
-              rowMatch = true;
-              break;
-            }
-          }
-        }
-        tr[i].style.display = rowMatch ? '' : 'none';
-      }
-    }
-
-    // ========== PROFILE MODAL ==========
-    function openProfileModal() {
-      const modal = document.getElementById('profileModal');
-      if (modal) modal.classList.add('is-open');
-    }
-
-    function closeProfileModal() {
-      const modal = document.getElementById('profileModal');
-      if (modal) modal.classList.remove('is-open');
-    }
-
-    // ========== LOGOUT ==========
-    function handleLogout() {
-      // 1. Limpa a sessão
-      localStorage.removeItem('towerflow_user');
-
-      // 2. Fecha dropdown (remove .is-open)
-      const dropdown = document.getElementById('userDropdown');
-      if (dropdown) dropdown.classList.remove('is-open');
-      const arrow = document.getElementById('userMenuArrow');
-      if (arrow) arrow.classList.remove('is-open');
-
-      // 3. Fecha modal de perfil (remove .is-open)
-      const profileModal = document.getElementById('profileModal');
-      if (profileModal) profileModal.classList.remove('is-open');
-
-      // 4. Volta para o login
-      window.location.href = '../index.html';
-    }
-
-    // ========== INIT ==========
-    document.addEventListener('DOMContentLoaded', function () {
-      // Fecha o modal ao clicar no backdrop
-      const profileModal = document.getElementById('profileModal');
-      if (profileModal) {
-        profileModal.addEventListener('click', function (e) {
-          if (e.target === this) closeProfileModal();
-        });
-      }
-
-      // Inicializa a aba Home
-      switchTab('home');
-    });
-  </script>
 </body>
 
 </html>
