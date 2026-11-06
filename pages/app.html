@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TowerFlow — Cond. XPTO</title>
+
+
+  <!-- FontAwesome + Google Fonts -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- CSS puro do projeto (fundação; em migração gradual) -->
+  <link rel="stylesheet" href="../assets/css/base.css" />
+  <link rel="stylesheet" href="../assets/css/layout.css" />
+  <link rel="stylesheet" href="../assets/css/components.css" />
+  <!-- 
+    app.css abaixo sobrescreve o que vier antes, quando necessário (é o "acabamento").
+    Inverter (ex.: app.css antes de components.css), os overrides do app.css podem ser "perdidos" por regras genéricas de components.css.
+    Esta ordem evita isso.
+  -->
+  <link rel="stylesheet" href="../assets/css/pages/app.css" />
+
+  <!-- JS do projeto -->
+  <script src="../assets/js/auth.js" defer></script>
+  <script src="../assets/js/navigation.js" defer></script>
+  <script src="../assets/js/app.js" defer></script>
+
+
+</head>
+
+<body class="app-body">
+
+  <!-- ==================== APLICAÇÃO PRINCIPAL ==================== -->
+  <div id="appContainer">
+    <!-- HEADER -->
+    <header class="app-header">
+      <div class="app-header__inner">
+        <div class="app-header__row">
+          <div class="app-brand" onclick="switchTab('home')">
+            <div class="app-brand__logo">
+              <i class="fa-solid fa-building"></i>
+            </div>
+            <div>
+              <h1 class="app-brand__title">TowerFlow</h1>
+              <p class="app-brand__subtitle">Cond. XPTO</p>
+            </div>
+          </div>
+
+          <div class="user-menu">
+            <button id="userMenuBtn" onclick="toggleUserMenu()" class="user-menu__trigger">
+              <span class="user-menu__info">
+                <span class="user-menu__name">Carlos Silva</span>
+                <span class="user-menu__role">Síndico Geral</span>
+              </span>
+              <div class="user-menu__avatar-wrap">
+                <img class="user-menu__avatar"
+                  src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=250"
+                  alt="Avatar Usuário" onerror="this.src='https://placehold.co/100x100/0284c7/ffffff?text=CS'" />
+                <span class="user-menu__status"></span>
+              </div>
+              <i class="fa-solid fa-chevron-down user-menu__arrow" id="userMenuArrow"></i>
+            </button>
+
+            <div id="userDropdown" class="user-dropdown">
+              <div class="user-dropdown__section">
+                <p class="user-dropdown__label">Logado como</p>
+                <p class="user-dropdown__email">sindico@condxpto.com.br</p>
+              </div>
+              <div class="user-dropdown__group">
+                <button onclick="openProfileModal(); toggleUserMenu();" class="user-dropdown__item">
+                  <i class="fa-solid fa-circle-user"></i>
+                  <span>Meu Perfil</span>
+                </button>
+                <button onclick="switchTab('notificacoes'); toggleUserMenu();" class="user-dropdown__item">
+                  <i class="fa-solid fa-bell"></i>
+                  <span>Notificações</span>
+                </button>
+              </div>
+              <div class="user-dropdown__group">
+                <button onclick="handleLogout()" class="user-dropdown__item user-dropdown__item--danger">
+                  <i class="fa-solid fa-right-from-bracket"></i>
+                  <span>Sair / Logout</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- NAV TABS -->
+    <nav class="app-nav custom-scrollbar">
+      <div class="app-nav__inner">
+        <div class="app-nav__list">
+          <button onclick="switchTab('home')" id="tab-home" class="nav-tab is-active">
+            <i class="fa-solid fa-house"></i><span>Home</span>
+          </button>
+          <button onclick="switchTab('moradores')" id="tab-moradores" class="nav-tab">
+            <i class="fa-solid fa-users"></i><span>Moradores</span>
+          </button>
+          <button onclick="switchTab('torres')" id="tab-torres" class="nav-tab">
+            <i class="fa-solid fa-city"></i><span>Torres</span>
+          </button>
+          <button onclick="switchTab('unidades')" id="tab-unidades" class="nav-tab">
+            <i class="fa-solid fa-door-closed"></i><span>Unidades</span>
+          </button>
+          <button onclick="switchTab('veiculos')" id="tab-veiculos" class="nav-tab">
+            <i class="fa-solid fa-car"></i><span>Veículos</span>
+          </button>
+          <button onclick="switchTab('visitantes')" id="tab-visitantes" class="nav-tab">
+            <i class="fa-solid fa-user-check"></i><span>Visitantes</span>
+          </button>
+          <button onclick="switchTab('ocorrencias')" id="tab-ocorrencias" class="nav-tab">
+            <i class="fa-solid fa-triangle-exclamation"></i><span>Ocorrências</span>
+          </button>
+          <button onclick="switchTab('contatos')" id="tab-contatos" class="nav-tab">
+            <i class="fa-solid fa-address-book"></i><span>Contatos</span>
+          </button>
+          <button onclick="switchTab('notificacoes')" id="tab-notificacoes" class="nav-tab">
+            <i class="fa-solid fa-bell"></i><span>Notificações</span>
+            <span class="nav-tab__badge">3</span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="app-main">
+
+      <!-- HOME -->
+      <section id="view-home" class="view-content stack stack--lg">
+
+        <div class="hero">
+          <div class="hero__content">
+            <h2 class="hero__title">Bem-vindo ao TowerFlow</h2>
+            <p class="hero__subtitle">Painel de controle centralizado. Selecione uma das seções abaixo para gerenciar os
+              dados do condomínio com eficiência.</p>
+          </div>
+          <div class="hero__stats">
+            <div class="hero__stat">
+              <span class="hero__stat-label">Total Unidades</span>
+              <span class="hero__stat-value">128</span>
+            </div>
+            <div class="hero__stat">
+              <span class="hero__stat-label">Moradores</span>
+              <span class="hero__stat-value">342</span>
+            </div>
+          </div>
+          <div class="hero__decor">
+            <i class="fa-solid fa-building"></i>
+          </div>
+        </div>
+
+        <div class="dashboard-grid">
+
+          <!-- Card Moradores -->
+          <div onclick="switchTab('moradores')" class="card card--interactive">
+            <div class="card__media">
+              <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&q=80&w=600"
+                alt="Moradores" />
+              <span class="card__badge">342 Cadastrados</span>
+            </div>
+            <div class="card__body">
+              <div>
+                <h3 class="card__title">Moradores</h3>
+                <p class="card__subtitle">Gestão de residentes e contatos</p>
+              </div>
+              <div class="card__icon"><i class="fa-solid fa-users"></i></div>
+            </div>
+          </div>
+
+          <!-- Card Torres -->
+          <div onclick="switchTab('torres')" class="card card--interactive">
+            <div class="card__media">
+              <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=600"
+                alt="Torres" />
+              <span class="card__badge">4 Torres</span>
+            </div>
+            <div class="card__body">
+              <div>
+                <h3 class="card__title">Torres</h3>
+                <p class="card__subtitle">Blocos e administradores</p>
+              </div>
+              <div class="card__icon"><i class="fa-solid fa-city"></i></div>
+            </div>
+          </div>
+
+          <!-- Card Unidades -->
+          <div onclick="switchTab('unidades')" class="card card--interactive">
+            <div class="card__media">
+              <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80&w=600"
+                alt="Unidades" />
+              <span class="card__badge">128 Apts</span>
+            </div>
+            <div class="card__body">
+              <div>
+                <h3 class="card__title">Unidades</h3>
+                <p class="card__subtitle">Status e proprietários</p>
+              </div>
+              <div class="card__icon"><i class="fa-solid fa-door-closed"></i></div>
+            </div>
+          </div>
+
+          <!-- Card Veículos -->
+          <div onclick="switchTab('veiculos')" class="card card--interactive">
+            <div class="card__media">
+              <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=600"
+                alt="Veículos" />
+              <span class="card__badge">195 Vagas</span>
+            </div>
+            <div class="card__body">
+              <div>
+                <h3 class="card__title">Veículos</h3>
+                <p class="card__subtitle">Frota e controle de acesso</p>
+              </div>
+              <div class="card__icon"><i class="fa-solid fa-car"></i></div>
+            </div>
+          </div>
+
+          <!-- Card Visitantes -->
+          <div onclick="switchTab('visitantes')" class="card card--interactive">
+            <div class="card__media">
+              <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&q=80&w=600"
+                alt="Visitantes" />
+              <span class="card__badge card__badge--success">12 Ativos Hoje</span>
+            </div>
+            <div class="card__body">
+              <div>
+                <h3 class="card__title">Visitantes</h3>
+                <p class="card__subtitle">Portaria e autorizações</p>
+              </div>
+              <div class="card__icon"><i class="fa-solid fa-user-check"></i></div>
+            </div>
+          </div>
+
+          <!-- Card Ocorrências -->
+          <div onclick="switchTab('ocorrencias')" class="card card--interactive">
+            <div class="card__media">
+              <img src="https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&q=80&w=600"
+                alt="Ocorrências" />
+              <span class="card__badge card__badge--warning">4 Pendentes</span>
+            </div>
+            <div class="card__body">
+              <div>
+                <h3 class="card__title">Ocorrências</h3>
+                <p class="card__subtitle">Chamados e reclamações</p>
+              </div>
+              <div class="card__icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+            </div>
+          </div>
+
+          <!-- Card Contatos -->
+          <div onclick="switchTab('contatos')" class="card card--interactive">
+            <div class="card__media">
+              <img src="https://images.unsplash.com/photo-1423666639041-f56000c27a9a?auto=format&fit=crop&q=80&w=600"
+                alt="Contatos" />
+              <span class="card__badge">Telefones Úteis</span>
+            </div>
+            <div class="card__body">
+              <div>
+                <h3 class="card__title">Contatos</h3>
+                <p class="card__subtitle">Prestadores e administração</p>
+              </div>
+              <div class="card__icon"><i class="fa-solid fa-address-book"></i></div>
+            </div>
+          </div>
+
+          <!-- Card Notificações -->
+          <div onclick="switchTab('notificacoes')" class="card card--interactive">
+            <div class="card__media">
+              <img src="https://images.unsplash.com/photo-1577563908411-5077b6dc7624?auto=format&fit=crop&q=80&w=600"
+                alt="Notificações" />
+              <span class="card__badge card__badge--info">Comunicados</span>
+            </div>
+            <div class="card__body">
+              <div>
+                <h3 class="card__title">Notificações</h3>
+                <p class="card__subtitle">Avisos e comunicados gerais</p>
+              </div>
+              <div class="card__icon"><i class="fa-solid fa-bell"></i></div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- MORADORES -->
+      <section id="view-moradores" class="view-content hidden stack">
+        <div class="page-header">
+          <div>
+            <h2 class="page-header__title">Moradores</h2>
+            <p class="page-header__subtitle">Listagem geral de residentes cadastrados no condomínio.</p>
+          </div>
+          <div class="page-header__actions">
+            <div class="search-box">
+              <i class="fa-solid fa-magnifying-glass search-box__icon"></i>
+              <input type="text" onkeyup="filterTable('moradores-search', 'moradores-table')" id="moradores-search"
+                placeholder="Buscar morador, torre, apto..." class="search-box__input" />
+            </div>
+          </div>
+        </div>
+
+        <div class="table-wrapper">
+          <div class="table-scroll">
+            <table id="moradores-table" class="table">
+              <thead class="table__head">
+                <tr>
+                  <th>Nome</th>
+                  <th>Sobrenome</th>
+                  <th>Torre</th>
+                  <th>Unidade</th>
+                  <th>Interfone</th>
+                  <th>Telefone</th>
+                </tr>
+              </thead>
+              <tbody class="table__body">
+                <tr>
+                  <td class="table__cell--strong">Ana</td>
+                  <td>Albuquerque</td>
+                  <td><span class="pill pill--neutral">Torre A</span></td>
+                  <td>Apt 101</td>
+                  <td><span class="table__cell--mono">1010</span></td>
+                  <td>(11) 98765-4321</td>
+                </tr>
+                <tr>
+                  <td class="table__cell--strong">Bruno</td>
+                  <td>Carvalho</td>
+                  <td><span class="pill pill--neutral">Torre A</span></td>
+                  <td>Apt 304</td>
+                  <td><span class="table__cell--mono">1034</span></td>
+                  <td>(11) 97654-3210</td>
+                </tr>
+                <tr>
+                  <td class="table__cell--strong">Carla</td>
+                  <td>Menezes</td>
+                  <td><span class="pill pill--neutral">Torre B</span></td>
+                  <td>Apt 202</td>
+                  <td><span class="table__cell--mono">2020</span></td>
+                  <td>(11) 96543-2109</td>
+                </tr>
+                <tr>
+                  <td class="table__cell--strong">Daniel</td>
+                  <td>Ferreira</td>
+                  <td><span class="pill pill--neutral">Torre B</span></td>
+                  <td>Apt 501</td>
+                  <td><span class="table__cell--mono">2051</span></td>
+                  <td>(11) 95432-1098</td>
+                </tr>
+                <tr>
+                  <td class="table__cell--strong">Eduardo</td>
+                  <td>Santos</td>
+                  <td><span class="pill pill--neutral">Torre C</span></td>
+                  <td>Apt 102</td>
+                  <td><span class="table__cell--mono">3012</span></td>
+                  <td>(11) 94321-0987</td>
+                </tr>
+                <tr>
+                  <td class="table__cell--strong">Fernanda</td>
+                  <td>Lima</td>
+                  <td><span class="pill pill--neutral">Torre D</span></td>
+                  <td>Apt 804</td>
+                  <td><span class="table__cell--mono">4084</span></td>
+                  <td>(11) 93210-9876</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TORRES -->
+      <section id="view-torres" class="view-content hidden stack">
+        <div class="page-header">
+          <div>
+            <h2 class="page-header__title">Torres</h2>
+            <p class="page-header__subtitle">Gestão dos blocos e seus respectivos síndicos/responsáveis.</p>
+          </div>
+          <div class="page-header__actions">
+            <div class="search-box">
+              <i class="fa-solid fa-magnifying-glass search-box__icon"></i>
+              <input type="text" onkeyup="filterTable('torres-search', 'torres-table')" id="torres-search"
+                placeholder="Buscar por torre, síndico..." class="search-box__input" />
+            </div>
+          </div>
+        </div>
+
+        <div class="table-wrapper">
+          <div class="table-scroll">
+            <table id="torres-table" class="table">
+              <thead class="table__head">
+                <tr>
+                  <th>Nome</th>
+                  <th>Número</th>
+                  <th>Síndico</th>
+                  <th>Contato</th>
+                </tr>
+              </thead>
+              <tbody class="table__body">
+                <tr>
+                  <td class="table__cell--strong">
+                    <i class="fa-solid fa-building" style="color: var(--brand-600);"></i>
+                    Torre A - Alvorada
+                  </td>
+                  <td><span class="pill pill--brand">Bloco 01</span></td>
+                  <td>Carlos Silva</td>
+                  <td>(11) 98888-1111</td>
+                </tr>
+                <tr>
+                  <td class="table__cell--strong">
+                    <i class="fa-solid fa-building" style="color: var(--brand-600);"></i>
+                    Torre B - Bela Vista
+                  </td>
+                  <td><span class="pill pill--brand">Bloco 02</span></td>
+                  <td>Mariana Costa</td>
+                  <td>(11) 98888-2222</td>
+                </tr>
+                <tr>
+                  <td class="table__cell--strong">
+                    <i class="fa-solid fa-building" style="color: var(--brand-600);"></i>
+                    Torre C - Copacabana
+                  </td>
+                  <td><span class="pill pill--brand">Bloco 03</span></td>
+                  <td>Roberto Rocha</td>
+                  <td>(11) 98888-3333</td>
+                </tr>
+                <tr>
+                  <td class="table__cell--strong">
+                    <i class="fa-solid fa-building" style="color: var(--brand-600);"></i>
+                    Torre D - Dunas
+                  </td>
+                  <td><span class="pill pill--brand">Bloco 04</span></td>
+                  <td>Patrícia Souza</td>
+                  <td>(11) 98888-4444</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- UNIDADES -->
+      <section id="view-unidades" class="view-content hidden stack">
+        <div class="page-header">
+          <div>
+            <h2 class="page-header__title">Unidades</h2>
+            <p class="page-header__subtitle">Status de ocupação e proprietários de cada apartamento.</p>
+          </div>
+          <div class="page-header__actions">
+            <div class="search-box">
+              <i class="fa-solid fa-magnifying-glass search-box__icon"></i>
+              <input type="text" onkeyup="filterTable('unidades-search', 'unidades-table')" id="unidades-search"
+                placeholder="Buscar por apto, proprietário..." class="search-box__input" />
+            </div>
+          </div>
+        </div>
+
+        <div class="table-wrapper">
+          <div class="table-scroll">
+            <table id="unidades-table" class="table">
+              <thead class="table__head">
+                <tr>
+                  <th>Apartamento</th>
+                  <th>Torre</th>
+                  <th>Interfone</th>
+                  <th>Situação</th>
+                  <th>Ocupada</th>
+                  <th>Proprietário</th>
+                </tr>
+              </thead>
+              <tbody class="table__body">
+                <tr>
+                  <td class="table__cell--strong">Apt 101</td>
+                  <td>Torre A</td>
+                  <td><span class="table__cell--mono">1010</span></td>
+                  <td><span class="badge badge--solid">Indisponível</span></td>
+                  <td><span class="status-yes"><i class="fa-solid fa-circle-check"></i> Sim</span></td>
+                  <td>Ana Albuquerque</td>
+                </tr>
+                <tr>
+                  <td class="table__cell--strong">Apt 102</td>
+                  <td>Torre A</td>
+                  <td><span class="table__cell--mono">1012</span></td>
+                  <td><span class="badge badge--info">Vende-se</span></td>
+                  <td><span class="status-no"><i class="fa-solid fa-circle-xmark"></i> Não</span></td>
+                  <td>Marcos Oliveira</td>
+                </tr>
+                <tr>
+                  <td class="table__cell--strong">Apt 201</td>
+                  <td>Torre B</td>
+                  <td><span class="table__cell--mono">2021</span></td>
+                  <td><span class="badge badge--success">Aluga-se</span></td>
+                  <td><span class="status-no"><i class="fa-solid fa-circle-xmark"></i> Não</span></td>
+                  <td>Juliana Paes</td>
+                </tr>
+                <tr>
+                  <td class="table__cell--strong">Apt 304</td>
+                  <td>Torre A</td>
+                  <td><span class="table__cell--mono">1034</span></td>
+                  <td><span class="badge badge--solid">Indisponível</span></td>
+                  <td><span class="status-yes"><i class="fa-solid fa-circle-check"></i> Sim</span></td>
+                  <td>Bruno Carvalho</td>
+                </tr>
+                <tr>
+                  <td class="table__cell--strong">Apt 501</td>
+                  <td>Torre C</td>
+                  <td><span class="table__cell--mono">3051</span></td>
+                  <td><span class="badge badge--solid">Indisponível</span></td>
+                  <td><span class="status-yes"><i class="fa-solid fa-circle-check"></i> Sim</span></td>
+                  <td>Daniel Ferreira</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- VEÍCULOS -->
+      <section id="view-veiculos" class="view-content hidden stack">
+        <div class="page-header">
+          <div>
+            <h2 class="page-header__title">Veículos</h2>
+            <p class="page-header__subtitle">Registro completo de frotas e carros autorizados na garagem.</p>
+          </div>
+          <div class="page-header__actions">
+            <div class="search-box">
+              <i class="fa-solid fa-magnifying-glass search-box__icon"></i>
+              <input type="text" onkeyup="filterTable('veiculos-search', 'veiculos-table')" id="veiculos-search"
+                placeholder="Buscar por placa, modelo, dono..." class="search-box__input" />
+            </div>
+          </div>
+        </div>
+
+        <div class="table-wrapper">
+          <div class="table-scroll">
+            <table id="veiculos-table" class="table table--min">
+              <thead class="table__head">
+                <tr>
+                  <th>Placa</th>
+                  <th>Modelo</th>
+                  <th>Marca</th>
+                  <th>Tipo</th>
+                  <th>Cor</th>
+                  <th>Proprietário</th>
+                  <th>Torre</th>
+                  <th>Apartamento</th>
+                  <th>Contato</th>
+                </tr>
+              </thead>
+              <tbody class="table__body">
+                <tr>
+                  <td><span class="plate">ABC-1D23</span></td>
+                  <td>Hb20</td>
+                  <td>Hyundai</td>
+                  <td>Carro</td>
+                  <td>
+                    <span class="color-dot-wrap">
+                      <span class="color-dot" style="background: #000;"></span>
+                      <span>Preto</span>
+                    </span>
+                  </td>
+                  <td>Ana Albuquerque</td>
+                  <td>Torre A</td>
+                  <td>Apt 101</td>
+                  <td>(11) 98765-4321</td>
+                </tr>
+                <tr>
+                  <td><span class="plate">JKXC-4F90</span></td>
+                  <td>Kicks</td>
+                  <td>Nissan</td>
+                  <td>Carro</td>
+                  <td>
+                    <span class="color-dot-wrap">
+                      <span class="color-dot" style="background: #3b82f6;"></span>
+                      <span>Azul</span>
+                    </span>
+                  </td>
+                  <td>Ana Albuquerque</td>
+                  <td>Torre A</td>
+                  <td>Apt 101</td>
+                  <td>(11) 98765-4321</td>
+                </tr>
+                <tr>
+                  <td><span class="plate">PTR-7B81</span></td>
+                  <td>Civic</td>
+                  <td>Honda</td>
+                  <td>Carro</td>
+                  <td>
+                    <span class="color-dot-wrap">
+                      <span class="color-dot" style="background: #78350f;"></span>
+                      <span>Marrom</span>
+                    </span>
+                  </td>
+                  <td>Ana Albuquerque</td>
+                  <td>Torre A</td>
+                  <td>Apt 101</td>
+                  <td>(11) 98765-4321</td>
+                </tr>
+                <tr>
+                  <td><span class="plate">XYZ-9E87</span></td>
+                  <td>Corolla</td>
+                  <td>Toyota</td>
+                  <td>Carro</td>
+                  <td>
+                    <span class="color-dot-wrap">
+                      <span class="color-dot" style="background: #cbd5e1;"></span>
+                      <span>Prata</span>
+                    </span>
+                  </td>
+                  <td>Bruno Carvalho</td>
+                  <td>Torre A</td>
+                  <td>Apt 304</td>
+                  <td>(11) 97654-3210</td>
+                </tr>
+                <tr>
+                  <td><span class="plate">KJR-4F55</span></td>
+                  <td>Compass</td>
+                  <td>Jeep</td>
+                  <td>Carro</td>
+                  <td>
+                    <span class="color-dot-wrap">
+                      <span class="color-dot" style="background: #ffffff;"></span>
+                      <span>Branco</span>
+                    </span>
+                  </td>
+                  <td>Carla Menezes</td>
+                  <td>Torre B</td>
+                  <td>Apt 202</td>
+                  <td>(11) 96543-2109</td>
+                </tr>
+                <tr>
+                  <td><span class="plate">MOT-2G11</span></td>
+                  <td>CB 500F</td>
+                  <td>Honda</td>
+                  <td>Motocicleta</td>
+                  <td>
+                    <span class="color-dot-wrap">
+                      <span class="color-dot" style="background: #dc2626;"></span>
+                      <span>Vermelho</span>
+                    </span>
+                  </td>
+                  <td>Daniel Ferreira</td>
+                  <td>Torre B</td>
+                  <td>Apt 501</td>
+                  <td>(11) 95432-1098</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- VISITANTES -->
+      <section id="view-visitantes" class="view-content hidden stack">
+        <div class="page-header">
+          <div>
+            <h2 class="page-header__title">Visitantes</h2>
+            <p class="page-header__subtitle">Controle de entrada e saída na portaria.</p>
+          </div>
+          <div class="page-header__actions">
+            <div class="search-box">
+              <i class="fa-solid fa-magnifying-glass search-box__icon"></i>
+              <input type="text" onkeyup="filterTable('visitantes-search', 'visitantes-table')" id="visitantes-search"
+                placeholder="Buscar visitante, documento..." class="search-box__input" />
+            </div>
+          </div>
+        </div>
+
+        <div class="table-wrapper">
+          <div class="table-scroll">
+            <table id="visitantes-table" class="table">
+              <thead class="table__head">
+                <tr>
+                  <th>Nome</th>
+                  <th>Documento</th>
+                  <th>Tipo</th>
+                  <th>Data/Hora Entrada</th>
+                  <th>Torre</th>
+                  <th>Apartamento</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody class="table__body">
+                <tr>
+                  <td class="table__cell--strong">Gabriel Ramos</td>
+                  <td><span class="table__cell--mono">44.123.890-X</span></td>
+                  <td>Visitante / Convidado</td>
+                  <td>04/10/2026 14:30</td>
+                  <td>Torre A</td>
+                  <td>Apt 101</td>
+                  <td><span class="badge badge--success">No Condomínio</span></td>
+                </tr>
+                <tr>
+                  <td class="table__cell--strong">Técnico Claro (Marcos)</td>
+                  <td><span class="table__cell--mono">33.987.112-4</span></td>
+                  <td>Prestador de Serviço</td>
+                  <td>04/10/2026 11:15</td>
+                  <td>Torre B</td>
+                  <td>Apt 202</td>
+                  <td><span class="badge badge--neutral">Saída Registrada</span></td>
+                </tr>
+                <tr>
+                  <td class="table__cell--strong">Entregador iFood</td>
+                  <td><span class="table__cell--mono">55.333.111-9</span></td>
+                  <td>Delivery</td>
+                  <td>04/10/2026 17:45</td>
+                  <td>Torre A</td>
+                  <td>Apt 304</td>
+                  <td><span class="badge badge--warning">Em Trânsito</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- OCORRÊNCIAS -->
+      <section id="view-ocorrencias" class="view-content hidden stack">
+        <div class="page-header">
+          <div>
+            <h2 class="page-header__title">Ocorrências</h2>
+            <p class="page-header__subtitle">Registro de solicitações, reclamações e manutenção.</p>
+          </div>
+          <div class="page-header__actions">
+            <div class="search-box">
+              <i class="fa-solid fa-magnifying-glass search-box__icon"></i>
+              <input type="text" onkeyup="filterTable('ocorrencias-search', 'ocorrencias-table')"
+                id="ocorrencias-search" placeholder="Buscar por ocorrência, morador..." class="search-box__input" />
+            </div>
+          </div>
+        </div>
+
+        <div class="table-wrapper">
+          <div class="table-scroll">
+            <table id="ocorrencias-table" class="table">
+              <thead class="table__head">
+                <tr>
+                  <th>Título</th>
+                  <th>Categoria</th>
+                  <th>Morador</th>
+                  <th>Data</th>
+                  <th>Prioridade</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody class="table__body">
+                <tr>
+                  <td class="table__cell--strong">Vazamento na garagem B1</td>
+                  <td>Manutenção</td>
+                  <td>Bruno Carvalho (Apt 304)</td>
+                  <td>02/10/2026</td>
+                  <td><span class="badge badge--danger">Alta</span></td>
+                  <td><span class="badge badge--warning">Em Andamento</span></td>
+                </tr>
+                <tr>
+                  <td class="table__cell--strong">Barulho excessivo após 22h</td>
+                  <td>Convivência</td>
+                  <td>Ana Albuquerque (Apt 101)</td>
+                  <td>01/10/2026</td>
+                  <td><span class="badge badge--neutral">Média</span></td>
+                  <td><span class="badge badge--success">Resolvido</span></td>
+                </tr>
+                <tr>
+                  <td class="table__cell--strong">Lâmpada queimada corredor 5º andar</td>
+                  <td>Iluminação</td>
+                  <td>Daniel Ferreira (Apt 501)</td>
+                  <td>03/10/2026</td>
+                  <td><span class="badge badge--info">Baixa</span></td>
+                  <td><span class="badge badge--info">Aberto</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTATOS -->
+      <section id="view-contatos" class="view-content hidden stack">
+        <div class="page-header">
+          <div>
+            <h2 class="page-header__title">Contatos Úteis</h2>
+            <p class="page-header__subtitle">Telefones e e-mails de serviços, emergência e administração.</p>
+          </div>
+          <div class="page-header__actions">
+            <div class="search-box">
+              <i class="fa-solid fa-magnifying-glass search-box__icon"></i>
+              <input type="text" onkeyup="filterTable('contatos-search', 'contatos-table')" id="contatos-search"
+                placeholder="Buscar nome, setor, função..." class="search-box__input" />
+            </div>
+          </div>
+        </div>
+
+        <div class="table-wrapper">
+          <div class="table-scroll">
+            <table id="contatos-table" class="table">
+              <thead class="table__head">
+                <tr>
+                  <th>Nome / Empresa</th>
+                  <th>Cargo / Função</th>
+                  <th>Telefone</th>
+                  <th>E-mail</th>
+                  <th>Setor</th>
+                </tr>
+              </thead>
+              <tbody class="table__body">
+                <tr>
+                  <td class="table__cell--strong">Portaria Principal</td>
+                  <td>Atendimento 24h</td>
+                  <td><span class="table__cell--mono">(11) 3333-0001</span></td>
+                  <td>portaria@condxpto.com.br</td>
+                  <td><span class="pill pill--neutral">Segurança</span></td>
+                </tr>
+                <tr>
+                  <td class="table__cell--strong">Eletricista Plantão (João)</td>
+                  <td>Técnico Eletricista</td>
+                  <td><span class="table__cell--mono">(11) 97777-8888</span></td>
+                  <td>joao.eletrica@gmail.com</td>
+                  <td><span class="pill pill--neutral">Manutenção</span></td>
+                </tr>
+                <tr>
+                  <td class="table__cell--strong">Administradora XPTO</td>
+                  <td>Gestão Financeira/Boleto</td>
+                  <td><span class="table__cell--mono">(11) 3003-4004</span></td>
+                  <td>contato@adminxpto.com.br</td>
+                  <td><span class="pill pill--neutral">Administração</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- NOTIFICAÇÕES -->
+      <section id="view-notificacoes" class="view-content hidden stack">
+        <div class="page-header">
+          <div>
+            <h2 class="page-header__title">Notificações e Avisos</h2>
+            <p class="page-header__subtitle">Comunicados oficiais emitidos para os moradores.</p>
+          </div>
+          <div class="page-header__actions">
+            <div class="search-box">
+              <i class="fa-solid fa-magnifying-glass search-box__icon"></i>
+              <input type="text" onkeyup="filterTable('notificacoes-search', 'notificacoes-table')"
+                id="notificacoes-search" placeholder="Buscar notificações..." class="search-box__input" />
+            </div>
+          </div>
+        </div>
+
+        <div class="table-wrapper">
+          <div class="table-scroll">
+            <table id="notificacoes-table" class="table">
+              <thead class="table__head">
+                <tr>
+                  <th>Título do Comunicado</th>
+                  <th>Destinatário</th>
+                  <th>Data</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody class="table__body">
+                <tr>
+                  <td class="table__cell--strong">Limpeza das Caixas d'Água programada para Quinta-feira</td>
+                  <td>Todos os Moradores</td>
+                  <td>04/10/2026</td>
+                  <td><span class="badge badge--success">Enviado</span></td>
+                </tr>
+                <tr>
+                  <td class="table__cell--strong">Convocação para Assembleia Geral Ordinária (AGO)</td>
+                  <td>Proprietários</td>
+                  <td>28/09/2026</td>
+                  <td><span class="badge badge--success">Enviado</span></td>
+                </tr>
+                <tr>
+                  <td class="table__cell--strong">Manutenção preventiva dos elevadores da Torre B</td>
+                  <td>Torre B</td>
+                  <td>20/09/2026</td>
+                  <td><span class="badge badge--neutral">Arquivado</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- MODAL DE PERFIL -->
+  <div id="profileModal" class="modal">
+    <div class="modal__panel">
+      <div class="modal__header">
+        <button onclick="closeProfileModal()" class="modal__close" aria-label="Fechar">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+        <img class="modal__avatar"
+          src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=250"
+          alt="Carlos Silva" />
+        <h3 class="modal__name">Carlos Silva</h3>
+        <p class="modal__role">Síndico Geral • Cond. XPTO</p>
+      </div>
+      <div class="modal__body">
+        <div class="modal__info-row">
+          <i class="fa-solid fa-envelope"></i>
+          <span>sindico@condxpto.com.br</span>
+        </div>
+        <div class="modal__info-row">
+          <i class="fa-solid fa-phone"></i>
+          <span>(11) 98888-1111</span>
+        </div>
+        <div class="modal__info-row">
+          <i class="fa-solid fa-building-user"></i>
+          <span>Torre A • Apt 1201</span>
+        </div>
+        <div style="padding-top: 0.5rem;">
+          <button onclick="closeProfileModal()" class="btn btn--secondary btn--block">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>

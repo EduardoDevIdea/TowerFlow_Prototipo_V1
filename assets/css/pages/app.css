@@ -1,0 +1,128 @@
+/* ============================================================
+   TowerFlow — app.css
+   Ajustes específicos da tela do app (dashboard / SPA).
+   Depende de: base.css, layout.css e components.css.
+   ============================================================ */
+
+/* ============================================================
+   1. ESPAÇAMENTO ENTRE SEÇÕES DAS VIEWS
+   Cada view interna (Moradores, Torres, etc.) usa .stack
+   (definido em components.css) para o espaçamento vertical.
+   Aqui só ajustamos o padding inferior do app-main.
+   ============================================================ */
+.app-main {
+  padding-bottom: 2rem;
+}
+
+/* ============================================================
+   2. VIEWS DA SPA (switchTab)
+   O mecanismo de esconder/mostrar usa .hidden (base.css).
+   Aqui só adicionamos a transição suave quando a view aparece.
+   ============================================================ */
+.view-content {
+  animation: fadeInView 0.25s ease-out;
+}
+
+@keyframes fadeInView {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================================
+   3. GRID DE CARDS DO DASHBOARD
+   A definição do grid está em components.css (.dashboard-grid).
+   Aqui só garantimos que o gap seja agradável em telas muito
+   grandes (>=1280px), onde o grid de 4 colunas fica "apertado"
+   em relação ao hero.
+   ============================================================ */
+@media (min-width: 1280px) {
+  .dashboard-grid {
+    gap: 1.75rem;
+  }
+}
+
+/* ============================================================
+   4. HERO BANNER — ajustes finos
+   O layout base está em components.css (.hero).
+   Aqui só cuidamos de telas muito pequenas, onde os dois stats
+   podem quebrar linha e ficar desalinhados.
+   ============================================================ */
+@media (max-width: 380px) {
+  .hero__stats {
+    flex-wrap: wrap;
+  }
+
+  .hero__stat {
+    flex: 1;
+    min-width: 7rem;
+  }
+}
+
+/* ============================================================
+   5. CABEÇALHO DE PÁGINA (page-header)
+   Em telas pequenas, o search box fica abaixo do título
+   (já definido em layout.css). Aqui só ajustamos o alinhamento
+   vertical do bloco de ações em telas médias.
+   ============================================================ */
+@media (min-width: 640px) and (max-width: 767px) {
+  .page-header__actions {
+    width: 100%;
+    max-width: 22rem;
+  }
+}
+
+/* ============================================================
+   6. DROPDOWN DO USUÁRIO — animação de entrada
+   O layout base está em layout.css (.user-dropdown).
+   Aqui garantimos que a animação combine com a do app
+   (fade + slide suave).
+   ============================================================ */
+.user-dropdown {
+  transform-origin: top right;
+}
+
+/* ============================================================
+   7. MODAL DE PERFIL — animação do backdrop
+   O layout base está em components.css (.modal).
+   Aqui garantimos que o painel suba suavemente ao abrir.
+   ============================================================ */
+.modal__panel {
+  transform-origin: center;
+}
+
+/* ============================================================
+   8. TABELAS — ajuste de célula com ícone + texto
+   Algumas células têm ícone (ex.: "Sim" com check, "Torre A"
+   com prédio). Aqui centralizamos o alinhamento vertical.
+   ============================================================ */
+.table__body td i {
+  margin-right: 0.25rem;
+}
+
+/* ============================================================
+   9. BOTÃO DE LOGOUT — destaque no hover
+   O layout base está em layout.css (.user-dropdown__item--danger).
+   Aqui só reforçamos o contraste no hover, para o usuário
+   perceber que é uma ação destrutiva.
+   ============================================================ */
+.user-dropdown__item--danger:hover {
+  background: #ffe4e6;
+  color: #9f1239;
+}
+
+/* ============================================================
+   10. SCROLLBAR DO NAV — manter consistência
+   A classe .custom-scrollbar está em base.css.
+   Aqui só garantimos que ela seja aplicada na nav do app
+   ============================================================ */
+.app-nav {
+  /* já tem overflow-x: auto em layout.css */
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: var(--slate-300) var(--slate-100);
+}
