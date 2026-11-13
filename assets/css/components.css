@@ -114,7 +114,8 @@
 /* Estrutura interna de um card com imagem no topo */
 .card__media {
   position: relative;
-  height: 9rem; /* 144px */
+  height: 9rem;
+  /* 144px */
   overflow: hidden;
 }
 
@@ -686,9 +687,10 @@
 .table__head th.col-acoes,
 .table__body td.col-acoes {
   text-align: right;
-  width: 1%;
+  width: 1%;                  /* força a coluna a ocupar o mínimo possível */
   white-space: nowrap;
-  padding-right: 1rem;
+  padding-left: 0.5rem;
+  padding-right: 0.75rem;
 }
 
 /* Botões de ação (✏️ e 🗑️) */
@@ -696,12 +698,13 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2rem;
-  height: 2rem;
+  width: 1.75rem;
+  height: 1.75rem;
   border-radius: var(--radius-md);
   color: var(--slate-500);
   transition: all var(--transition-fast);
   background: transparent;
+  margin: 0 0.125rem;
 }
 
 .action-btn:hover {
@@ -720,7 +723,7 @@
 }
 
 .action-btn i {
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   pointer-events: none;
 }
 
@@ -738,4 +741,46 @@
     flex-direction: column;
     align-items: stretch;
   }
+}
+
+/* ============================================================
+   11. TABELAS COM MUITAS COLUNAS (.table--min)
+   ============================================================ */
+
+/* ============================================================
+   11. TABELAS COM MUITAS COLUNAS (.table--min)
+   ============================================================ */
+
+/* A tabela de veículos NÃO usa min-width: max-content (que estoura).
+   Ela ocupa 100% da largura e, se precisar, o scroll aparece.
+   As colunas se comprimem naturalmente. */
+.table--min {
+  min-width: auto;        /* remove o max-content que estava estourando */
+  table-layout: auto;     /* deixa o navegador distribuir as colunas */
+}
+
+/* Permite quebra de linha nas células (para não esticar) */
+.table--min .table__body td {
+  white-space: normal;
+  word-break: break-word;
+}
+
+/* No cabeçalho, mantém nowrap para os títulos das colunas */
+.table--min .table__head th {
+  white-space: nowrap;
+}
+
+/* Compacta as células (padding e fonte ligeiramente menores) */
+.table--min .table__head th,
+.table--min .table__body td {
+  padding: 0.75rem 0.625rem;
+  font-size: 0.8125rem;
+}
+
+/* Coluna de ações compacta */
+.table--min .col-acoes {
+  width: 1%;
+  padding-left: 0.25rem;
+  padding-right: 0.5rem;
+  white-space: nowrap;
 }
