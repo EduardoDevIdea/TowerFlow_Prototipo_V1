@@ -38,7 +38,6 @@ function handleLogout() {
 /**
  * Aplica as permissões: remove o 'hidden' dos elementos
  * com data-require-write SOMENTE se o usuário tiver permissão.
- * Para usuários sem permissão, os elementos continuam ocultos.
  */
 function applyPermissions() {
   const canWrite = hasWritePermission();
@@ -54,29 +53,42 @@ function applyPermissions() {
 }
 
 /**
- * Atualiza o nome/cargo no header com base na sessão.
- * (Opcional: se o usuário logado for admin ou master, mostra os dados.)
- */
-/**
  * Atualiza o nome, cargo e e-mail no header/dropdown com base na sessão.
  */
 function updateUserInfo() {
   const session = getSession();
   if (!session) return;
 
-  // Nome e cargo no trigger do usuário (header)
   const nameEl = document.querySelector('.user-menu__name');
   const roleEl = document.querySelector('.user-menu__role');
   if (nameEl) nameEl.textContent = session.name || 'Usuário';
   if (roleEl) roleEl.textContent = session.role || '';
 
-  // E-mail no dropdown
   const emailEl = document.getElementById('userDropdownEmail');
   if (emailEl) {
     emailEl.textContent = session.user === 'master'
       ? 'master@condxpto.com.br'
       : 'sindico@condxpto.com.br';
   }
+}
+
+// ========== PLACEHOLDERS DE CRUD (serão implementados no Passo 4) ==========
+function closeCrudModal() {
+  const modal = document.getElementById('crudModal');
+  if (modal) modal.classList.remove('is-open');
+}
+
+function closeConfirmModal() {
+  const modal = document.getElementById('confirmModal');
+  if (modal) modal.classList.remove('is-open');
+}
+
+function saveCrud() {
+  alert('Função saveCrud() será implementada no Passo 4.');
+}
+
+function confirmDelete() {
+  alert('Função confirmDelete() será implementada no Passo 4.');
 }
 
 // ========== INICIALIZAÇÃO ==========
@@ -96,11 +108,27 @@ document.addEventListener('DOMContentLoaded', function () {
   // 5. Listener de clique fora do dropdown
   registerClickOutsideHandler();
 
-  // 6. Fecha o modal ao clicar no backdrop
+  // 6. Fecha o modal de perfil ao clicar no backdrop
   const profileModal = document.getElementById('profileModal');
   if (profileModal) {
     profileModal.addEventListener('click', function (e) {
       if (e.target === this) closeProfileModal();
+    });
+  }
+
+  // 7. Fecha o modal de CRUD ao clicar no backdrop
+  const crudModal = document.getElementById('crudModal');
+  if (crudModal) {
+    crudModal.addEventListener('click', function (e) {
+      if (e.target === this) closeCrudModal();
+    });
+  }
+
+  // 8. Fecha o modal de confirmação ao clicar no backdrop
+  const confirmModal = document.getElementById('confirmModal');
+  if (confirmModal) {
+    confirmModal.addEventListener('click', function (e) {
+      if (e.target === this) closeConfirmModal();
     });
   }
 });

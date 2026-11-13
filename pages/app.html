@@ -1242,6 +1242,53 @@
     </div>
   </div>
 
+  <!-- ==================== MODAL DE FORMULÁRIO (CRUD) ==================== -->
+  <div id="crudModal" class="modal modal--form">
+    <div class="modal__panel">
+      <div class="modal__header">
+        <h3 class="modal__title" id="crudModalTitle">Novo Registro</h3>
+        <button onclick="closeCrudModal()" class="modal__close" aria-label="Fechar">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal__body">
+        <div class="form-grid" id="crudFormFields">
+          <!-- Os campos serão injetados via JS no Passo 4 -->
+          <!-- Por enquanto, deixamos um placeholder visual -->
+          <div class="form-group form-grid--full">
+            <label>Os campos deste formulário serão carregados dinamicamente.</label>
+          </div>
+        </div>
+      </div>
+      <div class="modal__footer">
+        <button type="button" class="btn btn--secondary" onclick="closeCrudModal()">Cancelar</button>
+        <button type="button" class="btn btn--primary" id="crudSaveBtn" onclick="saveCrud()">Salvar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL DE CONFIRMAÇÃO (EXCLUSÃO) ==================== -->
+  <div id="confirmModal" class="modal modal--confirm">
+    <div class="modal__panel">
+      <div class="modal__header">
+        <div class="modal__icon">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+        </div>
+        <h3 class="modal__title">Confirmar Exclusão</h3>
+      </div>
+      <div class="modal__body">
+        <p>Tem certeza que deseja excluir <strong id="confirmItemName">este registro</strong>?</p>
+        <p style="margin-top: 0.5rem; font-size: 0.875rem; color: var(--slate-500);">Esta ação não pode ser desfeita.
+        </p>
+      </div>
+      <div class="modal__footer">
+        <button type="button" class="btn btn--secondary" onclick="closeConfirmModal()">Cancelar</button>
+        <button type="button" class="btn btn--confirm-delete" id="confirmDeleteBtn"
+          onclick="confirmDelete()">Excluir</button>
+      </div>
+    </div>
+  </div>
+
 </body>
 
 </html>
