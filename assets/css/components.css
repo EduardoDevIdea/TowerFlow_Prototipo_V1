@@ -687,7 +687,8 @@
 .table__head th.col-acoes,
 .table__body td.col-acoes {
   text-align: right;
-  width: 1%;                  /* força a coluna a ocupar o mínimo possível */
+  width: 1%;
+  /* força a coluna a ocupar o mínimo possível */
   white-space: nowrap;
   padding-left: 0.5rem;
   padding-right: 0.75rem;
@@ -755,8 +756,10 @@
    Ela ocupa 100% da largura e, se precisar, o scroll aparece.
    As colunas se comprimem naturalmente. */
 .table--min {
-  min-width: auto;        /* remove o max-content que estava estourando */
-  table-layout: auto;     /* deixa o navegador distribuir as colunas */
+  min-width: auto;
+  /* remove o max-content que estava estourando */
+  table-layout: auto;
+  /* deixa o navegador distribuir as colunas */
 }
 
 /* Permite quebra de linha nas células (para não esticar) */
@@ -779,8 +782,8 @@
 
 /* Coluna de ações compacta */
 .table--min .col-acoes {
-  width: 1%;
-  padding-left: 0.25rem;
-  padding-right: 0.5rem;
-  white-space: nowrap;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.125rem;
 }
