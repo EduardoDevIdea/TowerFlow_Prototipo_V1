@@ -310,11 +310,11 @@ function deleteNotificacao(id) { openConfirmDelete('notificacoes', id); }
    ============================================================ */
 
 function saveCrud() {
-  alert(`Salvar (${crudState.mode}) — será implementado no Passo 4.2.`);
+  alert(`Salvar (${crudState.mode}) — Seus dados foram validados com sucesso!!! Mas como você está navegando em um protótipo, essa informação não ficará salva de verdade. Obrigado por testar!`);
 }
 
 function confirmDelete() {
-  alert(`Excluir ${crudState.entity} id=${crudState.id} — será implementado no Passo 4.2.`);
+  alert(`Excluir ${crudState.entity} id=${crudState.id} — Seus dados foram validados com sucesso!!! Mas como você está navegando em um protótipo, essa informação não será deletada de verdade. Obrigado por testar!`);
   closeConfirmModal();
 }
 
