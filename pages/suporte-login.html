@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TowerFlow — Suporte | Acesso Restrito</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230284c7'/%3E%3Ctext x='50' y='65' font-size='50' text-anchor='middle' fill='white'%3E🏢%3C/text%3E%3C/svg%3E" />
+
+  <!-- FontAwesome + Google Fonts -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- CSS puro do projeto -->
+  <link rel="stylesheet" href="../assets/css/base.css" />
+  <link rel="stylesheet" href="../assets/css/pages/suporte-login.css" />
+
+  <!-- JS do projeto -->
+  <script src="../assets/js/auth.js" defer></script>
+  <script src="../assets/js/suporte-login.js" defer></script>
+</head>
+<body>
+  <div class="suporte-login-screen">
+    <div class="suporte-login-blobs" aria-hidden="true">
+      <div class="suporte-login-blob suporte-login-blob--top-left"></div>
+      <div class="suporte-login-blob suporte-login-blob--bottom-right"></div>
+      <div class="suporte-login-blob suporte-login-blob--center"></div>
+    </div>
+
+    <div class="suporte-login-card-wrapper">
+      <div class="suporte-login-card" id="suporteLoginCard">
+        <div class="suporte-login-card__header">
+          <div class="suporte-login-card__logo">
+            <i class="fa-solid fa-shield-halved"></i>
+          </div>
+          <h1 class="suporte-login-card__title">TowerFlow</h1>
+          <p class="suporte-login-card__subtitle">Acesso Restrito</p>
+        </div>
+
+        <form id="suporteLoginForm" class="suporte-login-form" novalidate>
+          <div class="suporte-form-group">
+            <label for="suporteUser" class="suporte-form-label">Usuário</label>
+            <div class="suporte-form-field">
+              <i class="fa-solid fa-user suporte-form-field__icon"></i>
+              <input type="text" id="suporteUser" class="suporte-form-input" autocomplete="username" placeholder="Usuário de suporte" />
+            </div>
+          </div>
+
+          <div class="suporte-form-group">
+            <label for="suportePassword" class="suporte-form-label">Senha</label>
+            <div class="suporte-form-field">
+              <i class="fa-solid fa-lock suporte-form-field__icon"></i>
+              <input type="password" id="suportePassword" class="suporte-form-input suporte-form-input--with-toggle" autocomplete="current-password" placeholder="Senha" />
+              <button type="button" class="suporte-form-toggle-btn" onclick="toggleSuportePassword()" aria-label="Mostrar/ocultar senha">
+                <i id="suporteTogglePasswordIcon" class="fa-solid fa-eye"></i>
+              </button>
+            </div>
+          </div>
+
+          <div id="suporteLoginError" class="suporte-login-error" role="alert">
+            <i class="fa-solid fa-circle-exclamation"></i>
+            <span id="suporteLoginErrorText">Usuário ou senha inválidos.</span>
+          </div>
+
+          <button type="submit" id="suporteLoginBtn" class="suporte-btn-login">
+            <i class="fa-solid fa-right-to-bracket"></i>
+            <span>Entrar no Suporte</span>
+          </button>
+
+          <div class="suporte-login-hint">
+            <p><i class="fa-solid fa-lock"></i> Área restrita à administração do sistema.</p>
+          </div>
+        </form>
+      </div>
+
+      <p class="suporte-login-footer">
+        &copy; 2026 TowerFlow • Suporte Administrativo
+      </p>
+    </div>
+  </div>
+</body>
+</html>
