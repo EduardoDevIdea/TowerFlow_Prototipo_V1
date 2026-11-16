@@ -124,3 +124,89 @@ function redirectIfLoggedIn(appPath) {
   }
   return false;
 }
+
+/* ============================================================
+   Sessão de Suporte (separada da sessão de síndico/admin)
+   ============================================================ */
+
+const SUPORTE_SESSION_KEY = 'towerflow_suporte';
+
+const CREDENTIALS_SUPORTE = {
+  suporte: { password: '123', name: 'Suporte Admin', role: 'Administrador do Sistema' }
+};
+
+/**
+ * Valida credenciais do suporte.
+ * @param {string} user
+ * @param {string} pass
+ * @returns {object|null}
+ */
+function validateSuporteCredentials(user, pass) {
+  const cred = CREDENTIALS_SUPORTE[user];
+  if (!cred || cred.password !== pass) return null;
+  return { name: cred.name, role: cred.role };
+}
+
+/**
+ * Grava a sessão de suporte e redireciona.
+ * @param {string} user
+ * @param {object} userData
+ * @param {string} dashboardPath
+ */
+function loginSuporteAndRedirect(user, userData, dashboardPath) {
+  localStorage.setItem(
+    SUPORTE_SESSION_KEY,
+    JSON.stringify({
+      user: user,
+      name: userData.name,
+      role: userData.role,
+      loggedAt: new Date().toISOString()
+    })
+  );
+  window.location.href = dashboardPath;
+}
+
+/**
+ * Verifica se há sessão de suporte. Se não houver, redireciona.
+ * @param {string} loginPath
+ */
+function requireSuporteAuth(loginPath) {
+  if (!getSuporteSession()) {
+    window.location.replace(loginPath);
+  }
+}
+
+/**
+ * Retorna a sessão de suporte (ou null).
+ * @returns {object|null}
+ */
+function getSuporteSession() {
+  try {
+    const raw = localStorage.getItem(SUPORTE_SESSION_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Limpa a sessão de suporte e redireciona ao login.
+ * @param {string} loginPath
+ */
+function logoutSuporteAndRedirect(loginPath) {
+  localStorage.removeItem(SUPORTE_SESSION_KEY);
+  window.location.href = loginPath;
+}
+
+/**
+ * Se já houver sessão de suporte, vai direto ao dashboard.
+ * @param {string} dashboardPath
+ * @returns {boolean}
+ */
+function redirectIfSuporteLoggedIn(dashboardPath) {
+  if (getSuporteSession()) {
+    window.location.href = dashboardPath;
+    return true;
+  }
+  return false;
+}

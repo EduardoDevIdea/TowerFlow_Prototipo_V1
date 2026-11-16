@@ -1,0 +1,756 @@
+/* ============================================================
+   TowerFlow — suporte-dashboard.css
+   Tema escuro para o painel de suporte.
+   Depende de: base.css, layout.css, components.css.
+   ============================================================ */
+
+/* ----- Body escuro ----- */
+body.suporte-body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #0f172a;
+    color: #f1f5f9;
+}
+
+/* ----- Header escuro ----- */
+.suporte-header {
+    background: #1e293b;
+    border-bottom: 1px solid #334155;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+    position: sticky;
+    top: 0;
+    z-index: 40;
+}
+
+.suporte-header__inner {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+@media (min-width: 640px) {
+    .suporte-header__inner {
+        padding: 0 1.5rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .suporte-header__inner {
+        padding: 0 2rem;
+    }
+}
+
+.suporte-header__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 4rem;
+}
+
+.suporte-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.suporte-brand__logo {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: var(--radius-lg);
+    background-image: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 1.25rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+}
+
+.suporte-brand__title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #f8fafc;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+}
+
+.suporte-brand__subtitle {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* ----- Área do usuário ----- */
+.suporte-user {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.suporte-user__name {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #e2e8f0;
+}
+
+.suporte-user__role {
+    font-size: 0.75rem;
+    color: #94a3b8;
+}
+
+.suporte-user__logout {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #fda4af;
+    background: rgba(244, 63, 94, 0.1);
+    border: 1px solid rgba(244, 63, 94, 0.3);
+    border-radius: var(--radius-lg);
+    transition: all var(--transition-fast);
+}
+
+.suporte-user__logout:hover {
+    background: rgba(244, 63, 94, 0.2);
+    color: #ffffff;
+}
+
+/* ----- Main escuro ----- */
+.suporte-main {
+    flex: 1;
+    max-width: 80rem;
+    width: 100%;
+    margin: 0 auto;
+    padding: 1.5rem 1rem;
+}
+
+@media (min-width: 640px) {
+    .suporte-main {
+        padding: 1.5rem 1.5rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .suporte-main {
+        padding: 1.5rem 2rem;
+    }
+}
+
+/* ----- Título da página ----- */
+.suporte-page-header {
+    margin-bottom: 1.5rem;
+}
+
+.suporte-page-header__title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #f8fafc;
+    letter-spacing: -0.025em;
+}
+
+.suporte-page-header__subtitle {
+    font-size: 0.875rem;
+    color: #94a3b8;
+    margin-top: 0.25rem;
+}
+
+/* ----- Tabs internas (Condomínios / Usuários) ----- */
+.suporte-tabs {
+    display: flex;
+    gap: 0.25rem;
+    border-bottom: 1px solid #334155;
+    margin-bottom: 1.5rem;
+}
+
+.suporte-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #94a3b8;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.suporte-tab:hover {
+    color: #e2e8f0;
+}
+
+.suporte-tab.is-active {
+    color: #38bdf8;
+    border-bottom-color: #38bdf8;
+}
+
+.suporte-tab i {
+    font-size: 0.875rem;
+}
+
+/* ----- Painel de cada aba ----- */
+.suporte-panel {
+    display: none;
+}
+
+.suporte-panel.is-active {
+    display: block;
+}
+
+/* ----- Cabeçalho de ação (botão + busca) ----- */
+.suporte-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    justify-content: space-between;
+}
+
+.suporte-actions__search {
+    flex: 1;
+    min-width: 200px;
+    max-width: 24rem;
+    position: relative;
+}
+
+.suporte-actions__search .search-box__icon {
+    color: #64748b;
+}
+
+.suporte-actions__search input {
+    width: 100%;
+    padding: 0.5rem 1rem 0.5rem 2.5rem;
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: var(--radius-lg);
+    font-size: 0.875rem;
+    color: #f1f5f9;
+    transition: all var(--transition-fast);
+}
+
+.suporte-actions__search input::placeholder {
+    color: #64748b;
+}
+
+.suporte-actions__search input:focus {
+    outline: none;
+    border-color: #0284c7;
+    box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.2);
+}
+
+/* ----- Botão "+ Novo" ----- */
+.suporte-btn-new {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.5rem 0.875rem;
+    background-image: linear-gradient(90deg, #0284c7 0%, #0369a1 100%);
+    color: #ffffff;
+    font-size: 0.875rem;
+    font-weight: 600;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 4px 6px -1px rgba(2, 132, 199, 0.3);
+    transition: all var(--transition-fast);
+    white-space: nowrap;
+    border: none;
+    cursor: pointer;
+}
+
+.suporte-btn-new:hover {
+    background-image: linear-gradient(90deg, #0369a1 0%, #075985 100%);
+    transform: translateY(-1px);
+}
+
+.suporte-btn-new i {
+    font-size: 0.75rem;
+}
+
+/* ----- Tabela escura ----- */
+.suporte-table-wrapper {
+    background: #1e293b;
+    border-radius: var(--radius-2xl);
+    border: 1px solid #334155;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+.suporte-table-scroll {
+    overflow-x: auto;
+}
+
+.suporte-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.suporte-table__head {
+    background: #0f172a;
+    border-bottom: 1px solid #334155;
+}
+
+.suporte-table__head th {
+    padding: 0.875rem 1rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+}
+
+.suporte-table__body {
+    font-size: 0.875rem;
+    color: #e2e8f0;
+    font-weight: 500;
+}
+
+.suporte-table__body tr {
+    border-bottom: 1px solid #334155;
+    transition: background-color var(--transition-fast);
+}
+
+.suporte-table__body tr:last-child {
+    border-bottom: none;
+}
+
+.suporte-table__body tr:hover {
+    background: #334155;
+}
+
+.suporte-table__body td {
+    padding: 0.875rem 1rem;
+}
+
+.suporte-table__cell--strong {
+    font-weight: 600;
+    color: #f8fafc;
+}
+
+.suporte-table__cell--mono {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    color: #cbd5e1;
+}
+
+.suporte-table__cell--muted {
+    color: #94a3b8;
+}
+
+/* ----- Badges de status ----- */
+.suporte-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.125rem 0.625rem;
+    border-radius: var(--radius-full);
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.suporte-badge--active {
+    background: rgba(16, 185, 129, 0.15);
+    color: #6ee7b7;
+}
+
+.suporte-badge--inactive {
+    background: rgba(244, 63, 94, 0.15);
+    color: #fda4af;
+}
+
+.suporte-badge--role {
+    background: rgba(56, 189, 248, 0.15);
+    color: #7dd3fc;
+}
+
+/* ----- Ações na tabela ----- */
+.suporte-table__body td.col-acoes {
+    text-align: right;
+    width: 1%;
+    white-space: nowrap;
+    padding-left: 0.5rem;
+    padding-right: 0.75rem;
+}
+
+.suporte-action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: var(--radius-md);
+    color: #94a3b8;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    margin: 0 0.125rem;
+}
+
+.suporte-action-btn:hover {
+    background: #334155;
+    color: #f1f5f9;
+}
+
+.suporte-action-btn--edit:hover {
+    color: #38bdf8;
+    background: rgba(56, 189, 248, 0.15);
+}
+
+.suporte-action-btn--delete:hover {
+    color: #fda4af;
+    background: rgba(244, 63, 94, 0.15);
+}
+
+.suporte-action-btn i {
+    font-size: 0.75rem;
+}
+
+/* ----- Modal escuro ----- */
+.suporte-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.suporte-modal.is-open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.suporte-modal__panel {
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: var(--radius-2xl);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+    max-width: 42rem;
+    width: 100%;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    transform: translateY(8px);
+    transition: transform 0.2s ease;
+}
+
+.suporte-modal.is-open .suporte-modal__panel {
+    transform: translateY(0);
+}
+
+.suporte-modal--confirm .suporte-modal__panel {
+    max-width: 26rem;
+}
+
+.suporte-modal__header {
+    background-image: linear-gradient(90deg, #0f172a 0%, #1e293b 100%);
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid #334155;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.suporte-modal__title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #f8fafc;
+}
+
+.suporte-modal__close {
+    width: 2rem;
+    height: 2rem;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #94a3b8;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.suporte-modal__close:hover {
+    background: #334155;
+    color: #f8fafc;
+}
+
+.suporte-modal__body {
+    padding: 1.5rem;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.suporte-modal__footer {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid #334155;
+    background: #0f172a;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+}
+
+/* ----- Formulário escuro ----- */
+.suporte-form-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+@media (min-width: 640px) {
+    .suporte-form-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.suporte-form-grid--full {
+    grid-column: 1 / -1;
+}
+
+.suporte-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+}
+
+.suporte-form-group label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #cbd5e1;
+}
+
+.suporte-form-group label .required {
+    color: #fda4af;
+    margin-left: 0.125rem;
+}
+
+.suporte-form-control {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    background: #0f172a;
+    border: 1px solid #334155;
+    border-radius: var(--radius-lg);
+    font-size: 0.875rem;
+    color: #f1f5f9;
+    transition: all var(--transition-fast);
+}
+
+.suporte-form-control:focus {
+    outline: none;
+    border-color: #0284c7;
+    box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.2);
+}
+
+.suporte-form-control::placeholder {
+    color: #475569;
+}
+
+/* ----- Botões de ação do modal ----- */
+.suporte-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-lg);
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all var(--transition-fast);
+}
+
+.suporte-btn--secondary {
+    background: #334155;
+    color: #e2e8f0;
+    border-color: #475569;
+}
+
+.suporte-btn--secondary:hover {
+    background: #475569;
+}
+
+.suporte-btn--primary {
+    background-image: linear-gradient(90deg, #0284c7 0%, #0369a1 100%);
+    color: #ffffff;
+    border: none;
+}
+
+.suporte-btn--primary:hover {
+    background-image: linear-gradient(90deg, #0369a1 0%, #075985 100%);
+}
+
+.suporte-btn--danger {
+    background: #be123c;
+    color: #ffffff;
+    border: none;
+}
+
+.suporte-btn--danger:hover {
+    background: #9f1239;
+}
+
+/* ----- Modal de confirmação ----- */
+.suporte-confirm-icon {
+    width: 3rem;
+    height: 3rem;
+    border-radius: var(--radius-full);
+    background: rgba(244, 63, 94, 0.15);
+    color: #fda4af;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+}
+
+.suporte-confirm-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #f8fafc;
+    margin-bottom: 0.5rem;
+}
+
+.suporte-confirm-text {
+    font-size: 0.9375rem;
+    color: #cbd5e1;
+    line-height: 1.5;
+}
+
+.suporte-confirm-text strong {
+    color: #f8fafc;
+    font-weight: 600;
+}
+
+/* ----- Toast escuro ----- */
+.suporte-toast {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-left: 4px solid #10b981;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #f1f5f9;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.suporte-toast.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.suporte-toast i {
+    font-size: 1rem;
+}
+
+.suporte-toast--success {
+    border-left-color: #10b981;
+}
+
+.suporte-toast--success i {
+    color: #10b981;
+}
+
+.suporte-toast--error {
+    border-left-color: #f43f5e;
+}
+
+.suporte-toast--error i {
+    color: #f43f5e;
+}
+
+/* ----- Mensagem de vazio ----- */
+.suporte-empty {
+    text-align: center;
+    padding: 2rem;
+    color: #64748b;
+    font-size: 0.875rem;
+}
+
+.suporte-empty i {
+    display: block;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    color: #475569;
+}
+
+/* ============================================================
+   FORMULÁRIO ESCURO — COMPLEMENTOS
+   ============================================================ */
+
+/* Select escuro (herda do .suporte-form-control) */
+.suporte-form-control[type="checkbox"] {
+  width: auto;
+  padding: 0;
+  height: 1rem;
+  accent-color: #0284c7;
+}
+
+/* Linha do checkbox "Ativo" */
+.suporte-form-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-top: 1.5rem; /* alinha verticalmente com os inputs */
+  cursor: pointer;
+}
+
+.suporte-form-checkbox input[type="checkbox"] {
+  width: 1rem;
+  height: 1rem;
+  accent-color: #0284c7;
+  cursor: pointer;
+}
+
+.suporte-form-checkbox span {
+  font-size: 0.875rem;
+  color: #cbd5e1;
+  font-weight: 600;
+}
+
+/* Mensagem de "não persiste" na base do modal */
+.suporte-modal__note {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 0.625rem 0.875rem;
+  background: rgba(56, 189, 248, 0.08);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  border-radius: var(--radius-lg);
+  font-size: 0.75rem;
+  color: #7dd3fc;
+  margin-top: 0.5rem;
+  grid-column: 1 / -1;
+}
+
+.suporte-modal__note i {
+  margin-top: 0.125rem;
+}
