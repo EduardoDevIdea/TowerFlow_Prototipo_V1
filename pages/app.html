@@ -26,9 +26,10 @@
   <link rel="stylesheet" href="../assets/css/pages/app.css" />
 
   <!-- JS do projeto -->
-  <script src="../assets/js/auth.js" defer></script>
-  <script src="../assets/js/navigation.js" defer></script>
-  <script src="../assets/js/app.js" defer></script>
+<script src="../assets/js/auth.js" defer></script>
+<script src="../assets/js/navigation.js" defer></script>
+<script src="../assets/js/data.js" defer></script>
+<script src="../assets/js/app.js" defer></script>
 
 
 </head>
@@ -69,7 +70,7 @@
             <div id="userDropdown" class="user-dropdown">
               <div class="user-dropdown__section">
                 <p class="user-dropdown__label">Logado como</p>
-                <p class="user-dropdown__email">sindico@condxpto.com.br</p>
+                <p class="user-dropdown__email" id="userDropdownEmail">sindico@condxpto.com.br</p>
               </div>
               <div class="user-dropdown__group">
                 <button onclick="openProfileModal(); toggleUserMenu();" class="user-dropdown__item">
@@ -297,10 +298,16 @@
             <p class="page-header__subtitle">Listagem geral de residentes cadastrados no condomínio.</p>
           </div>
           <div class="page-header__actions">
-            <div class="search-box">
-              <i class="fa-solid fa-magnifying-glass search-box__icon"></i>
-              <input type="text" onkeyup="filterTable('moradores-search', 'moradores-table')" id="moradores-search"
-                placeholder="Buscar morador, torre, apto..." class="search-box__input" />
+            <div class="page-header__buttons">
+              <button class="btn--new hidden" data-require-write onclick="openNewMorador()">
+                <i class="fa-solid fa-plus"></i>
+                <span>Novo Morador</span>
+              </button>
+              <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass search-box__icon"></i>
+                <input type="text" onkeyup="filterTable('moradores-search', 'moradores-table')" id="moradores-search"
+                  placeholder="Buscar morador, torre, apto..." class="search-box__input" />
+              </div>
             </div>
           </div>
         </div>
@@ -316,6 +323,7 @@
                   <th>Unidade</th>
                   <th>Interfone</th>
                   <th>Telefone</th>
+                  <th class="col-acoes hidden" data-require-write>Ações</th>
                 </tr>
               </thead>
               <tbody class="table__body">
@@ -326,6 +334,14 @@
                   <td>Apt 101</td>
                   <td><span class="table__cell--mono">1010</span></td>
                   <td>(11) 98765-4321</td>
+                  <td class="col-acoes hidden" data-require-write>
+                    <button class="action-btn action-btn--edit" onclick="editMorador(1)" aria-label="Editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="action-btn action-btn--delete" onclick="deleteMorador(1)" aria-label="Excluir">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
                 </tr>
                 <tr>
                   <td class="table__cell--strong">Bruno</td>
@@ -334,6 +350,14 @@
                   <td>Apt 304</td>
                   <td><span class="table__cell--mono">1034</span></td>
                   <td>(11) 97654-3210</td>
+                  <td class="col-acoes hidden" data-require-write>
+                    <button class="action-btn action-btn--edit" onclick="editMorador(2)" aria-label="Editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="action-btn action-btn--delete" onclick="deleteMorador(2)" aria-label="Excluir">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
                 </tr>
                 <tr>
                   <td class="table__cell--strong">Carla</td>
@@ -342,6 +366,14 @@
                   <td>Apt 202</td>
                   <td><span class="table__cell--mono">2020</span></td>
                   <td>(11) 96543-2109</td>
+                  <td class="col-acoes hidden" data-require-write>
+                    <button class="action-btn action-btn--edit" onclick="editMorador(3)" aria-label="Editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="action-btn action-btn--delete" onclick="deleteMorador(3)" aria-label="Excluir">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
                 </tr>
                 <tr>
                   <td class="table__cell--strong">Daniel</td>
@@ -350,6 +382,14 @@
                   <td>Apt 501</td>
                   <td><span class="table__cell--mono">2051</span></td>
                   <td>(11) 95432-1098</td>
+                  <td class="col-acoes hidden" data-require-write>
+                    <button class="action-btn action-btn--edit" onclick="editMorador(4)" aria-label="Editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="action-btn action-btn--delete" onclick="deleteMorador(4)" aria-label="Excluir">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
                 </tr>
                 <tr>
                   <td class="table__cell--strong">Eduardo</td>
@@ -358,6 +398,14 @@
                   <td>Apt 102</td>
                   <td><span class="table__cell--mono">3012</span></td>
                   <td>(11) 94321-0987</td>
+                  <td class="col-acoes hidden" data-require-write>
+                    <button class="action-btn action-btn--edit" onclick="editMorador(5)" aria-label="Editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="action-btn action-btn--delete" onclick="deleteMorador(5)" aria-label="Excluir">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
                 </tr>
                 <tr>
                   <td class="table__cell--strong">Fernanda</td>
@@ -366,6 +414,14 @@
                   <td>Apt 804</td>
                   <td><span class="table__cell--mono">4084</span></td>
                   <td>(11) 93210-9876</td>
+                  <td class="col-acoes hidden" data-require-write>
+                    <button class="action-btn action-btn--edit" onclick="editMorador(6)" aria-label="Editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="action-btn action-btn--delete" onclick="deleteMorador(6)" aria-label="Excluir">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -381,10 +437,16 @@
             <p class="page-header__subtitle">Gestão dos blocos e seus respectivos síndicos/responsáveis.</p>
           </div>
           <div class="page-header__actions">
-            <div class="search-box">
-              <i class="fa-solid fa-magnifying-glass search-box__icon"></i>
-              <input type="text" onkeyup="filterTable('torres-search', 'torres-table')" id="torres-search"
-                placeholder="Buscar por torre, síndico..." class="search-box__input" />
+            <div class="page-header__buttons">
+              <button class="btn--new hidden" data-require-write onclick="openNewTorre()">
+                <i class="fa-solid fa-plus"></i>
+                <span>Nova Torre</span>
+              </button>
+              <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass search-box__icon"></i>
+                <input type="text" onkeyup="filterTable('torres-search', 'torres-table')" id="torres-search"
+                  placeholder="Buscar por torre, síndico..." class="search-box__input" />
+              </div>
             </div>
           </div>
         </div>
@@ -398,6 +460,7 @@
                   <th>Número</th>
                   <th>Síndico</th>
                   <th>Contato</th>
+                  <th class="col-acoes hidden" data-require-write>Ações</th>
                 </tr>
               </thead>
               <tbody class="table__body">
@@ -409,6 +472,14 @@
                   <td><span class="pill pill--brand">Bloco 01</span></td>
                   <td>Carlos Silva</td>
                   <td>(11) 98888-1111</td>
+                  <td class="col-acoes hidden" data-require-write>
+                    <button class="action-btn action-btn--edit" onclick="editTorre(1)" aria-label="Editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="action-btn action-btn--delete" onclick="deleteTorre(1)" aria-label="Excluir">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
                 </tr>
                 <tr>
                   <td class="table__cell--strong">
@@ -418,6 +489,14 @@
                   <td><span class="pill pill--brand">Bloco 02</span></td>
                   <td>Mariana Costa</td>
                   <td>(11) 98888-2222</td>
+                  <td class="col-acoes hidden" data-require-write>
+                    <button class="action-btn action-btn--edit" onclick="editTorre(2)" aria-label="Editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="action-btn action-btn--delete" onclick="deleteTorre(2)" aria-label="Excluir">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
                 </tr>
                 <tr>
                   <td class="table__cell--strong">
@@ -427,6 +506,14 @@
                   <td><span class="pill pill--brand">Bloco 03</span></td>
                   <td>Roberto Rocha</td>
                   <td>(11) 98888-3333</td>
+                  <td class="col-acoes hidden" data-require-write>
+                    <button class="action-btn action-btn--edit" onclick="editTorre(3)" aria-label="Editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="action-btn action-btn--delete" onclick="deleteTorre(3)" aria-label="Excluir">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
                 </tr>
                 <tr>
                   <td class="table__cell--strong">
@@ -436,6 +523,14 @@
                   <td><span class="pill pill--brand">Bloco 04</span></td>
                   <td>Patrícia Souza</td>
                   <td>(11) 98888-4444</td>
+                  <td class="col-acoes hidden" data-require-write>
+                    <button class="action-btn action-btn--edit" onclick="editTorre(4)" aria-label="Editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="action-btn action-btn--delete" onclick="deleteTorre(4)" aria-label="Excluir">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -451,10 +546,16 @@
             <p class="page-header__subtitle">Status de ocupação e proprietários de cada apartamento.</p>
           </div>
           <div class="page-header__actions">
-            <div class="search-box">
-              <i class="fa-solid fa-magnifying-glass search-box__icon"></i>
-              <input type="text" onkeyup="filterTable('unidades-search', 'unidades-table')" id="unidades-search"
-                placeholder="Buscar por apto, proprietário..." class="search-box__input" />
+            <div class="page-header__buttons">
+              <button class="btn--new hidden" data-require-write onclick="openNewUnidade()">
+                <i class="fa-solid fa-plus"></i>
+                <span>Nova Unidade</span>
+              </button>
+              <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass search-box__icon"></i>
+                <input type="text" onkeyup="filterTable('unidades-search', 'unidades-table')" id="unidades-search"
+                  placeholder="Buscar por apto, proprietário..." class="search-box__input" />
+              </div>
             </div>
           </div>
         </div>
@@ -470,6 +571,7 @@
                   <th>Situação</th>
                   <th>Ocupada</th>
                   <th>Proprietário</th>
+                  <th class="col-acoes hidden" data-require-write>Ações</th>
                 </tr>
               </thead>
               <tbody class="table__body">
@@ -480,6 +582,14 @@
                   <td><span class="badge badge--solid">Indisponível</span></td>
                   <td><span class="status-yes"><i class="fa-solid fa-circle-check"></i> Sim</span></td>
                   <td>Ana Albuquerque</td>
+                  <td class="col-acoes hidden" data-require-write>
+                    <button class="action-btn action-btn--edit" onclick="editUnidade(1)" aria-label="Editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="action-btn action-btn--delete" onclick="deleteUnidade(1)" aria-label="Excluir">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
                 </tr>
                 <tr>
                   <td class="table__cell--strong">Apt 102</td>
@@ -488,6 +598,14 @@
                   <td><span class="badge badge--info">Vende-se</span></td>
                   <td><span class="status-no"><i class="fa-solid fa-circle-xmark"></i> Não</span></td>
                   <td>Marcos Oliveira</td>
+                  <td class="col-acoes hidden" data-require-write>
+                    <button class="action-btn action-btn--edit" onclick="editUnidade(2)" aria-label="Editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="action-btn action-btn--delete" onclick="deleteUnidade(2)" aria-label="Excluir">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
                 </tr>
                 <tr>
                   <td class="table__cell--strong">Apt 201</td>
@@ -496,6 +614,14 @@
                   <td><span class="badge badge--success">Aluga-se</span></td>
                   <td><span class="status-no"><i class="fa-solid fa-circle-xmark"></i> Não</span></td>
                   <td>Juliana Paes</td>
+                  <td class="col-acoes hidden" data-require-write>
+                    <button class="action-btn action-btn--edit" onclick="editUnidade(3)" aria-label="Editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="action-btn action-btn--delete" onclick="deleteUnidade(3)" aria-label="Excluir">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
                 </tr>
                 <tr>
                   <td class="table__cell--strong">Apt 304</td>
@@ -504,6 +630,14 @@
                   <td><span class="badge badge--solid">Indisponível</span></td>
                   <td><span class="status-yes"><i class="fa-solid fa-circle-check"></i> Sim</span></td>
                   <td>Bruno Carvalho</td>
+                  <td class="col-acoes hidden" data-require-write>
+                    <button class="action-btn action-btn--edit" onclick="editUnidade(4)" aria-label="Editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="action-btn action-btn--delete" onclick="deleteUnidade(4)" aria-label="Excluir">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
                 </tr>
                 <tr>
                   <td class="table__cell--strong">Apt 501</td>
@@ -512,6 +646,14 @@
                   <td><span class="badge badge--solid">Indisponível</span></td>
                   <td><span class="status-yes"><i class="fa-solid fa-circle-check"></i> Sim</span></td>
                   <td>Daniel Ferreira</td>
+                  <td class="col-acoes hidden" data-require-write>
+                    <button class="action-btn action-btn--edit" onclick="editUnidade(5)" aria-label="Editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="action-btn action-btn--delete" onclick="deleteUnidade(5)" aria-label="Excluir">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -527,10 +669,16 @@
             <p class="page-header__subtitle">Registro completo de frotas e carros autorizados na garagem.</p>
           </div>
           <div class="page-header__actions">
-            <div class="search-box">
-              <i class="fa-solid fa-magnifying-glass search-box__icon"></i>
-              <input type="text" onkeyup="filterTable('veiculos-search', 'veiculos-table')" id="veiculos-search"
-                placeholder="Buscar por placa, modelo, dono..." class="search-box__input" />
+            <div class="page-header__buttons">
+              <button class="btn--new hidden" data-require-write onclick="openNewVeiculo()">
+                <i class="fa-solid fa-plus"></i>
+                <span>Novo Veículo</span>
+              </button>
+              <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass search-box__icon"></i>
+                <input type="text" onkeyup="filterTable('veiculos-search', 'veiculos-table')" id="veiculos-search"
+                  placeholder="Buscar por placa, modelo, dono..." class="search-box__input" />
+              </div>
             </div>
           </div>
         </div>
@@ -549,6 +697,7 @@
                   <th>Torre</th>
                   <th>Apartamento</th>
                   <th>Contato</th>
+                  <th class="col-acoes hidden" data-require-write>Ações</th>
                 </tr>
               </thead>
               <tbody class="table__body">
@@ -567,6 +716,14 @@
                   <td>Torre A</td>
                   <td>Apt 101</td>
                   <td>(11) 98765-4321</td>
+                  <td class="col-acoes hidden" data-require-write>
+                    <button class="action-btn action-btn--edit" onclick="editVeiculo(1)" aria-label="Editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="action-btn action-btn--delete" onclick="deleteVeiculo(1)" aria-label="Excluir">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
                 </tr>
                 <tr>
                   <td><span class="plate">JKXC-4F90</span></td>
@@ -583,6 +740,14 @@
                   <td>Torre A</td>
                   <td>Apt 101</td>
                   <td>(11) 98765-4321</td>
+                  <td class="col-acoes hidden" data-require-write>
+                    <button class="action-btn action-btn--edit" onclick="editVeiculo(2)" aria-label="Editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="action-btn action-btn--delete" onclick="deleteVeiculo(2)" aria-label="Excluir">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
                 </tr>
                 <tr>
                   <td><span class="plate">PTR-7B81</span></td>
@@ -599,6 +764,14 @@
                   <td>Torre A</td>
                   <td>Apt 101</td>
                   <td>(11) 98765-4321</td>
+                  <td class="col-acoes hidden" data-require-write>
+                    <button class="action-btn action-btn--edit" onclick="editVeiculo(3)" aria-label="Editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="action-btn action-btn--delete" onclick="deleteVeiculo(3)" aria-label="Excluir">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
                 </tr>
                 <tr>
                   <td><span class="plate">XYZ-9E87</span></td>
@@ -615,6 +788,14 @@
                   <td>Torre A</td>
                   <td>Apt 304</td>
                   <td>(11) 97654-3210</td>
+                  <td class="col-acoes hidden" data-require-write>
+                    <button class="action-btn action-btn--edit" onclick="editVeiculo(4)" aria-label="Editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="action-btn action-btn--delete" onclick="deleteVeiculo(4)" aria-label="Excluir">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
                 </tr>
                 <tr>
                   <td><span class="plate">KJR-4F55</span></td>
@@ -631,6 +812,14 @@
                   <td>Torre B</td>
                   <td>Apt 202</td>
                   <td>(11) 96543-2109</td>
+                  <td class="col-acoes hidden" data-require-write>
+                    <button class="action-btn action-btn--edit" onclick="editVeiculo(5)" aria-label="Editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="action-btn action-btn--delete" onclick="deleteVeiculo(5)" aria-label="Excluir">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
                 </tr>
                 <tr>
                   <td><span class="plate">MOT-2G11</span></td>
@@ -647,6 +836,14 @@
                   <td>Torre B</td>
                   <td>Apt 501</td>
                   <td>(11) 95432-1098</td>
+                  <td class="col-acoes hidden" data-require-write>
+                    <button class="action-btn action-btn--edit" onclick="editVeiculo(6)" aria-label="Editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="action-btn action-btn--delete" onclick="deleteVeiculo(6)" aria-label="Excluir">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -662,10 +859,16 @@
             <p class="page-header__subtitle">Controle de entrada e saída na portaria.</p>
           </div>
           <div class="page-header__actions">
-            <div class="search-box">
-              <i class="fa-solid fa-magnifying-glass search-box__icon"></i>
-              <input type="text" onkeyup="filterTable('visitantes-search', 'visitantes-table')" id="visitantes-search"
-                placeholder="Buscar visitante, documento..." class="search-box__input" />
+            <div class="page-header__buttons">
+              <button class="btn--new hidden" data-require-write onclick="openNewVisitante()">
+                <i class="fa-solid fa-plus"></i>
+                <span>Novo Visitante</span>
+              </button>
+              <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass search-box__icon"></i>
+                <input type="text" onkeyup="filterTable('visitantes-search', 'visitantes-table')" id="visitantes-search"
+                  placeholder="Buscar visitante, documento..." class="search-box__input" />
+              </div>
             </div>
           </div>
         </div>
@@ -682,6 +885,7 @@
                   <th>Torre</th>
                   <th>Apartamento</th>
                   <th>Status</th>
+                  <th class="col-acoes hidden" data-require-write>Ações</th>
                 </tr>
               </thead>
               <tbody class="table__body">
@@ -693,6 +897,14 @@
                   <td>Torre A</td>
                   <td>Apt 101</td>
                   <td><span class="badge badge--success">No Condomínio</span></td>
+                  <td class="col-acoes hidden" data-require-write>
+                    <button class="action-btn action-btn--edit" onclick="editVisitante(1)" aria-label="Editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="action-btn action-btn--delete" onclick="deleteVisitante(1)" aria-label="Excluir">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
                 </tr>
                 <tr>
                   <td class="table__cell--strong">Técnico Claro (Marcos)</td>
@@ -702,6 +914,14 @@
                   <td>Torre B</td>
                   <td>Apt 202</td>
                   <td><span class="badge badge--neutral">Saída Registrada</span></td>
+                  <td class="col-acoes hidden" data-require-write>
+                    <button class="action-btn action-btn--edit" onclick="editVisitante(2)" aria-label="Editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="action-btn action-btn--delete" onclick="deleteVisitante(2)" aria-label="Excluir">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
                 </tr>
                 <tr>
                   <td class="table__cell--strong">Entregador iFood</td>
@@ -711,6 +931,14 @@
                   <td>Torre A</td>
                   <td>Apt 304</td>
                   <td><span class="badge badge--warning">Em Trânsito</span></td>
+                  <td class="col-acoes hidden" data-require-write>
+                    <button class="action-btn action-btn--edit" onclick="editVisitante(3)" aria-label="Editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="action-btn action-btn--delete" onclick="deleteVisitante(3)" aria-label="Excluir">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -726,10 +954,16 @@
             <p class="page-header__subtitle">Registro de solicitações, reclamações e manutenção.</p>
           </div>
           <div class="page-header__actions">
-            <div class="search-box">
-              <i class="fa-solid fa-magnifying-glass search-box__icon"></i>
-              <input type="text" onkeyup="filterTable('ocorrencias-search', 'ocorrencias-table')"
-                id="ocorrencias-search" placeholder="Buscar por ocorrência, morador..." class="search-box__input" />
+            <div class="page-header__buttons">
+              <button class="btn--new hidden" data-require-write onclick="openNewOcorrencia()">
+                <i class="fa-solid fa-plus"></i>
+                <span>Nova Ocorrência</span>
+              </button>
+              <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass search-box__icon"></i>
+                <input type="text" onkeyup="filterTable('ocorrencias-search', 'ocorrencias-table')"
+                  id="ocorrencias-search" placeholder="Buscar por ocorrência, morador..." class="search-box__input" />
+              </div>
             </div>
           </div>
         </div>
@@ -745,6 +979,7 @@
                   <th>Data</th>
                   <th>Prioridade</th>
                   <th>Status</th>
+                  <th class="col-acoes hidden" data-require-write>Ações</th>
                 </tr>
               </thead>
               <tbody class="table__body">
@@ -755,6 +990,14 @@
                   <td>02/10/2026</td>
                   <td><span class="badge badge--danger">Alta</span></td>
                   <td><span class="badge badge--warning">Em Andamento</span></td>
+                  <td class="col-acoes hidden" data-require-write>
+                    <button class="action-btn action-btn--edit" onclick="editOcorrencia(1)" aria-label="Editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="action-btn action-btn--delete" onclick="deleteOcorrencia(1)" aria-label="Excluir">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
                 </tr>
                 <tr>
                   <td class="table__cell--strong">Barulho excessivo após 22h</td>
@@ -763,6 +1006,14 @@
                   <td>01/10/2026</td>
                   <td><span class="badge badge--neutral">Média</span></td>
                   <td><span class="badge badge--success">Resolvido</span></td>
+                  <td class="col-acoes hidden" data-require-write>
+                    <button class="action-btn action-btn--edit" onclick="editOcorrencia(2)" aria-label="Editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="action-btn action-btn--delete" onclick="deleteOcorrencia(2)" aria-label="Excluir">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
                 </tr>
                 <tr>
                   <td class="table__cell--strong">Lâmpada queimada corredor 5º andar</td>
@@ -771,6 +1022,14 @@
                   <td>03/10/2026</td>
                   <td><span class="badge badge--info">Baixa</span></td>
                   <td><span class="badge badge--info">Aberto</span></td>
+                  <td class="col-acoes hidden" data-require-write>
+                    <button class="action-btn action-btn--edit" onclick="editOcorrencia(3)" aria-label="Editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="action-btn action-btn--delete" onclick="deleteOcorrencia(3)" aria-label="Excluir">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -786,10 +1045,16 @@
             <p class="page-header__subtitle">Telefones e e-mails de serviços, emergência e administração.</p>
           </div>
           <div class="page-header__actions">
-            <div class="search-box">
-              <i class="fa-solid fa-magnifying-glass search-box__icon"></i>
-              <input type="text" onkeyup="filterTable('contatos-search', 'contatos-table')" id="contatos-search"
-                placeholder="Buscar nome, setor, função..." class="search-box__input" />
+            <div class="page-header__buttons">
+              <button class="btn--new hidden" data-require-write onclick="openNewContato()">
+                <i class="fa-solid fa-plus"></i>
+                <span>Novo Contato</span>
+              </button>
+              <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass search-box__icon"></i>
+                <input type="text" onkeyup="filterTable('contatos-search', 'contatos-table')" id="contatos-search"
+                  placeholder="Buscar nome, setor, função..." class="search-box__input" />
+              </div>
             </div>
           </div>
         </div>
@@ -804,6 +1069,7 @@
                   <th>Telefone</th>
                   <th>E-mail</th>
                   <th>Setor</th>
+                  <th class="col-acoes hidden" data-require-write>Ações</th>
                 </tr>
               </thead>
               <tbody class="table__body">
@@ -813,6 +1079,14 @@
                   <td><span class="table__cell--mono">(11) 3333-0001</span></td>
                   <td>portaria@condxpto.com.br</td>
                   <td><span class="pill pill--neutral">Segurança</span></td>
+                  <td class="col-acoes hidden" data-require-write>
+                    <button class="action-btn action-btn--edit" onclick="editContato(1)" aria-label="Editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="action-btn action-btn--delete" onclick="deleteContato(1)" aria-label="Excluir">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
                 </tr>
                 <tr>
                   <td class="table__cell--strong">Eletricista Plantão (João)</td>
@@ -820,6 +1094,14 @@
                   <td><span class="table__cell--mono">(11) 97777-8888</span></td>
                   <td>joao.eletrica@gmail.com</td>
                   <td><span class="pill pill--neutral">Manutenção</span></td>
+                  <td class="col-acoes hidden" data-require-write>
+                    <button class="action-btn action-btn--edit" onclick="editContato(2)" aria-label="Editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="action-btn action-btn--delete" onclick="deleteContato(2)" aria-label="Excluir">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
                 </tr>
                 <tr>
                   <td class="table__cell--strong">Administradora XPTO</td>
@@ -827,6 +1109,14 @@
                   <td><span class="table__cell--mono">(11) 3003-4004</span></td>
                   <td>contato@adminxpto.com.br</td>
                   <td><span class="pill pill--neutral">Administração</span></td>
+                  <td class="col-acoes hidden" data-require-write>
+                    <button class="action-btn action-btn--edit" onclick="editContato(3)" aria-label="Editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="action-btn action-btn--delete" onclick="deleteContato(3)" aria-label="Excluir">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -842,10 +1132,16 @@
             <p class="page-header__subtitle">Comunicados oficiais emitidos para os moradores.</p>
           </div>
           <div class="page-header__actions">
-            <div class="search-box">
-              <i class="fa-solid fa-magnifying-glass search-box__icon"></i>
-              <input type="text" onkeyup="filterTable('notificacoes-search', 'notificacoes-table')"
-                id="notificacoes-search" placeholder="Buscar notificações..." class="search-box__input" />
+            <div class="page-header__buttons">
+              <button class="btn--new hidden" data-require-write onclick="openNewNotificacao()">
+                <i class="fa-solid fa-plus"></i>
+                <span>Nova Notificação</span>
+              </button>
+              <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass search-box__icon"></i>
+                <input type="text" onkeyup="filterTable('notificacoes-search', 'notificacoes-table')"
+                  id="notificacoes-search" placeholder="Buscar notificações..." class="search-box__input" />
+              </div>
             </div>
           </div>
         </div>
@@ -859,6 +1155,7 @@
                   <th>Destinatário</th>
                   <th>Data</th>
                   <th>Status</th>
+                  <th class="col-acoes hidden" data-require-write>Ações</th>
                 </tr>
               </thead>
               <tbody class="table__body">
@@ -867,18 +1164,42 @@
                   <td>Todos os Moradores</td>
                   <td>04/10/2026</td>
                   <td><span class="badge badge--success">Enviado</span></td>
+                  <td class="col-acoes hidden" data-require-write>
+                    <button class="action-btn action-btn--edit" onclick="editNotificacao(1)" aria-label="Editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="action-btn action-btn--delete" onclick="deleteNotificacao(1)" aria-label="Excluir">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
                 </tr>
                 <tr>
                   <td class="table__cell--strong">Convocação para Assembleia Geral Ordinária (AGO)</td>
                   <td>Proprietários</td>
                   <td>28/09/2026</td>
                   <td><span class="badge badge--success">Enviado</span></td>
+                  <td class="col-acoes hidden" data-require-write>
+                    <button class="action-btn action-btn--edit" onclick="editNotificacao(2)" aria-label="Editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="action-btn action-btn--delete" onclick="deleteNotificacao(2)" aria-label="Excluir">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
                 </tr>
                 <tr>
                   <td class="table__cell--strong">Manutenção preventiva dos elevadores da Torre B</td>
                   <td>Torre B</td>
                   <td>20/09/2026</td>
                   <td><span class="badge badge--neutral">Arquivado</span></td>
+                  <td class="col-acoes hidden" data-require-write>
+                    <button class="action-btn action-btn--edit" onclick="editNotificacao(3)" aria-label="Editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="action-btn action-btn--delete" onclick="deleteNotificacao(3)" aria-label="Excluir">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -918,6 +1239,53 @@
         <div style="padding-top: 0.5rem;">
           <button onclick="closeProfileModal()" class="btn btn--secondary btn--block">Fechar</button>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL DE FORMULÁRIO (CRUD) ==================== -->
+  <div id="crudModal" class="modal modal--form">
+    <div class="modal__panel">
+      <div class="modal__header">
+        <h3 class="modal__title" id="crudModalTitle">Novo Registro</h3>
+        <button onclick="closeCrudModal()" class="modal__close" aria-label="Fechar">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal__body">
+        <div class="form-grid" id="crudFormFields">
+          <!-- Os campos serão injetados via JS no Passo 4 -->
+          <!-- Por enquanto, deixamos um placeholder visual -->
+          <div class="form-group form-grid--full">
+            <label>Os campos deste formulário serão carregados dinamicamente.</label>
+          </div>
+        </div>
+      </div>
+      <div class="modal__footer">
+        <button type="button" class="btn btn--secondary" onclick="closeCrudModal()">Cancelar</button>
+        <button type="button" class="btn btn--primary" id="crudSaveBtn" onclick="saveCrud()">Salvar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL DE CONFIRMAÇÃO (EXCLUSÃO) ==================== -->
+  <div id="confirmModal" class="modal modal--confirm">
+    <div class="modal__panel">
+      <div class="modal__header">
+        <div class="modal__icon">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+        </div>
+        <h3 class="modal__title">Confirmar Exclusão</h3>
+      </div>
+      <div class="modal__body">
+        <p>Tem certeza que deseja excluir <strong id="confirmItemName">este registro</strong>?</p>
+        <p style="margin-top: 0.5rem; font-size: 0.875rem; color: var(--slate-500);">Esta ação não pode ser desfeita.
+        </p>
+      </div>
+      <div class="modal__footer">
+        <button type="button" class="btn btn--secondary" onclick="closeConfirmModal()">Cancelar</button>
+        <button type="button" class="btn btn--confirm-delete" id="confirmDeleteBtn"
+          onclick="confirmDelete()">Excluir</button>
       </div>
     </div>
   </div>

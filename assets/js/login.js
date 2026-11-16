@@ -4,9 +4,6 @@
    Usado em: index.html.
    ============================================================ */
 
-const VALID_USER = 'admin';
-const VALID_PASS = '123';
-
 function togglePassword() {
   const input = document.getElementById('loginPassword');
   const icon = document.getElementById('togglePasswordIcon');
@@ -38,10 +35,12 @@ function doLogin() {
   const user = document.getElementById('loginUser').value.trim();
   const pass = document.getElementById('loginPassword').value;
 
-  if (user === VALID_USER && pass === VALID_PASS) {
+  // Valida credenciais via auth.js
+  const userData = validateCredentials(user, pass);
+
+  if (userData) {
     hideError();
-    // Função de auth.js
-    loginAndRedirect(user, 'pages/app.html');
+    loginAndRedirect(user, userData, 'pages/app.html');
   } else {
     showError('Usuário ou senha inválidos. Tente novamente.');
     document.getElementById('loginPassword').value = '';
