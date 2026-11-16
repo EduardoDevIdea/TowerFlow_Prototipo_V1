@@ -1,24 +1,52 @@
 /* ============================================================
    TowerFlow — suporte-dashboard.js
-   Lógica do painel de suporte (tabs, modais, renderização).
+   Lógica do painel de suporte (tabs, modais, CRUD simulado).
    Usado em: pages/suporte-dashboard.html.
    ============================================================ */
 
 let suporteState = {
-  entity: null,      // 'condominios' ou 'usuarios'
-  mode: 'new',       // 'new' ou 'edit'
+  entity: null,
+  mode: 'new',
   id: null
+};
+
+/* ============================================================
+   Mensagem amigável padrão (protótipo, sem persistência)
+   ============================================================ */
+const PROTO_MESSAGE =
+  'Seus dados foram validados com sucesso! Mas como você está navegando em um protótipo, essa informação não ficará salva de verdade. Obrigado por testar!';
+
+/* ============================================================
+   Configuração dos campos de cada entidade
+   ============================================================ */
+const SUPORTE_FIELDS = {
+  condominios: [
+    { name: 'nome',             label: 'Nome',             type: 'text', required: true, full: true },
+    { name: 'cnpj',             label: 'CNPJ',             type: 'text', required: true },
+    { name: 'telefonePortaria', label: 'Telefone da Portaria', type: 'text', required: false },
+    { name: 'endereco',         label: 'Endereço',         type: 'text', required: true, full: true },
+    { name: 'cidade',           label: 'Cidade',           type: 'text', required: true },
+    { name: 'uf',               label: 'Estado (UF)',      type: 'text', required: true },
+    { name: 'ativo',            label: 'Ativo',            type: 'checkbox', required: false }
+  ],
+  usuarios: [
+    { name: 'nome',        label: 'Nome',        type: 'text',  required: true },
+    { name: 'sobrenome',   label: 'Sobrenome',   type: 'text',  required: true },
+    { name: 'email',       label: 'E-mail',      type: 'email', required: true, full: true },
+    { name: 'tipo',        label: 'Tipo',        type: 'select', required: true, options: ['Síndico', 'Portaria', 'Suporte', 'Administrador_Geral'] },
+    { name: 'condominio',  label: 'Condomínio',  type: 'select', required: true, options: ['Cond. XPTO', 'Cond. Alfa', 'Cond. Beta', '—'] },
+    { name: 'senha',       label: 'Senha',       type: 'password', required: true, full: true, note: 'No sistema real, a senha será tratada pela API com hash.' },
+    { name: 'ativo',       label: 'Ativo',       type: 'checkbox', required: false }
+  ]
 };
 
 /* ============================================================
    Tabs internas
    ============================================================ */
 function switchSuporteTab(tabId) {
-  // Esconde painéis e remove .is-active das tabs
   document.querySelectorAll('.suporte-panel').forEach(p => p.classList.remove('is-active'));
   document.querySelectorAll('.suporte-tab').forEach(t => t.classList.remove('is-active'));
 
-  // Mostra painel alvo e ativa a tab
   const panel = document.getElementById('panel-' + tabId);
   if (panel) panel.classList.add('is-active');
 
@@ -49,7 +77,7 @@ function handleLogoutSuporte() {
 }
 
 /* ============================================================
-   MODAIS — abrir / fechar
+   Fechar modais
    ============================================================ */
 function closeCondominioModal() {
   document.getElementById('condominioModal').classList.remove('is-open');
@@ -64,13 +92,53 @@ function closeSuporteConfirm() {
 }
 
 /* ============================================================
-   Placeholders — CRUD real no Passo 4 (Condomínios) e 5 (Usuários)
+   Construção dos campos do formulário
+   ============================================================ */
+function buildSuporteFormFields(entity, values = {}) {
+  const fields = SUPORTE_FIELDS[entity] || [];
+  return fields.map(field => {
+    const val = values[field.name] !== undefined ? values[field.name] : '';
+    const required = field.required ? '<span class="required">*</span>' : '';
+    const label = `<label for="field-${field.name}">${field.label}${required}</label>`;
+    const gridClass = field.full ? 'suporte-form-group suporte-form-grid--full' : 'suporte-form-group';
+
+    let input;
+    if (field.type === 'checkbox') {
+      const checked = val === true ? 'checked' : '';
+      input = `<label class="suporte-form-checkbox">
+        <input type="checkbox" id="field-${field.name}" name="${field.name}" ${checked} />
+        <span>Ativo</span>
+      </label>`;
+    } else if (field.type === 'select') {
+      const options = field.options.map(opt =>
+        `<option value="${opt}" ${val === opt ? 'selected' : ''}>${opt}</option>`
+      ).join('');
+      input = `<select id="field-${field.name}" name="${field.name}" class="suporte-form-control" ${field.required ? 'required' : ''}>
+        <option value="">Selecione...</option>
+        ${options}
+      </select>`;
+    } else {
+      input = `<input type="${field.type}" id="field-${field.name}" name="${field.name}"
+        value="${val}" class="suporte-form-control" ${field.required ? 'required' : ''} placeholder="Digite ${field.label.toLowerCase()}" />`;
+    }
+
+    let note = '';
+    if (field.note) {
+      note = `<div class="suporte-modal__note"><i class="fa-solid fa-circle-info"></i><span>${field.note}</span></div>`;
+    }
+
+    return `<div class="${gridClass}">${label}${input}${note}</div>`;
+  }).join('');
+}
+
+/* ============================================================
+   Abrir modais
    ============================================================ */
 function openNewCondominio() {
   suporteState = { entity: 'condominios', mode: 'new', id: null };
   document.getElementById('condominioModalTitle').textContent = 'Novo Condomínio';
   document.getElementById('condominioFormFields').innerHTML =
-    '<div class="suporte-form-group suporte-form-grid--full"><label>Os campos serão carregados no Passo 4.</label></div>';
+    buildSuporteFormFields('condominios', { ativo: true });
   document.getElementById('condominioModal').classList.add('is-open');
 }
 
@@ -78,25 +146,101 @@ function openNewUsuario() {
   suporteState = { entity: 'usuarios', mode: 'new', id: null };
   document.getElementById('usuarioModalTitle').textContent = 'Novo Usuário';
   document.getElementById('usuarioFormFields').innerHTML =
-    '<div class="suporte-form-group suporte-form-grid--full"><label>Os campos serão carregados no Passo 5.</label></div>';
+    buildSuporteFormFields('usuarios', { ativo: true });
   document.getElementById('usuarioModal').classList.add('is-open');
 }
 
-function saveCondominio() {
-  alert('Salvar condomínio será implementado no Passo 4.');
+/* ============================================================
+   Editar — preenche o modal com os dados do registro
+   ============================================================ */
+function editCondominio(id) {
+  const data = getData('condominios');
+  const item = data.find(c => c.id === id);
+  if (!item) { showSuporteToast('Registro não encontrado.', 'error'); return; }
+
+  suporteState = { entity: 'condominios', mode: 'edit', id };
+  document.getElementById('condominioModalTitle').textContent = 'Editar Condomínio';
+  document.getElementById('condominioFormFields').innerHTML =
+    buildSuporteFormFields('condominios', item);
+  document.getElementById('condominioModal').classList.add('is-open');
 }
 
-function saveUsuario() {
-  alert('Salvar usuário será implementado no Passo 5.');
-}
+function editUsuario(id) {
+  const data = getData('usuarios');
+  const item = data.find(u => u.id === id);
+  if (!item) { showSuporteToast('Registro não encontrado.', 'error'); return; }
 
-function confirmSuporteDelete() {
-  alert('Excluir será implementado no Passo 4/5.');
-  closeSuporteConfirm();
+  suporteState = { entity: 'usuarios', mode: 'edit', id };
+  document.getElementById('usuarioModalTitle').textContent = 'Editar Usuário';
+  document.getElementById('usuarioFormFields').innerHTML =
+    buildSuporteFormFields('usuarios', item);
+  document.getElementById('usuarioModal').classList.add('is-open');
 }
 
 /* ============================================================
-   Renderização das tabelas (mock estático por enquanto)
+   Salvar — valida, fecha, mostra toast AMIGÁVEL e NÃO persiste
+   ============================================================ */
+function validateForm(entity) {
+  const fields = SUPORTE_FIELDS[entity] || [];
+  for (const f of fields) {
+    const input = document.getElementById('field-' + f.name);
+    if (!input) continue;
+
+    if (f.type === 'checkbox') continue;
+
+    if (f.required && !input.value.trim()) {
+      showSuporteToast(`Preencha o campo "${f.label}".`, 'error');
+      input.focus();
+      return false;
+    }
+  }
+  return true;
+}
+
+function saveCondominio() {
+  if (!validateForm('condominios')) return;
+
+  closeCondominioModal();
+  showSuporteToast(PROTO_MESSAGE, 'success');
+}
+
+function saveUsuario() {
+  if (!validateForm('usuarios')) return;
+
+  closeUsuarioModal();
+  showSuporteToast(PROTO_MESSAGE, 'success');
+}
+
+/* ============================================================
+   Excluir — abre confirmação, mostra toast AMIGÁVEL e NÃO remove
+   ============================================================ */
+function deleteCondominio(id) {
+  const data = getData('condominios');
+  const item = data.find(c => c.id === id);
+  if (!item) return;
+
+  suporteState = { entity: 'condominios', mode: 'delete', id };
+  document.getElementById('suporteConfirmItemName').textContent = item.nome;
+  document.getElementById('suporteConfirmModal').classList.add('is-open');
+}
+
+function deleteUsuario(id) {
+  const data = getData('usuarios');
+  const item = data.find(u => u.id === id);
+  if (!item) return;
+
+  suporteState = { entity: 'usuarios', mode: 'delete', id };
+  document.getElementById('suporteConfirmItemName').textContent = `${item.nome} ${item.sobrenome}`;
+  document.getElementById('suporteConfirmModal').classList.add('is-open');
+}
+
+function confirmSuporteDelete() {
+  closeSuporteConfirm();
+  showSuporteToast(PROTO_MESSAGE, 'success');
+}
+
+/* ============================================================
+   Renderização das tabelas (sempre com o seed, pois não há persistência)
    ============================================================ */
 function renderCondominios() {
   const data = getData('condominios');
@@ -162,24 +306,8 @@ function renderUsuarios() {
   `).join('');
 }
 
-function editCondominio(id) {
-  alert('Editar condomínio será implementado no Passo 4.');
-}
-
-function deleteCondominio(id) {
-  alert('Excluir condomínio será implementado no Passo 4.');
-}
-
-function editUsuario(id) {
-  alert('Editar usuário será implementado no Passo 5.');
-}
-
-function deleteUsuario(id) {
-  alert('Excluir usuário será implementado no Passo 5.');
-}
-
 /* ============================================================
-   Toast
+   Toast escuro
    ============================================================ */
 function showSuporteToast(message, type = 'success') {
   const existing = document.getElementById('suporteToast');
@@ -188,6 +316,7 @@ function showSuporteToast(message, type = 'success') {
   const toast = document.createElement('div');
   toast.id = 'suporteToast';
   toast.className = `suporte-toast suporte-toast--${type}`;
+  toast.style.maxWidth = '22rem';
   toast.innerHTML = `
     <i class="fa-solid ${type === 'success' ? 'fa-circle-check' : 'fa-circle-exclamation'}"></i>
     <span>${message}</span>
@@ -199,24 +328,21 @@ function showSuporteToast(message, type = 'success') {
   setTimeout(() => {
     toast.classList.remove('is-visible');
     setTimeout(() => toast.remove(), 300);
-  }, 3000);
+  }, 5000); // 5s, porque a mensagem é longa
 }
 
 /* ============================================================
    Inicialização
    ============================================================ */
 document.addEventListener('DOMContentLoaded', function () {
-  // Guarda de autenticação
   requireSuporteAuth('suporte-login.html');
 
-  // Atualiza o header
   const session = getSuporteSession();
   if (session) {
     document.getElementById('suporteUserName').textContent = session.name || 'Suporte';
     document.getElementById('suporteUserRole').textContent = session.role || '';
   }
 
-  // Renderiza as tabelas
   renderCondominios();
   renderUsuarios();
 
