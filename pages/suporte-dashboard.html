@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TowerFlow — Suporte Administrativo</title>
+
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230284c7'/%3E%3Ctext x='50' y='65' font-size='50' text-anchor='middle' fill='white'%3E🏢%3C/text%3E%3C/svg%3E" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../assets/css/base.css" />
+  <link rel="stylesheet" href="../assets/css/layout.css" />
+  <link rel="stylesheet" href="../assets/css/components.css" />
+  <link rel="stylesheet" href="../assets/css/pages/suporte-dashboard.css" />
+
+  <script src="../assets/js/auth.js" defer></script>
+  <script src="../assets/js/data.js" defer></script>
+  <script src="../assets/js/suporte-dashboard.js" defer></script>
+</head>
+
+<body class="suporte-body">
+
+  <!-- HEADER -->
+  <header class="suporte-header">
+    <div class="suporte-header__inner">
+      <div class="suporte-header__row">
+        <div class="suporte-brand">
+          <div class="suporte-brand__logo">
+            <i class="fa-solid fa-shield-halved"></i>
+          </div>
+          <div>
+            <h1 class="suporte-brand__title">TowerFlow</h1>
+            <p class="suporte-brand__subtitle">Suporte Admin</p>
+          </div>
+        </div>
+
+        <div class="suporte-user">
+          <div>
+            <div class="suporte-user__name" id="suporteUserName">Suporte Admin</div>
+            <div class="suporte-user__role" id="suporteUserRole">Administrador do Sistema</div>
+          </div>
+          <button onclick="handleLogoutSuporte()" class="suporte-user__logout">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <span>Sair</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="suporte-main">
+    <div class="suporte-page-header">
+      <h2 class="suporte-page-header__title">Suporte Administrativo</h2>
+      <p class="suporte-page-header__subtitle">Gerencie condomínios e usuários do sistema.</p>
+    </div>
+
+    <!-- TABS INTERNAS -->
+    <div class="suporte-tabs">
+      <button class="suporte-tab is-active" data-tab="condominios" onclick="switchSuporteTab('condominios')">
+        <i class="fa-solid fa-building"></i>
+        <span>Condomínios</span>
+      </button>
+      <button class="suporte-tab" data-tab="usuarios" onclick="switchSuporteTab('usuarios')">
+        <i class="fa-solid fa-users"></i>
+        <span>Usuários</span>
+      </button>
+    </div>
+
+    <!-- PAINEL CONDOMÍNIOS -->
+    <div id="panel-condominios" class="suporte-panel is-active">
+      <div class="suporte-actions">
+        <button class="suporte-btn-new" onclick="openNewCondominio()">
+          <i class="fa-solid fa-plus"></i>
+          <span>Novo Condomínio</span>
+        </button>
+        <div class="suporte-actions__search">
+          <i class="fa-solid fa-magnifying-glass search-box__icon"></i>
+          <input type="text" onkeyup="filterSuporteTable('condominios-search', 'condominios-table')"
+                 id="condominios-search" placeholder="Buscar condomínio, CNPJ, cidade..." />
+        </div>
+      </div>
+
+      <div class="suporte-table-wrapper">
+        <div class="suporte-table-scroll">
+          <table id="condominios-table" class="suporte-table">
+            <thead class="suporte-table__head">
+              <tr>
+                <th>Nome</th>
+                <th>CNPJ</th>
+                <th>Telefone Portaria</th>
+                <th>Cidade / UF</th>
+                <th>Status</th>
+                <th class="col-acoes">Ações</th>
+              </tr>
+            </thead>
+            <tbody class="suporte-table__body" id="condominios-tbody">
+              <!-- Linhas geradas via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAINEL USUÁRIOS -->
+    <div id="panel-usuarios" class="suporte-panel">
+      <div class="suporte-actions">
+        <button class="suporte-btn-new" onclick="openNewUsuario()">
+          <i class="fa-solid fa-plus"></i>
+          <span>Novo Usuário</span>
+        </button>
+        <div class="suporte-actions__search">
+          <i class="fa-solid fa-magnifying-glass search-box__icon"></i>
+          <input type="text" onkeyup="filterSuporteTable('usuarios-search', 'usuarios-table')"
+                 id="usuarios-search" placeholder="Buscar usuário, e-mail, tipo..." />
+        </div>
+      </div>
+
+      <div class="suporte-table-wrapper">
+        <div class="suporte-table-scroll">
+          <table id="usuarios-table" class="suporte-table">
+            <thead class="suporte-table__head">
+              <tr>
+                <th>Nome</th>
+                <th>E-mail</th>
+                <th>Tipo</th>
+                <th>Condomínio</th>
+                <th>Status</th>
+                <th class="col-acoes">Ações</th>
+              </tr>
+            </thead>
+            <tbody class="suporte-table__body" id="usuarios-tbody">
+              <!-- Linhas geradas via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- MODAL DE CONDOMÍNIO -->
+  <div id="condominioModal" class="suporte-modal">
+    <div class="suporte-modal__panel">
+      <div class="suporte-modal__header">
+        <h3 class="suporte-modal__title" id="condominioModalTitle">Novo Condomínio</h3>
+        <button class="suporte-modal__close" onclick="closeCondominioModal()" aria-label="Fechar">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="suporte-modal__body">
+        <div class="suporte-form-grid" id="condominioFormFields">
+          <!-- Campos gerados via JS -->
+        </div>
+      </div>
+      <div class="suporte-modal__footer">
+        <button class="suporte-btn suporte-btn--secondary" onclick="closeCondominioModal()">Cancelar</button>
+        <button class="suporte-btn suporte-btn--primary" onclick="saveCondominio()">Salvar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DE USUÁRIO -->
+  <div id="usuarioModal" class="suporte-modal">
+    <div class="suporte-modal__panel">
+      <div class="suporte-modal__header">
+        <h3 class="suporte-modal__title" id="usuarioModalTitle">Novo Usuário</h3>
+        <button class="suporte-modal__close" onclick="closeUsuarioModal()" aria-label="Fechar">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="suporte-modal__body">
+        <div class="suporte-form-grid" id="usuarioFormFields">
+          <!-- Campos gerados via JS -->
+        </div>
+      </div>
+      <div class="suporte-modal__footer">
+        <button class="suporte-btn suporte-btn--secondary" onclick="closeUsuarioModal()">Cancelar</button>
+        <button class="suporte-btn suporte-btn--primary" onclick="saveUsuario()">Salvar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DE CONFIRMAÇÃO -->
+  <div id="suporteConfirmModal" class="suporte-modal suporte-modal--confirm">
+    <div class="suporte-modal__panel">
+      <div class="suporte-modal__header">
+        <h3 class="suporte-modal__title">Confirmar Exclusão</h3>
+        <button class="suporte-modal__close" onclick="closeSuporteConfirm()" aria-label="Fechar">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="suporte-modal__body">
+        <div class="suporte-confirm-icon">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+        </div>
+        <p class="suporte-confirm-text">
+          Tem certeza que deseja excluir <strong id="suporteConfirmItemName">este registro</strong>?
+          Esta ação não pode ser desfeita.
+        </p>
+      </div>
+      <div class="suporte-modal__footer">
+        <button class="suporte-btn suporte-btn--secondary" onclick="closeSuporteConfirm()">Cancelar</button>
+        <button class="suporte-btn suporte-btn--danger" onclick="confirmSuporteDelete()">Excluir</button>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
